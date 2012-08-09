@@ -1,13 +1,12 @@
 //
 //  GHAppDelegate.m
-//  GayHaiku
+//  Gay Haiku
 //
-//  Created by Joel Derfner on 7/23/12.
-//  Copyright (c) 2012 Self. All rights reserved.
+//  Created by Joel Derfner on 7/22/12.
+//  Copyright (c) 2012 Unconquerable Soup. All rights reserved.
 //
 
 #import "GHAppDelegate.h"
-
 #import "GHViewController.h"
 
 @implementation GHAppDelegate
