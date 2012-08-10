@@ -9,6 +9,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GHWebViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate>
 {

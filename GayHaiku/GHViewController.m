@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 #import <QuartzCore/QuartzCore.h>
-
 #import "GHViewController.h"
 
 @interface GHViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate,UIAlertViewDelegate,UIWebViewDelegate>
@@ -46,6 +45,7 @@
 }
 -(IBAction)loadAmazon
 {
+    //This UIWebView shit is making my head hurt.  I think the reason is that I'm using delegates wrong, but that could be totally incorrect.
     [self.wView viewWithTag:70].hidden=NO;
 }
 
