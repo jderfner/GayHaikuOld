@@ -21,6 +21,7 @@
 @synthesize gayHaiku = _gayHaiku;
 @synthesize haiku_text = _haiku_text;
 @synthesize selectedCategory = _selectedCategory;
+@synthesize wView = _wView;
 
 -(IBAction)userWritesHaiku
 {
@@ -45,7 +46,7 @@
 }
 -(IBAction)loadAmazon
 {
-    //This IBAction will take users to a UIWebView of the amazon.com page for my books.
+    [self.wView viewWithTag:70].hidden=NO;
 }
 
 - (IBAction)chooseDatabase:(UISegmentedControl *)segment {
@@ -188,4 +189,6 @@
  }
 
 
+     - (IBAction)loadAmazon:(id)sender {
+     }
 @end

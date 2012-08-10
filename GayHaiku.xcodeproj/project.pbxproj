@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5D2F944E15D3D5090065FA2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2F944D15D3D5090065FA2D /* QuartzCore.framework */; };
+		5D74A90915D4B39B00D20974 /* GHWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D74A90815D4B39B00D20974 /* GHWebViewController.m */; };
 		5D88856615D2C05200F38679 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D88856515D2C05100F38679 /* MessageUI.framework */; };
 		5DA213C915BE2284007FEAFB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DA213C815BE2284007FEAFB /* UIKit.framework */; };
 		5DA213CB15BE2284007FEAFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DA213CA15BE2284007FEAFB /* Foundation.framework */; };
@@ -23,6 +24,8 @@
 
 /* Begin PBXFileReference section */
 		5D2F944D15D3D5090065FA2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5D74A90715D4B39B00D20974 /* GHWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHWebViewController.h; path = ../GHWebViewController.h; sourceTree = "<group>"; };
+		5D74A90815D4B39B00D20974 /* GHWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHWebViewController.m; path = ../GHWebViewController.m; sourceTree = "<group>"; };
 		5D88856515D2C05100F38679 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		5DA213C415BE2284007FEAFB /* GayHaiku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GayHaiku.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DA213C815BE2284007FEAFB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -60,8 +63,6 @@
 		5DA213B915BE2284007FEAFB = {
 			isa = PBXGroup;
 			children = (
-				5D2F944D15D3D5090065FA2D /* QuartzCore.framework */,
-				5D88856515D2C05100F38679 /* MessageUI.framework */,
 				5DA213E915BE24D6007FEAFB /* gayHaiku.plist */,
 				5DA213E715BE232C007FEAFB /* Default.png */,
 				5DA213CE15BE2284007FEAFB /* GayHaiku */,
@@ -81,6 +82,8 @@
 		5DA213C715BE2284007FEAFB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5D2F944D15D3D5090065FA2D /* QuartzCore.framework */,
+				5D88856515D2C05100F38679 /* MessageUI.framework */,
 				5DA213C815BE2284007FEAFB /* UIKit.framework */,
 				5DA213CA15BE2284007FEAFB /* Foundation.framework */,
 				5DA213CC15BE2284007FEAFB /* CoreGraphics.framework */,
@@ -91,6 +94,8 @@
 		5DA213CE15BE2284007FEAFB /* GayHaiku */ = {
 			isa = PBXGroup;
 			children = (
+				5D74A90715D4B39B00D20974 /* GHWebViewController.h */,
+				5D74A90815D4B39B00D20974 /* GHWebViewController.m */,
 				5DA213D715BE2284007FEAFB /* GHAppDelegate.h */,
 				5DA213D815BE2284007FEAFB /* GHAppDelegate.m */,
 				5DA213DA15BE2284007FEAFB /* GHViewController.h */,
@@ -181,6 +186,7 @@
 				5DA213D515BE2284007FEAFB /* main.m in Sources */,
 				5DA213D915BE2284007FEAFB /* GHAppDelegate.m in Sources */,
 				5DA213DC15BE2284007FEAFB /* GHViewController.m in Sources */,
+				5D74A90915D4B39B00D20974 /* GHWebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
