@@ -160,26 +160,31 @@
                     self.theseAreDone = [[NSMutableArray alloc] init];
                 }
                 NSLog(@"About to add int to  array with %d",self.theseAreDone.count);
+                NSLog(@"self.indx is %d",self.indx);
                 [theseAreDone addObject:[filteredArray objectAtIndex:sortingHat]];
                 NSLog(@"Just added int to array for %d",self.theseAreDone.count);
                 self.indx = self.theseAreDone.count;
+                NSLog(@"self.indx is %d",self.indx);
                 NSLog(@"Just did new haiku: %d",self.indx);
             }
             else 
             {
                 self.haiku_text.text = [[self.theseAreDone objectAtIndex:indx] valueForKey:@"quote"];
-                self.indx += self.indx;
+                self.indx += 1;
             }
 	}
 }
 
 -(IBAction)previousHaiku
 {
+    if (self.theseAreDone.count>0)
+    {
     //Why is self.indx 0 here no matter how many new haiku you've done (and so no matter what number self.indx is after newHaiku)?
     NSLog(@"About to do previous haiku: %d",self.indx);
+    self.indx -= 1;
     self.haiku_text.text = [[self.theseAreDone objectAtIndex:self.indx-1] valueForKey:@"quote"];
-    self.indx -= self.indx;
     NSLog(@"Just did previous haiku: %d",self.indx);
+    }
 }
 
 -(IBAction)showMessage:(int)sender
