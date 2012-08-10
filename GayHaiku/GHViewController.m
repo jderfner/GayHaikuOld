@@ -21,6 +21,10 @@
 @synthesize haiku_text = _haiku_text;
 @synthesize selectedCategory = _selectedCategory;
 @synthesize wView = _wView;
+@synthesize theseAreDone;
+@synthesize indx;
+
+
 
 -(IBAction)userWritesHaiku
 {
@@ -47,6 +51,8 @@
 {
     //This UIWebView shit is making my head hurt.  I think the reason is that I'm using delegates wrong, but that could be totally incorrect.
     [self.wView viewWithTag:70].hidden=NO;
+    GHWebViewController *wv;
+    [self.wView addSubview:wv];
 }
 
 - (IBAction)chooseDatabase:(UISegmentedControl *)segment {
@@ -128,44 +134,52 @@
 -(IBAction)nextHaiku
 {
     {
-        //Right now this shows only my haiku.  Adjust so that, according to UISegmentedControl, it will also show only the user's haiku or all haiku.
-		// 2.1 - determine category
-        //[self chooseDatabase:selectedCategory];
-        self.selectedCategory=@"Derfner";
-		// 2.2 - filter array by category using predicate
-		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", self.selectedCategory];
-		NSArray *filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
-		// 2.3 - get total number in filtered array
-		int array_tot = [filteredArray count];
-		// 2.4 - as a safeguard only get quote when the array has rows in it
-        int sortingHat;
-		if (array_tot > 0) 
+        if (!self.indx)
         {
-            // 2.5 - get random index
-            while (true)
+            self.indx=0;
+        }
+        NSLog(@"About to do new haiku: %d",self.indx);
+        NSString *cat = self.selectedCategory;
+        //For now (adjust later so that, according to UISegmentedControl, it will also show only the user's haiku or all haiku):
+        cat = @"Derfner";
+		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
+		NSArray *filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
+		int array_tot = [filteredArray count];
+        int sortingHat;
+		if (array_tot > 0)
+            if (self.indx == self.theseAreDone.count)
             {
-                sortingHat = (arc4random() % array_tot);
-                NSString *isThisARepeat = [[filteredArray objectAtIndex:sortingHat] valueForKey:@"done"];
-                if (isThisARepeat != @"done") break;
+                while (true)
+                {
+                    sortingHat = (arc4random() % array_tot);
+                    if (![theseAreDone containsObject:[filteredArray objectAtIndex:sortingHat]]) break;
+                }
+                self.haiku_text.text = [[filteredArray objectAtIndex:sortingHat] valueForKey:@"quote"];
+                if (!self.theseAreDone || self.theseAreDone.count==array_tot)
+                {
+                    self.theseAreDone = [[NSMutableArray alloc] init];
+                }
+                NSLog(@"About to add int to  array with %d",self.theseAreDone.count);
+                [theseAreDone addObject:[filteredArray objectAtIndex:sortingHat]];
+                NSLog(@"Just added int to array for %d",self.theseAreDone.count);
+                self.indx = self.theseAreDone.count;
+                NSLog(@"Just did new haiku: %d",self.indx);
             }
-			// 2.6 - get the quote string for the index
-			NSString *quote = [[filteredArray objectAtIndex:sortingHat] valueForKey:@"quote"];
-			// 2.9 - Display haiku
-			self.haiku_text.text = quote;
-			// 2.10 - Update row to indicate that it has been displayed
-			int haiku_array_tot = [self.gayHaiku count];
-			NSString *haiku1 = [[filteredArray objectAtIndex:sortingHat] valueForKey:@"quote"];
-			for (int x=0; x < haiku_array_tot; x++) {
-				NSString *haiku2 = [[self.gayHaiku objectAtIndex:x] valueForKey:@"quote"];
-				if ([haiku1 isEqualToString:haiku2]) {
-					NSMutableDictionary *itemAtIndex = (NSMutableDictionary *)[self.gayHaiku objectAtIndex:x];
-					[itemAtIndex setValue:@"done" forKey:@"done"];
-				}
-			}
-		} else {
-			self.haiku_text.text = [NSString stringWithFormat:@"No quotes to display."];
-		}
+            else 
+            {
+                self.haiku_text.text = [[self.theseAreDone objectAtIndex:indx] valueForKey:@"quote"];
+                self.indx += self.indx;
+            }
 	}
+}
+
+-(IBAction)previousHaiku
+{
+    //Why is self.indx 0 here no matter how many new haiku you've done (and so no matter what number self.indx is after newHaiku)?
+    NSLog(@"About to do previous haiku: %d",self.indx);
+    self.haiku_text.text = [[self.theseAreDone objectAtIndex:self.indx-1] valueForKey:@"quote"];
+    self.indx -= self.indx;
+    NSLog(@"Just did previous haiku: %d",self.indx);
 }
 
 -(IBAction)showMessage:(int)sender
@@ -187,8 +201,4 @@
          NSLog(@"Sent to Twitter.");
      }
  }
-
-
-     - (IBAction)loadAmazon:(id)sender {
-     }
 @end

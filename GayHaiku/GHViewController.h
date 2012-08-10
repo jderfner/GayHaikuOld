@@ -23,11 +23,14 @@
 @property (nonatomic, retain) NSMutableArray *gayHaiku;
 @property (nonatomic, retain) NSString *selectedCategory;
 @property (nonatomic, retain) UITextView *haiku_text;
+@property (nonatomic, retain) NSMutableArray *theseAreDone;
+@property (nonatomic) int indx;
 
 -(IBAction)chooseDatabase:(UISegmentedControl *)sender;
 -(IBAction)nextHaiku;
+-(IBAction)previousHaiku;
 -(IBAction)showMessage:(int)sender;
-- (IBAction)loadAmazon:(UIWebView *)webView;
+- (IBAction)loadAmazon;
 -(IBAction)userWritesHaiku;
 
 @end
