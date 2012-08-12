@@ -253,28 +253,31 @@
 	[super viewDidLoad];
     [self.view viewWithTag:60].hidden=YES;
 	NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"gayHaiku" ofType:@"plist"];
-	self.gayHaiku = [[NSMutableArray arrayWithContentsOfFile:plistCatPath] copy];
+	self.gayHaiku = [NSMutableArray arrayWithContentsOfFile:plistCatPath];
     [self nextHaiku];
 }
 
 -(void)saveUserHaiku
 {
-    //This doesn't work yet--not surprising.
-    
-    NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"gayHaiku" ofType:@"plist"];
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile: plistCatPath];
-    [data setObject:@"user" forKey:@"category"];
-    [data setObject:self.textToSave forKey:@"quote"];
-    [data writeToFile: plistCatPath atomically:YES];
-    
-    //Make sure that haiku saved will be available during the current run of the app, rather than just next time.
+    NSArray *quotes = [[NSArray alloc] initWithObjects:@"user", self.textView.text, nil];
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
+    NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
+    [[self gayHaiku] addObject:dictToSave];
+    if (self.bar) [self.bar removeFromSuperview];
+    self.textView.text=@"";
+    [self.view viewWithTag:1].hidden = NO;
+    [self.view viewWithTag:3].hidden = NO;
+    self.haiku_text.text = [[self.gayHaiku lastObject] valueForKey:@"quote"];
 }
 
 -(void)viewDidUnload {
-    //navBarForAmazon = nil;
 	[super viewDidUnload];
-	self.gayHaiku=nil;
-	self.haiku_text=nil;
+    
+    //Is this the right way to add the user's saved haiku to the plist?
+    
+    NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"gayHaiku" ofType:@"plist"];
+     NSMutableArray *data = [[NSMutableArray alloc] initWithContentsOfFile: plistCatPath];
+     [data writeToFile: plistCatPath atomically:YES];
 }
 
 - (IBAction)chooseDatabase:(UISegmentedControl *)segment {
@@ -292,7 +295,7 @@
         MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
         mailer.mailComposeDelegate = self;
         //Replace "Someone" in following line with user's name.
-        [mailer setSubject:@"Someone has sent you a gay haiku."];
+        [mailer setSubject:[NSString stringWithFormat:@"%@ has sent you a gay haiku.", [[UIDevice currentDevice] name]]];
         UIView *whatToUse;
         [whatToUse viewWithTag:10];
         [whatToUse viewWithTag:20];
@@ -399,6 +402,15 @@
                 }
                 [theseAreDone addObject:[filteredArray objectAtIndex:sortingHat]];
                 self.indx = self.theseAreDone.count;
+                if (self.indx && self.theseAreDone.count)
+                {
+                NSLog(@"%d %d",self.indx,self.theseAreDone.count);
+                }
+                if (self.theseAreDone.count==filteredArray.count)
+                {
+                    [self.theseAreDone removeAllObjects];
+                    self.indx=0;
+                }
             }
             else 
             {
@@ -428,7 +440,7 @@
     }
 }
 
--(IBAction)showMessage:(int)sender
+-(IBAction)showMessage
 {
     UIAlertView *message = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Email",@"Facebook",@"Twitter", nil];
     [message show];

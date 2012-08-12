@@ -26,11 +26,12 @@
 @property (nonatomic, retain) UINavigationBar *bar;
 @property (nonatomic, retain) UITextView *instructions;
 @property (nonatomic, retain) NSString *textToSave;
+@property (nonatomic, retain) NSString *categor;
 
 -(IBAction)chooseDatabase:(UISegmentedControl *)sender;
 -(IBAction)nextHaiku;
 -(IBAction)previousHaiku;
--(IBAction)showMessage:(int)sender;
+-(IBAction)showMessage;
 -(IBAction)loadAmazon;
 -(IBAction)userWritesHaiku;
 
