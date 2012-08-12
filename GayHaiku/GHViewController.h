@@ -22,8 +22,10 @@
 @property (nonatomic) int indx;
 @property (nonatomic, retain) UITextView *textView;
 @property (nonatomic, retain) UIWebView *webV;
-@property (nonatomic,retain) UINavigationItem *titulus;
+@property (nonatomic, retain) UINavigationItem *titulus;
 @property (nonatomic, retain) UINavigationBar *bar;
+@property (nonatomic, retain) UITextView *instructions;
+@property (nonatomic, retain) NSString *textToSave;
 
 -(IBAction)chooseDatabase:(UISegmentedControl *)sender;
 -(IBAction)nextHaiku;
@@ -31,11 +33,5 @@
 -(IBAction)showMessage:(int)sender;
 -(IBAction)loadAmazon;
 -(IBAction)userWritesHaiku;
-
-//I don't think these need to be here:
-/*-(IBAction)userFinishedWritingHaiku;
--(IBAction)webBack;
--(IBAction)doneWithAmazon;
--(IBAction)haikuInstructions;*/
 
 @end

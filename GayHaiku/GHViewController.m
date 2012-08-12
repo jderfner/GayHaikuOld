@@ -17,15 +17,8 @@
 
 @implementation GHViewController
 
-@synthesize gayHaiku = _gayHaiku;
-@synthesize haiku_text = _haiku_text;
-@synthesize selectedCategory = _selectedCategory;
-@synthesize webV = _webV;
-@synthesize theseAreDone;
-@synthesize indx;
-@synthesize textView;
-@synthesize titulus;
-@synthesize bar;
+@synthesize gayHaiku, theseAreDone, indx, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV;
+
 
 -(void)loadNavBar:(NSString *)titl
 {
@@ -51,34 +44,36 @@
     [self.view addSubview:self.bar];
 }
 
--(void)loadToolBar:(NSArray *)buttons
-{
-    
-}
-
 -(void)haikuInstructions
 {
-    [self.view viewWithTag:1].hidden=YES;
+    if (self.bar)
+    {
+        [self.bar removeFromSuperview];
+    }
     [self loadNavBar:@"Instructions"];
     [self addLeftButton:@"Back" callingMethod:@"userWritesHaiku"];
     self.titulus.hidesBackButton=YES;
     [self seeNavBar];
-
-    UITextView *instructions = [[UITextView alloc] initWithFrame:CGRectMake(0, 44, 320, 480-44)];
-    instructions.backgroundColor=[UIColor clearColor];
-    instructions.text = @"\n\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines should not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation or another interrupting word.\n\nHave a fabulous time writing your own gay haiku.  Be aware that the author of this program may rely upon haiku you save as inspiration for future updates."; 
+    self.textView.text = self.textToSave;
+    self.textView.hidden=YES;
+    self.instructions = [[UITextView alloc] initWithFrame:CGRectMake(20, 44, 280, 480-44)];
+    self.instructions.backgroundColor=[UIColor clearColor];
+    self.instructions.text = @"\n\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines should not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation or another interrupting word.\n\nHave a fabulous time writing your own gay haiku.  Be aware that the author of this program may rely upon haiku you save as inspiration for future updates.";
     [self.view addSubview:instructions];
-    
 }
                              
 -(void)loadAmazon
 {    
+    //Create nav bar.
+    
     [self.view viewWithTag:1].hidden=YES;
     [self loadNavBar:@"Joel Derfner's Books"];
     [self addRightButton:@"Done" callingMethod:@"doneWithAmazon"];
-    [self addLeftButton:@"Back" callingMethod:@"webBack"];
     self.titulus.hidesBackButton=YES;
     [self seeNavBar];
+    
+    //Question:  what's the listener that hears when the user has clicked a link so that it can add the left bar button "Back" to the nav bar?
+    
     self.webV.delegate = self;
     self.webV = [[UIWebView alloc] init];
     NSString *fullURL=@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
@@ -88,13 +83,6 @@
     [self.webV loadRequest:requestObj];
     [self.webV setFrame:(CGRectMake(0,44,320,372))];
     [self.view addSubview:self.webV];
-    [self.view viewWithTag:30].hidden=YES;
-    [self.view viewWithTag:60].hidden=NO;
-
-    /*
-     Still to do:
-     1.  Prevent back button (tag:90) from appearing until user has clicked a link.
-     */
 }
 
 -(void)doneWithAmazon
@@ -114,16 +102,36 @@
 
 -(void)userWritesHaiku
 {
+    //First, make sure all the other stuff is clear.
+    
+    if (self.instructions)
+    {
+        [self.instructions removeFromSuperview];
+    }
+    if (self.webV)
+    {
+        [self.webV removeFromSuperview];
+    }
+    if (self.bar)
+    {
+        [self.bar removeFromSuperview];
+    }
+    [self.view viewWithTag:1].hidden=YES;
     [self.view viewWithTag:3].hidden=YES;
+    
+    //Then create and add the new UINavigationBar.
+    
     [self loadNavBar:@"Compose"];
     [self addLeftButton:@"Instructions" callingMethod:@"haikuInstructions"];
     [self addRightButton:@"Done" callingMethod:@"userFinishedWritingHaiku"];
     self.titulus.hidesBackButton=YES;
     [self seeNavBar];
-    [self.view viewWithTag:1].hidden=YES;
-    [self.webV removeFromSuperview];
-    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 60, 280, 200)];
-    //self.textView = (UITextView *)[self.view viewWithTag:2];
+    
+    //Create and add the space for user to write.
+    if (!self.textView)
+    {
+        self.textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 60, 280, 200)];
+    }
     self.textView.hidden=NO;
     self.textView.delegate = self;
     self.textView.returnKeyType = UIReturnKeyDefault;
@@ -131,8 +139,13 @@
     self.textView.scrollEnabled = YES;
     self.textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.textView.backgroundColor = [UIColor colorWithRed:217 green:147 blue:182 alpha:.5];
+    if (self.textToSave!=@"")
+    {
+        self.textView.text = self.textToSave;
+    }
     [self.view addSubview: self.textView];
-    //[self.view viewWithTag:90].hidden=NO;
+    
+    //Keyboard notifications.
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
@@ -140,7 +153,7 @@
 
     /*
      Still to do:
-     Give user option to opt out of sending any haiku s/he composes to my central database.
+     Give user chance to opt out of sending any haiku s/he composes to my central database.
      */
 }
 
@@ -160,13 +173,16 @@
     
 }
 
--(void)saveUserHaiku
-{
-    
-}
-
 -(void)userFinishedWritingHaiku
 {
+    NSLog(self.textView.text);
+    if (!self.textView.text || self.textView.text.length==0)
+        {
+            self.indx-=1;
+            [self nextHaiku];
+        }
+    else
+    {
     [self.bar removeFromSuperview];
     [self.textView resignFirstResponder];
     self.textView.backgroundColor= [UIColor clearColor];
@@ -210,13 +226,13 @@
     {
         [warningMessage appendString:(@"Would you prefer to leave things as they are or go back and edit?")];
     }
+    //Why isn't this next line showing?
     self.haiku_text.text=warningMessage;
-    [self.view viewWithTag:1].hidden=NO;
-    self.haiku_text.hidden=NO;
-    //How is the above choice offered?  alertView?  Text plus new UINavigationItem?
+    //How is the above choice (save as is or edit) offered?  alertView?  Text plus new UINavigationItem?
     //Write code to deal with the above choice.
-    //Then, after all is done and dusted:
     //self.textView.hidden=YES;
+    //If haiku was saved, display in self.haiku_text.
+    }
 }
 
 -(void)keyboardWillHide:(NSNotification *)aNotification
@@ -227,11 +243,11 @@
     [UIView commitAnimations];
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView
+/*- (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    UIBarButtonItem* saveItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveAction:)];
+    UIBarButtonItem *saveItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveAction:)];
     self.navigationItem.rightBarButtonItem = saveItem;
-}
+}*/
 
 -(void)viewDidLoad {
 	[super viewDidLoad];
@@ -239,6 +255,19 @@
 	NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"gayHaiku" ofType:@"plist"];
 	self.gayHaiku = [[NSMutableArray arrayWithContentsOfFile:plistCatPath] copy];
     [self nextHaiku];
+}
+
+-(void)saveUserHaiku
+{
+    //This doesn't work yet--not surprising.
+    
+    NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"gayHaiku" ofType:@"plist"];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile: plistCatPath];
+    [data setObject:@"user" forKey:@"category"];
+    [data setObject:self.textToSave forKey:@"quote"];
+    [data writeToFile: plistCatPath atomically:YES];
+    
+    //Make sure that haiku saved will be available during the current run of the app, rather than just next time.
 }
 
 -(void)viewDidUnload {
@@ -256,7 +285,6 @@
         self.selectedCategory = @"all";
     }
     else self.selectedCategory = @"Derfner";
-    //Make sure UISegmentedControl count starts at 0--if not, adjust up.
 }
   
 - (void)openMail {
@@ -272,6 +300,7 @@
         UIGraphicsBeginImageContext(newRect.size); //([self.view frame].size])
         [self.view viewWithTag:30].hidden=YES;
         [self.view viewWithTag:40].hidden=YES;
+        [self.view viewWithTag:3].hidden=YES;
 
         [[self.view layer] renderInContext:UIGraphicsGetCurrentContext()];
         UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -326,26 +355,37 @@
 
 -(IBAction)nextHaiku
 {
-    self.textView.backgroundColor= [UIColor clearColor];
-    if ([self.view viewWithTag:2])
-         {
-            NSLog(@"yes");
-           [self.view viewWithTag:2].hidden=YES;  
-         }
+    if (self.bar)
+    {
+        [self.bar removeFromSuperview];
+    }
+    if (self.textView)
+    {
+        [self.textView removeFromSuperview];
+    }
     [self.view viewWithTag:1].hidden = NO;
-        if (!self.indx)
-        {
-            self.indx=0;
-        }
-        NSString *cat = self.selectedCategory;
-        //For now (adjust later so that, according to UISegmentedControl, it will also show only the user's haiku or all haiku):
-        cat = @"Derfner";
-		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
-		NSArray *filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
-		int array_tot = [filteredArray count];
-        int sortingHat;
-		if (array_tot > 0)
-            if (self.indx == self.theseAreDone.count)
+    [self.view viewWithTag:3].hidden = NO;
+    if (!self.indx)
+    {
+        self.indx=0;
+    }
+    NSString *cat = self.selectedCategory;
+    if (!self.selectedCategory) cat = @"Derfner";
+    NSArray *filteredArray;
+    if (cat==@"all")
+    {
+        filteredArray = self.gayHaiku;
+    }
+    else
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
+        filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
+    }
+    int array_tot = [filteredArray count];
+    int sortingHat;
+    if (array_tot > 0)
+    {
+        if (self.indx == self.theseAreDone.count)
             {
                 while (true)
                 {
@@ -365,21 +405,31 @@
                 self.haiku_text.text = [[self.theseAreDone objectAtIndex:indx] valueForKey:@"quote"];
                 self.indx += 1;
             }
-    //Test to make sure it starts over once all 110 haiku have been seen.
+    }
+    //Need to test to make sure it starts over once all 110 haiku have been seen.
 }
 
 -(IBAction)previousHaiku
 {
+    if (self.bar)
+    {
+        [self.bar removeFromSuperview];
+    }
+    if (self.textView)
+    {
+        [self.textView removeFromSuperview];
+    }
+    [self.view viewWithTag:1].hidden = NO;
+    [self.view viewWithTag:3].hidden = NO;
     if (self.theseAreDone.count>1 && self.indx>1)
     {
-    self.indx -= 1;
-    self.haiku_text.text = [[self.theseAreDone objectAtIndex:self.indx-1] valueForKey:@"quote"];
+        self.indx -= 1;
+        self.haiku_text.text = [[self.theseAreDone objectAtIndex:self.indx-1] valueForKey:@"quote"];
     }
 }
 
 -(IBAction)showMessage:(int)sender
 {
-    //NSInteger *buttonIndex = NULL;
     UIAlertView *message = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Email",@"Facebook",@"Twitter", nil];
     [message show];
 }

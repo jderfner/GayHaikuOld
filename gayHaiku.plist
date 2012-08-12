@@ -4,6 +4,20 @@
     
     <array>
         
+    <dict>
+        <key>category</key><string>user</string>
+        <key>quote</key><string>One blah blah blah blah
+Blah blah blah blah blah blah blah
+Blah blah blah blah blah.</string>
+    </dict>
+        
+    <dict>
+        <key>category</key><string>user</string>
+        <key>quote</key><string>Two blah blah blah blah
+Blah blah blah blah blah blah blah
+Blah blah blah blah blah.</string>
+    </dict>
+        
         <dict>
             <key>category</key><string>Derfner</string>
             <key>quote</key><string>I don't understand.
