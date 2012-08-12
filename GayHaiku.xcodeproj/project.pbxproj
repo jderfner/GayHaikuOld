@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D2E197E15D714A300ED3EEB /* GayHaiku for iPhone guy supine.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D2E197D15D714A300ED3EEB /* GayHaiku for iPhone guy supine.png */; };
 		5D2F944E15D3D5090065FA2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2F944D15D3D5090065FA2D /* QuartzCore.framework */; };
 		5D88856615D2C05200F38679 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D88856515D2C05100F38679 /* MessageUI.framework */; };
 		5DA213C915BE2284007FEAFB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DA213C815BE2284007FEAFB /* UIKit.framework */; };
@@ -17,11 +18,11 @@
 		5DA213D915BE2284007FEAFB /* GHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA213D815BE2284007FEAFB /* GHAppDelegate.m */; };
 		5DA213DC15BE2284007FEAFB /* GHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA213DB15BE2284007FEAFB /* GHViewController.m */; };
 		5DA213DF15BE2284007FEAFB /* GHViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DA213DD15BE2284007FEAFB /* GHViewController.xib */; };
-		5DA213E815BE232C007FEAFB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DA213E715BE232C007FEAFB /* Default.png */; };
 		5DA213EA15BE24D7007FEAFB /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DA213E915BE24D6007FEAFB /* gayHaiku.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D2E197D15D714A300ED3EEB /* GayHaiku for iPhone guy supine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "GayHaiku for iPhone guy supine.png"; path = "../../GayHaiku for iPhone guy supine.png"; sourceTree = "<group>"; };
 		5D2F944D15D3D5090065FA2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5D88856515D2C05100F38679 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		5DA213C415BE2284007FEAFB /* GayHaiku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GayHaiku.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -37,7 +38,6 @@
 		5DA213DA15BE2284007FEAFB /* GHViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHViewController.h; sourceTree = "<group>"; };
 		5DA213DB15BE2284007FEAFB /* GHViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHViewController.m; sourceTree = "<group>"; };
 		5DA213DE15BE2284007FEAFB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GHViewController.xib; sourceTree = "<group>"; };
-		5DA213E715BE232C007FEAFB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		5DA213E915BE24D6007FEAFB /* gayHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = gayHaiku.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,7 +61,6 @@
 			isa = PBXGroup;
 			children = (
 				5DA213E915BE24D6007FEAFB /* gayHaiku.plist */,
-				5DA213E715BE232C007FEAFB /* Default.png */,
 				5DA213CE15BE2284007FEAFB /* GayHaiku */,
 				5DA213C715BE2284007FEAFB /* Frameworks */,
 				5DA213C515BE2284007FEAFB /* Products */,
@@ -104,6 +103,7 @@
 		5DA213CF15BE2284007FEAFB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5D2E197D15D714A300ED3EEB /* GayHaiku for iPhone guy supine.png */,
 				5DA213D015BE2284007FEAFB /* GayHaiku-Info.plist */,
 				5DA213D115BE2284007FEAFB /* InfoPlist.strings */,
 				5DA213D415BE2284007FEAFB /* main.m */,
@@ -166,8 +166,8 @@
 			files = (
 				5DA213D315BE2284007FEAFB /* InfoPlist.strings in Resources */,
 				5DA213DF15BE2284007FEAFB /* GHViewController.xib in Resources */,
-				5DA213E815BE232C007FEAFB /* Default.png in Resources */,
 				5DA213EA15BE24D7007FEAFB /* gayHaiku.plist in Resources */,
+				5D2E197E15D714A300ED3EEB /* GayHaiku for iPhone guy supine.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

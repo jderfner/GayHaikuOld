@@ -12,13 +12,9 @@
 
 @interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate>
 {
-    IBOutlet UINavigationBar *navBarForDone;
     IBOutlet UITextView *haiku_text;
-    IBOutlet UINavigationBar *navBarForAmazon;
 }
 
-
-@property (nonatomic, retain) UIWebView *wView;
 @property (nonatomic, retain) NSMutableArray *gayHaiku;
 @property (nonatomic, retain) NSString *selectedCategory;
 @property (nonatomic, retain) UITextView *haiku_text;
@@ -26,6 +22,8 @@
 @property (nonatomic) int indx;
 @property (nonatomic, retain) UITextView *textView;
 @property (nonatomic, retain) UIWebView *webV;
+@property (nonatomic,retain) UINavigationItem *titulus;
+@property (nonatomic, retain) UINavigationBar *bar;
 
 -(IBAction)chooseDatabase:(UISegmentedControl *)sender;
 -(IBAction)nextHaiku;
@@ -33,10 +31,11 @@
 -(IBAction)showMessage:(int)sender;
 -(IBAction)loadAmazon;
 -(IBAction)userWritesHaiku;
--(IBAction)userFinishedWritingHaiku;
+
+//I don't think these need to be here:
+/*-(IBAction)userFinishedWritingHaiku;
 -(IBAction)webBack;
 -(IBAction)doneWithAmazon;
--(IBAction)haikuInstructions;
-
+-(IBAction)haikuInstructions;*/
 
 @end

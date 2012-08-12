@@ -24,14 +24,61 @@
 @synthesize theseAreDone;
 @synthesize indx;
 @synthesize textView;
+@synthesize titulus;
+@synthesize bar;
 
--(IBAction)haikuInstructions
+-(void)loadNavBar:(NSString *)titl
+{
+    self.bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    self.titulus = [[UINavigationItem alloc] initWithTitle:titl];
+}
+
+-(void)addLeftButton:(NSString *)titl callingMethod:method
+{
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:titl style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(method)];
+    self.titulus.leftBarButtonItem = button;
+}
+
+-(void)addRightButton:(NSString *)titl callingMethod:(NSString *)method
+{
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:titl style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(method)];
+    self.titulus.rightBarButtonItem = button;
+}
+
+-(void)seeNavBar
+{
+    [self.bar pushNavigationItem:self.titulus animated:YES];
+    [self.view addSubview:self.bar];
+}
+
+-(void)loadToolBar:(NSArray *)buttons
 {
     
 }
 
--(IBAction)loadAmazon
+-(void)haikuInstructions
+{
+    [self.view viewWithTag:1].hidden=YES;
+    [self loadNavBar:@"Instructions"];
+    [self addLeftButton:@"Back" callingMethod:@"userWritesHaiku"];
+    self.titulus.hidesBackButton=YES;
+    [self seeNavBar];
+
+    UITextView *instructions = [[UITextView alloc] initWithFrame:CGRectMake(0, 44, 320, 480-44)];
+    instructions.backgroundColor=[UIColor clearColor];
+    instructions.text = @"\n\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines should not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation or another interrupting word.\n\nHave a fabulous time writing your own gay haiku.  Be aware that the author of this program may rely upon haiku you save as inspiration for future updates."; 
+    [self.view addSubview:instructions];
+    
+}
+                             
+-(void)loadAmazon
 {    
+    [self.view viewWithTag:1].hidden=YES;
+    [self loadNavBar:@"Joel Derfner's Books"];
+    [self addRightButton:@"Done" callingMethod:@"doneWithAmazon"];
+    [self addLeftButton:@"Back" callingMethod:@"webBack"];
+    self.titulus.hidesBackButton=YES;
+    [self seeNavBar];
     self.webV.delegate = self;
     self.webV = [[UIWebView alloc] init];
     NSString *fullURL=@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
@@ -41,24 +88,23 @@
     [self.webV loadRequest:requestObj];
     [self.webV setFrame:(CGRectMake(0,44,320,372))];
     [self.view addSubview:self.webV];
-    [self.view viewWithTag:80].hidden=NO;
+    [self.view viewWithTag:30].hidden=YES;
+    [self.view viewWithTag:60].hidden=NO;
+
     /*
      Still to do:
      1.  Prevent back button (tag:90) from appearing until user has clicked a link.
-     2.  Move title to right when back button appears.
      */
 }
 
--(IBAction)doneWithAmazon
+-(void)doneWithAmazon
 {
     [self.webV removeFromSuperview];
-    [self.view viewWithTag:80].hidden=YES;
+    [self.bar removeFromSuperview];
+    [self viewDidLoad];
 }
 
-- (IBAction)haikuInstructions:(id)sender {
-}
-
--(IBAction)webBack
+-(void)webBack
 {
     if (self.webV.canGoBack)
     {
@@ -66,17 +112,27 @@
     }
 }
 
--(IBAction)userWritesHaiku
+-(void)userWritesHaiku
 {
-    [self.view viewWithTag:50].hidden=NO;
-    [self.view viewWithTag:60].hidden=NO;
-    self.textView = (UITextView *)[self.view viewWithTag:50];
+    [self.view viewWithTag:3].hidden=YES;
+    [self loadNavBar:@"Compose"];
+    [self addLeftButton:@"Instructions" callingMethod:@"haikuInstructions"];
+    [self addRightButton:@"Done" callingMethod:@"userFinishedWritingHaiku"];
+    self.titulus.hidesBackButton=YES;
+    [self seeNavBar];
+    [self.view viewWithTag:1].hidden=YES;
+    [self.webV removeFromSuperview];
+    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 60, 280, 200)];
+    //self.textView = (UITextView *)[self.view viewWithTag:2];
+    self.textView.hidden=NO;
     self.textView.delegate = self;
     self.textView.returnKeyType = UIReturnKeyDefault;
     self.textView.keyboardType = UIKeyboardTypeDefault;
     self.textView.scrollEnabled = YES;
     self.textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    self.textView.backgroundColor = [UIColor colorWithRed:217 green:147 blue:182 alpha:.5];
     [self.view addSubview: self.textView];
+    //[self.view viewWithTag:90].hidden=NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
@@ -84,12 +140,7 @@
 
     /*
      Still to do:
-     1.  Give user option to get instructions on how to write a haiku.
-     2.  Give user option to opt out of sending any haiku s/he composes to my central database.
-     3.  Let user compose haiku, edit, save to plist under category USER.
-     4.  Connect to CMU pronunciation dictionary and set up method whereby, if haiku is done incorrectly (wrong number of lines, wrong number of syllables in a line) user is alerted and given the option to go back and edit.
-     5.  Create new method showing user a preview of new haiku and asking whether to a) save or b) edit.
-     6.  Animate appearance of title bar?
+     Give user option to opt out of sending any haiku s/he composes to my central database.
      */
 }
 
@@ -104,13 +155,68 @@
     [UIView commitAnimations];
 }
 
-
--(IBAction)userFinishedWritingHaiku
+-(void)userEditsHaiku
 {
-        [self.view viewWithTag:50].hidden=YES;
-        [self.view viewWithTag:60].hidden=YES;
-        [self.textView resignFirstResponder];
-        [self.view viewWithTag:40].hidden=NO;
+    
+}
+
+-(void)saveUserHaiku
+{
+    
+}
+
+-(void)userFinishedWritingHaiku
+{
+    [self.bar removeFromSuperview];
+    [self.textView resignFirstResponder];
+    self.textView.backgroundColor= [UIColor clearColor];
+    [self loadNavBar:@"Review"];
+    [self addLeftButton:@"Edit" callingMethod:@"userEditsHaiku"];
+    [self addRightButton:@"Save" callingMethod:@"saveUserHaiku"];
+    self.titulus.hidesBackButton=YES;
+    [self seeNavBar];
+    [self.view viewWithTag:1].hidden=YES;
+    
+    int noOfLines = 0;
+    BOOL syllableCountCorrectLineOne = NO;
+    BOOL syllableCountCorrectLineTwo = YES;
+    BOOL syllableCountCorrectLineThree = YES;
+    NSMutableString *warningMessage;
+    /*TO DO:
+     1.  Check that haiku is three lines.
+     2.  Check that syllable count is correct (as per CMU pronouncing dictionary (in public domain) --how do I load that in?)
+     */
+    if (noOfLines<3)
+    {
+        [warningMessage appendString:(@"Your haiku seems to have fewer than three lines.  ")];
+    }
+    if (noOfLines>3)
+    {
+        [warningMessage appendString:(@"Your haiku seems to have more than three lines.  ")];
+    }
+    if (!syllableCountCorrectLineOne)
+    {
+        [warningMessage appendString:(@"Your first line seems not to have five syllables.  ")];
+    }
+    if (!syllableCountCorrectLineTwo)
+    {
+        [warningMessage appendString:(@"Your second line seems not to have seven syllables.  ")];
+    }
+    if (!syllableCountCorrectLineThree)
+    {
+        [warningMessage appendString:(@"Your third line seems not to have five syllables.  ")];
+    }
+    if (warningMessage!=@"")
+    {
+        [warningMessage appendString:(@"Would you prefer to leave things as they are or go back and edit?")];
+    }
+    self.haiku_text.text=warningMessage;
+    [self.view viewWithTag:1].hidden=NO;
+    self.haiku_text.hidden=NO;
+    //How is the above choice offered?  alertView?  Text plus new UINavigationItem?
+    //Write code to deal with the above choice.
+    //Then, after all is done and dusted:
+    //self.textView.hidden=YES;
 }
 
 -(void)keyboardWillHide:(NSNotification *)aNotification
@@ -127,19 +233,16 @@
     self.navigationItem.rightBarButtonItem = saveItem;
 }
 
-- (void)saveAction
-{
-    [self.textView resignFirstResponder]; 
-}
-
 -(void)viewDidLoad {
 	[super viewDidLoad];
+    [self.view viewWithTag:60].hidden=YES;
 	NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"gayHaiku" ofType:@"plist"];
 	self.gayHaiku = [[NSMutableArray arrayWithContentsOfFile:plistCatPath] copy];
+    [self nextHaiku];
 }
 
 -(void)viewDidUnload {
-    navBarForAmazon = nil;
+    //navBarForAmazon = nil;
 	[super viewDidUnload];
 	self.gayHaiku=nil;
 	self.haiku_text=nil;
@@ -153,9 +256,10 @@
         self.selectedCategory = @"all";
     }
     else self.selectedCategory = @"Derfner";
+    //Make sure UISegmentedControl count starts at 0--if not, adjust up.
 }
   
-- (IBAction)openMail {
+- (void)openMail {
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
         mailer.mailComposeDelegate = self;
@@ -220,10 +324,15 @@
 //- work this:
 //- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result;
 
-
 -(IBAction)nextHaiku
 {
-    {
+    self.textView.backgroundColor= [UIColor clearColor];
+    if ([self.view viewWithTag:2])
+         {
+            NSLog(@"yes");
+           [self.view viewWithTag:2].hidden=YES;  
+         }
+    [self.view viewWithTag:1].hidden = NO;
         if (!self.indx)
         {
             self.indx=0;
@@ -256,12 +365,12 @@
                 self.haiku_text.text = [[self.theseAreDone objectAtIndex:indx] valueForKey:@"quote"];
                 self.indx += 1;
             }
-	}
+    //Test to make sure it starts over once all 110 haiku have been seen.
 }
 
 -(IBAction)previousHaiku
 {
-    if (self.theseAreDone.count>0 && self.indx>0)
+    if (self.theseAreDone.count>1 && self.indx>1)
     {
     self.indx -= 1;
     self.haiku_text.text = [[self.theseAreDone objectAtIndex:self.indx-1] valueForKey:@"quote"];
