@@ -450,7 +450,7 @@
     //Question:  how will it affect the user's experience if/when haiku s/he's already seen in "user" or "Derfner" categories reappear in "all" category?  Will this need to be adjusted?  If so, how?
 }
 
-/*
+
 -(IBAction)previousHaiku
 {
     if (self.bar)
@@ -461,19 +461,54 @@
     {
         [self.textView removeFromSuperview];
     }
+    int indexOfHaiku;
+    NSMutableArray *arrayOfHaikuSeen;
+    NSString *cat;
+    if (!self.selectedCategory) cat = @"Derfner";
+    else cat = self.selectedCategory;
+    NSArray *filteredArray;
+    if (cat==@"all")
+    {
+    filteredArray = self.gayHaiku;
+    indexOfHaiku = self.indxAll;
+    arrayOfHaikuSeen = self.theseAreDoneAll;
+    }
+    else
+    {
+    indexOfHaiku = (cat==@"user")?self.indxU:self.indxD;
+    arrayOfHaikuSeen = (cat==@"user")?self.theseAreDoneU:self.theseAreDoneD;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
+    filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
+    }
+
     if (self.haiku_text)
      {
      [self.haiku_text removeFromSuperview];
      }
     [self.view viewWithTag:1].hidden = NO;
     [self.view viewWithTag:3].hidden = NO;
-    if (self.theseAreDone.count>1 && self.indx>1)
+    if (arrayOfHaikuSeen.count>1 && indexOfHaiku>1)
     {
-        self.indx -= 1;
-        self.haiku_text.text = [[self.theseAreDone objectAtIndex:self.indx-1] valueForKey:@"quote"];
+        indexOfHaiku -= 1;
+        self.haiku_text.text = [[arrayOfHaikuSeen objectAtIndex:indexOfHaiku-1] valueForKey:@"quote"];
+    }
+    if (cat==@"user")
+    {
+        self.theseAreDoneU = arrayOfHaikuSeen;
+        self.indxU = indexOfHaiku;
+    }
+    else if (cat==@"all")
+    {
+        self.theseAreDoneAll = arrayOfHaikuSeen;
+        self.indxAll = indexOfHaiku;
+    }
+    else 
+    {
+        self.theseAreDoneD = arrayOfHaikuSeen;
+        self.indxD = indexOfHaiku;
     }
 }
-*/
+
 
 -(IBAction)showMessage
 {
