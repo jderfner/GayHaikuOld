@@ -38,7 +38,7 @@
 		5DA213DA15BE2284007FEAFB /* GHViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHViewController.h; sourceTree = "<group>"; };
 		5DA213DB15BE2284007FEAFB /* GHViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHViewController.m; sourceTree = "<group>"; };
 		5DA213DE15BE2284007FEAFB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GHViewController.xib; sourceTree = "<group>"; };
-		5DA213E915BE24D6007FEAFB /* gayHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = gayHaiku.plist; sourceTree = "<group>"; };
+		5DA213E915BE24D6007FEAFB /* gayHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = gayHaiku.plist; path = ../gayHaiku.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +60,6 @@
 		5DA213B915BE2284007FEAFB = {
 			isa = PBXGroup;
 			children = (
-				5DA213E915BE24D6007FEAFB /* gayHaiku.plist */,
 				5DA213CE15BE2284007FEAFB /* GayHaiku */,
 				5DA213C715BE2284007FEAFB /* Frameworks */,
 				5DA213C515BE2284007FEAFB /* Products */,
@@ -103,6 +102,7 @@
 		5DA213CF15BE2284007FEAFB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5DA213E915BE24D6007FEAFB /* gayHaiku.plist */,
 				5D2E197D15D714A300ED3EEB /* GayHaiku for iPhone guy supine.png */,
 				5DA213D015BE2284007FEAFB /* GayHaiku-Info.plist */,
 				5DA213D115BE2284007FEAFB /* InfoPlist.strings */,

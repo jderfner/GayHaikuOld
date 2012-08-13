@@ -86,13 +86,35 @@
     
     self.webV.delegate = self;
     self.webV = [[UIWebView alloc] init];
-    NSString *fullURL=@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
+    
+    
+     NSData *urlData;
+     NSString *baseURLString =  @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
+    //URL in following line should be replaced by name of a file?
+     NSString *urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
+     
+     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 10.0];
+     
+     NSURLConnection *connection=[[NSURLConnection alloc] initWithRequest:request delegate:nil];
+    NSError *error=nil;
+    NSURLResponse *response=nil;
+     if (connection) {
+         urlData = [ NSURLConnection sendSynchronousRequest: request returningResponse:&response error:&error];
+     NSString *htmlString = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
+     [self.webV loadHTMLString:htmlString baseURL:[NSURL URLWithString:baseURLString]];
+     }
+     
+    
+    /*NSString *fullURL=@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+    [self.webV loadRequest:requestObj];*/
     self.webV.scalesPageToFit=YES;
-    [self.webV loadRequest:requestObj];
     [self.webV setFrame:(CGRectMake(0,44,320,372))];
     [self.view addSubview:self.webV];
+    
+
+    
 }
 
 -(void)doneWithAmazon
@@ -113,20 +135,19 @@
 -(void)setupForWriting
 {
     [self.textView becomeFirstResponder];
-    
 }
 
 -(void)createSpaceToWrite
 {
-    if (!(self.textView.text.length>0 ))
-    {
+    //if (!(self.textView.text.length>0 ))
+    //{
         self.textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 60, 280, 150)];
         self.textView.delegate = self;
         self.textView.returnKeyType = UIReturnKeyDefault;
         self.textView.keyboardType = UIKeyboardTypeDefault;
         self.textView.scrollEnabled = YES;
         self.textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    }
+    //}
     self.textView.backgroundColor = [UIColor colorWithRed:217 green:147 blue:182 alpha:.5];
     [self.view addSubview: self.textView];
     NSLog(@"after create space to write: view %@, save %@",self.textView.text, self.textToSave);
@@ -146,9 +167,6 @@
 -(void)userWritesHaiku
 {
     [self clearScreen];
-    
-    //Bring back text if there was text
-    NSLog(@"before setup of user writes: view: %@, save: %@", self.textView.text, self.textToSave);
     
     //Then create and add the new UINavigationBar.
     
@@ -285,15 +303,28 @@
 
 -(void)viewDidLoad {
 	[super viewDidLoad];
-    [self.view viewWithTag:60].hidden=YES;
-	NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"gayHaiku" ofType:@"plist"];
-	self.gayHaiku = [NSMutableArray arrayWithContentsOfFile:plistCatPath];
-    [self nextHaiku];
+	//NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"gayHaiku" ofType:@"plist"];
+	//self.gayHaiku = [NSMutableArray arrayWithContentsOfFile:plistCatPath];
+    
+     NSError *error;
+     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+     NSString *documentsDirectory = [paths objectAtIndex:0];
+     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"gayHaiku.plist"];
+     NSFileManager *fileManager = [NSFileManager defaultManager];
+     if (![fileManager fileExistsAtPath: path])
+     {
+     NSString *bundle = [[NSBundle mainBundle] pathForResource:@"gayHaiku" ofType:@"plist"];
+     [fileManager copyItemAtPath:bundle toPath: path error:&error];
+     }
+     self.gayHaiku = [[NSMutableArray alloc] initWithContentsOfFile: path];
+     [self nextHaiku];
 }
 
 -(void)saveUserHaiku
 {   if (self.textView.text.length>0)
     {
+        //First, add the haiku to self.gayHaiku.
+        
         NSArray *quotes = [[NSArray alloc] initWithObjects:@"user", self.textView.text, nil];
         NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
         NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
@@ -305,6 +336,35 @@
         [self.view viewWithTag:3].hidden = NO;
         self.haiku_text.text = [[self.gayHaiku lastObject] valueForKey:@"quote"];
         [self.view addSubview:self.haiku_text];
+        
+        //Then update the array in the documents folder.
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *path = [documentsDirectory stringByAppendingPathComponent:@"gayHaiku.plist"];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if ([fileManager fileExistsAtPath: path])
+        {
+            [self.gayHaiku writeToFile:path atomically:YES];
+        }
+        
+        //Should there be an option to DELETE haiku the user has written?
+        
+        /*
+         
+         This is part of the code to get haiku to "haiku" table on "gayhaiku" MySQL on db.joelderfner.com, but I have no idea what the fuck it says.  Or, rather, I can tell what it says, on a very basic level, sort of, but not how to set up what it's sending the message to.  "gayhaiku'."haiku" is set up, but what's the mechanism to get this haiku there?
+         
+        NSString *myRequestString = [NSString stringWithFormat:@"%@",self.haiku_text.text];
+        NSData *myRequestData = [NSData dataWithBytes:[myRequestString UTF8String] length:[myRequestString length]];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.joelderfner.com/"]]; 
+        [request setHTTPMethod: @"POST"];
+        [request setHTTPBody: myRequestData];
+        NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+        NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+        // To see what the response from your server is, NSLog returnString to the console or use it whichever way you want it.
+        NSLog (@"%@", returnString);
+         */
+
+
     }
     else 
     {
@@ -314,12 +374,7 @@
 
 -(void)viewDidUnload {
 	[super viewDidUnload];
-    
-    //Is this the right way to add the user's saved haiku to the plist?  Probably not, since it doesn't seem to work....
-    
-    NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"gayHaiku" ofType:@"plist"];
-     NSMutableArray *data = [[NSMutableArray alloc] initWithContentsOfFile: plistCatPath];
-     [data writeToFile: plistCatPath atomically:YES];
+
 }
 
 - (IBAction)chooseDatabase:(UISegmentedControl *)segment {
@@ -466,10 +521,6 @@
     
     CGSize dimensions = CGSizeMake(320, 400);
     CGSize xySize = [txt sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
-    if (self.theseAreDoneD.count>0 && self.theseAreDoneU.count>0 && self.theseAreDoneAll.count>0)
-    {
-    NSLog(@"seenAll %d seenD %d seenU %d seen %d indAll %d indD %d indU %d ind %d",self.theseAreDoneAll.count, self.theseAreDoneD.count, self.theseAreDoneU.count, arrayOfHaikuSeen.count, self.indxAll, self.indxD,self.indxU, indexOfHaiku);
-    }
     self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),200,320,200)];
     //Is the next line necessary?
     //self.haiku_text.delegate = self;
@@ -557,6 +608,29 @@
             self.indxD = indexOfHaiku;
         }
 }
+/*
+-(void)saveOnCloseApplication
+{
+    //Reading from File
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+    NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath: path]) //4
+    {
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@”gayHaiku” ofType:@”plist”]; //5
+        
+        [fileManager copyItemAtPath:bundle toPath: path error:&error]; //6
+    }
+}*/
+/*
+ [self.view viewWithTag:60].hidden=YES;
+ NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"gayHaiku" ofType:@"plist"];
+ self.gayHaiku = [NSMutableArray arrayWithContentsOfFile:plistCatPath];
+ */
 
 
 -(IBAction)showMessage
