@@ -111,7 +111,7 @@
 								<int key="IBUISystemItemIdentifier">7</int>
 							</object>
 							<object class="IBUIBarButtonItem" id="729676237">
-								<string key="IBUITitle">Buy</string>
+								<string key="IBUITitle">More</string>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIStyle">1</int>
 								<reference key="IBUIToolbar" ref="732551414"/>
@@ -129,7 +129,7 @@
 						<string key="NSFrame">{{20, 202}, {212, 94}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSNextKeyView" ref="732551414"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="809110590">
 							<int key="NSColorSpace">3</int>
@@ -496,7 +496,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">159</int>
+			<int key="maxID">160</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

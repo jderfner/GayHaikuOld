@@ -38,6 +38,14 @@
     self.titulus.rightBarButtonItem = button;
 }
 
+-(void)addRightButtons:(NSArray *)titl callingMethod:(NSArray *)method
+{
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:[titl objectAtIndex:0] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString([method objectAtIndex:0])];
+    UIBarButtonItem *button2 = [[UIBarButtonItem alloc] initWithTitle:[titl objectAtIndex:1] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString([method objectAtIndex:1])];
+    NSArray *buttons = [[NSArray alloc] initWithObjects:button, button2, nil];
+    self.titulus.rightBarButtonItems = buttons;
+}
+
 -(void)seeNavBar
 {
     [self.bar pushNavigationItem:self.titulus animated:YES];
@@ -46,6 +54,8 @@
 
 -(void)haikuInstructions
 {
+    self.textToSave = self.textView.text;
+    NSLog(@"during instructions view %@ save %@", self.textView.text, self.textToSave);
     if (self.bar)
     {
         [self.bar removeFromSuperview];
@@ -54,12 +64,12 @@
     [self addLeftButton:@"Back" callingMethod:@"userWritesHaiku"];
     self.titulus.hidesBackButton=YES;
     [self seeNavBar];
-    self.textView.text = self.textToSave;
     self.textView.hidden=YES;
+    [self.textView resignFirstResponder];
     self.instructions = [[UITextView alloc] initWithFrame:CGRectMake(20, 44, 280, 480-44)];
     self.instructions.backgroundColor=[UIColor clearColor];
-    self.instructions.text = @"\n\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines should not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation or another interrupting word.\n\nHave a fabulous time writing your own gay haiku.  Be aware that the author of this program may rely upon haiku you save as inspiration for future updates.";
-    [self.view addSubview:instructions];
+    self.instructions.text = @"\n\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation or an interrupting word.\n\nHave a fabulous time writing your own gay haiku.  Be aware that the author of this program may rely upon haiku you save as inspiration for future updates.";
+    [self.view addSubview:self.instructions];
 }
                              
 -(void)loadAmazon
@@ -100,57 +110,72 @@
     }
 }
 
+-(void)setupForWriting
+{
+    [self.textView becomeFirstResponder];
+    
+}
+
+-(void)createSpaceToWrite
+{
+    if (!(self.textView.text.length>0 ))
+    {
+        self.textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 60, 280, 150)];
+        self.textView.delegate = self;
+        self.textView.returnKeyType = UIReturnKeyDefault;
+        self.textView.keyboardType = UIKeyboardTypeDefault;
+        self.textView.scrollEnabled = YES;
+        self.textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    }
+    self.textView.backgroundColor = [UIColor colorWithRed:217 green:147 blue:182 alpha:.5];
+    [self.view addSubview: self.textView];
+    NSLog(@"after create space to write: view %@, save %@",self.textView.text, self.textToSave);
+}
+
+-(void)clearScreen
+{
+    [self.instructions removeFromSuperview];
+    [self.textView removeFromSuperview];
+    self.textView.text=@"";
+    [self.haiku_text removeFromSuperview];
+    [self.bar removeFromSuperview];
+    [self.webV removeFromSuperview];
+    [self.view viewWithTag:3].hidden=YES;
+}
+
 -(void)userWritesHaiku
 {
-    //First, make sure all the other stuff is clear.
+    [self clearScreen];
     
-    if (self.instructions)
-    {
-        [self.instructions removeFromSuperview];
-    }
-    if (self.webV)
-    {
-        [self.webV removeFromSuperview];
-    }
-    if (self.bar)
-    {
-        [self.bar removeFromSuperview];
-    }
-    [self.view viewWithTag:1].hidden=YES;
-    [self.view viewWithTag:3].hidden=YES;
+    //Bring back text if there was text
+    NSLog(@"before setup of user writes: view: %@, save: %@", self.textView.text, self.textToSave);
     
     //Then create and add the new UINavigationBar.
     
     [self loadNavBar:@"Compose"];
     [self addLeftButton:@"Instructions" callingMethod:@"haikuInstructions"];
+    //If you've added text before calling haikuInstructions, when you return from haikuInstructions the textView window with the different background color AND the keyboard.
     [self addRightButton:@"Done" callingMethod:@"userFinishedWritingHaiku"];
     self.titulus.hidesBackButton=YES;
     [self seeNavBar];
     
     //Create and add the space for user to write.
-    if (!self.textView)
-    {
-        self.textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 60, 280, 150)];
-    }
-    self.textView.hidden=NO;
-    self.textView.delegate = self;
-    self.textView.returnKeyType = UIReturnKeyDefault;
-    self.textView.keyboardType = UIKeyboardTypeDefault;
-    self.textView.scrollEnabled = YES;
-    self.textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.textView.backgroundColor = [UIColor colorWithRed:217 green:147 blue:182 alpha:.5];
+    [self createSpaceToWrite];
     if (self.textToSave!=@"")
     {
         self.textView.text = self.textToSave;
     }
-    [self.view addSubview: self.textView];
+    [self.view addSubview:self.textView];
+
+    //Why doesn't this bring the keyboard back and set the cursor blinking in self.textView?
+    [self.textView becomeFirstResponder];
     
     //Keyboard notifications.
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-
+    NSLog(@"after setup of userWrites:  view %@ textToSave: %@",self.textView.text, self.textToSave);
     /*
      Still to do:
      Give user chance to opt out of sending any haiku s/he composes to my central database.
@@ -170,37 +195,45 @@
 
 -(void)userEditsHaiku
 {
-    
+    //Still need to write this.
 }
 
 -(void)userFinishedWritingHaiku
 {
+    
+    //Still need to figure out how to dismiss keyboard.
     if (!self.textView.text || self.textView.text.length==0)
         {
-            //self.indx-=1;
-            //[self nextHaiku];
+            [self nextHaiku];
         }
     else
     {
+        self.textToSave=self.textView.text;
+    }
     [self.bar removeFromSuperview];
     [self.textView resignFirstResponder];
     self.textView.backgroundColor= [UIColor clearColor];
     [self loadNavBar:@"Review"];
-    [self addLeftButton:@"Edit" callingMethod:@"userEditsHaiku"];
-    [self addRightButton:@"Save" callingMethod:@"saveUserHaiku"];
+    [self addLeftButton:@"Edit" callingMethod:@"userWritesHaiku"];
+        //If you've entered Edit, the text in the box disappears.
+        NSArray *rightButtons = [[NSArray alloc] initWithObjects:@"Dismiss", @"Save", nil];
+        NSArray *rightMethods = [[NSArray alloc] initWithObjects:@"nextHaiku", @"saveUserHaiku", nil];
+    //[self addRightButton:@"Save" callingMethod:@"saveUserHaiku"];
+    //[self addRightButton:@"Dismiss" callingMethod:@"nextHaiku"];
+        [self addRightButtons:rightButtons callingMethod:rightMethods];
     self.titulus.hidesBackButton=YES;
     [self seeNavBar];
     [self.view viewWithTag:1].hidden=YES;
     
-    int noOfLines = 0;
+        //Maybe I should leave this out?  I give instructions.  Maybe no need to play the police officer?
+    /*int noOfLines = 0;
     BOOL syllableCountCorrectLineOne = NO;
     BOOL syllableCountCorrectLineTwo = YES;
     BOOL syllableCountCorrectLineThree = YES;
     NSMutableString *warningMessage;
-    /*TO DO:
+    TO DO:
      1.  Check that haiku is three lines.
      2.  Check that syllable count is correct (as per CMU pronouncing dictionary (in public domain) --how do I load that in?)
-     */
     if (noOfLines<3)
     {
         [warningMessage appendString:(@"Your haiku seems to have fewer than three lines.  ")];
@@ -226,13 +259,15 @@
         [warningMessage appendString:(@"Would you prefer to leave things as they are or go back and edit?")];
     }
     //Why isn't this next line showing?
-    self.haiku_text.text=warningMessage;
+    self.haiku_text.text=warningMessage;*/
+    //Offer choice between saving as is or editing.
     //How is the above choice (save as is or edit) offered?  alertView?  Text plus new UINavigationItem?
     //Write code to deal with the above choice.
     //self.textView.hidden=YES;
     //If haiku was saved, display in self.haiku_text.
     }
-}
+
+
 
 -(void)keyboardWillHide:(NSNotification *)aNotification
 {
@@ -257,22 +292,30 @@
 }
 
 -(void)saveUserHaiku
-{
-    NSArray *quotes = [[NSArray alloc] initWithObjects:@"user", self.textView.text, nil];
-    NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
-    NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
-    [[self gayHaiku] addObject:dictToSave];
-    if (self.bar) [self.bar removeFromSuperview];
-    self.textView.text=@"";
-    [self.view viewWithTag:1].hidden = NO;
-    [self.view viewWithTag:3].hidden = NO;
-    self.haiku_text.text = [[self.gayHaiku lastObject] valueForKey:@"quote"];
+{   if (self.textView.text.length>0)
+    {
+        NSArray *quotes = [[NSArray alloc] initWithObjects:@"user", self.textView.text, nil];
+        NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
+        NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
+        [[self gayHaiku] addObject:dictToSave];
+        if (self.bar) [self.bar removeFromSuperview];
+        self.textView.text=@"";
+        self.textToSave=@"";
+        [self.view viewWithTag:1].hidden = NO;
+        [self.view viewWithTag:3].hidden = NO;
+        self.haiku_text.text = [[self.gayHaiku lastObject] valueForKey:@"quote"];
+        [self.view addSubview:self.haiku_text];
+    }
+    else 
+    {
+        [self nextHaiku];
+    }
 }
 
 -(void)viewDidUnload {
 	[super viewDidUnload];
     
-    //Is this the right way to add the user's saved haiku to the plist?
+    //Is this the right way to add the user's saved haiku to the plist?  Probably not, since it doesn't seem to work....
     
     NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"gayHaiku" ofType:@"plist"];
      NSMutableArray *data = [[NSMutableArray alloc] initWithContentsOfFile: plistCatPath];
@@ -358,6 +401,8 @@
 -(IBAction)nextHaiku
 {
     [self.bar removeFromSuperview];
+    self.textView.text=@"";
+    self.textToSave=@"";
     [self.textView removeFromSuperview];
     self.haiku_text.text=@"";
     [self.view viewWithTag:1].hidden = NO;
