@@ -457,56 +457,60 @@
     {
         [self.bar removeFromSuperview];
     }
-    if (self.textView)
+        if (self.textView)
     {
         [self.textView removeFromSuperview];
     }
-    int indexOfHaiku;
-    NSMutableArray *arrayOfHaikuSeen;
-    NSString *cat;
-    if (!self.selectedCategory) cat = @"Derfner";
-    else cat = self.selectedCategory;
-    NSArray *filteredArray;
-    if (cat==@"all")
-    {
-    filteredArray = self.gayHaiku;
-    indexOfHaiku = self.indxAll;
-    arrayOfHaikuSeen = self.theseAreDoneAll;
-    }
-    else
-    {
-    indexOfHaiku = (cat==@"user")?self.indxU:self.indxD;
-    arrayOfHaikuSeen = (cat==@"user")?self.theseAreDoneU:self.theseAreDoneD;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
-    filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
-    }
-
-    if (self.haiku_text)
-     {
-     [self.haiku_text removeFromSuperview];
-     }
-    [self.view viewWithTag:1].hidden = NO;
-    [self.view viewWithTag:3].hidden = NO;
-    if (arrayOfHaikuSeen.count>1 && indexOfHaiku>1)
-    {
-        indexOfHaiku -= 1;
-        self.haiku_text.text = [[arrayOfHaikuSeen objectAtIndex:indexOfHaiku-1] valueForKey:@"quote"];
-    }
-    if (cat==@"user")
-    {
-        self.theseAreDoneU = arrayOfHaikuSeen;
-        self.indxU = indexOfHaiku;
-    }
-    else if (cat==@"all")
-    {
-        self.theseAreDoneAll = arrayOfHaikuSeen;
-        self.indxAll = indexOfHaiku;
-    }
-    else 
-    {
-        self.theseAreDoneD = arrayOfHaikuSeen;
-        self.indxD = indexOfHaiku;
-    }
+        int indexOfHaiku;
+        NSMutableArray *arrayOfHaikuSeen;
+        NSString *cat;
+        if (!self.selectedCategory) cat = @"Derfner";
+        else cat = self.selectedCategory;
+        NSArray *filteredArray;
+        if (cat==@"all")
+        {
+            filteredArray = self.gayHaiku;
+            indexOfHaiku = self.indxAll;
+            arrayOfHaikuSeen = self.theseAreDoneAll;
+        }
+        else
+        {
+            indexOfHaiku = (cat==@"user")?self.indxU:self.indxD;
+            arrayOfHaikuSeen = (cat==@"user")?self.theseAreDoneU:self.theseAreDoneD;
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
+            filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
+        }
+        [self.view viewWithTag:1].hidden = NO;
+        [self.view viewWithTag:3].hidden = NO;
+    
+        if (arrayOfHaikuSeen.count>1 && indexOfHaiku>0)
+        {
+            
+            CGSize dimensions = CGSizeMake(320, 400);
+            CGSize xySize = [[[arrayOfHaikuSeen objectAtIndex:indexOfHaiku-2] valueForKey:@"quote"] sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
+            [self.haiku_text removeFromSuperview];
+            self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),200,320,200)];
+            self.haiku_text.text = [[arrayOfHaikuSeen objectAtIndex:indexOfHaiku-2] valueForKey:@"quote"];
+            self.haiku_text.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
+            self.haiku_text.backgroundColor = [UIColor clearColor];
+            [self.view addSubview:self.haiku_text];
+            indexOfHaiku -= 1;
+        }
+        if (cat==@"user")
+        {
+            self.theseAreDoneU = arrayOfHaikuSeen;
+            self.indxU = indexOfHaiku;
+        }
+        else if (cat==@"all")
+        {
+            self.theseAreDoneAll = arrayOfHaikuSeen;
+            self.indxAll = indexOfHaiku;
+        }
+        else 
+        {
+            self.theseAreDoneD = arrayOfHaikuSeen;
+            self.indxD = indexOfHaiku;
+        }
 }
 
 
