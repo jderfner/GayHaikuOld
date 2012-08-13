@@ -17,7 +17,7 @@
 
 @implementation GHViewController
 
-@synthesize gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDone, indx;
+@synthesize gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU;
 
 
 -(void)loadNavBar:(NSString *)titl
@@ -177,8 +177,8 @@
 {
     if (!self.textView.text || self.textView.text.length==0)
         {
-            self.indx-=1;
-            [self nextHaiku];
+            //self.indx-=1;
+            //[self nextHaiku];
         }
     else
     {
@@ -355,83 +355,6 @@
 //- work this:
 //- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result;
 
-/*-(IBAction)nextHaiku
-{
-    if (self.bar)
-    {
-        [self.bar removeFromSuperview];
-    }
-    if (self.textView)
-    {
-        [self.textView removeFromSuperview];
-    }
-     (self.haiku_text)
-    {
-        [self.haiku_text removeFromSuperview];
-    }
-    [self.view viewWithTag:1].hidden = NO;
-    [self.view viewWithTag:3].hidden = NO;
-    if (!self.indx)
-    {
-        self.indx=0;
-    }
-    NSString *cat;
-    if (!self.selectedCategory) cat = @"Derfner";
-    else cat = self.selectedCategory;
-    NSArray *filteredArray;
-    if (cat==@"all")
-    {
-        filteredArray = self.gayHaiku;
-    }
-    else
-    {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
-        filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
-    }
-    int array_tot = [filteredArray count];
-    int sortingHat;
-    //This is so that the haiku can be centered on the screen (based on how much space the second line takes up) but still be left-justified.  Not working yet.
-    //if (!self.haiku_text)
-    //{
-    //    self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake(x, y, x, y)];
-    //}
-    self.haiku_text.hidden=NO;
-    self.haiku_text.delegate = self;
-    if (array_tot > 0)
-    {
-        if (self.indx == self.theseAreDone.count)
-            {
-                while (true)
-                {
-                    sortingHat = (arc4random() % array_tot);
-                    if (![self.theseAreDone containsObject:[filteredArray objectAtIndex:sortingHat]]) break;
-                }
-                self.haiku_text.text = [[filteredArray objectAtIndex:sortingHat] valueForKey:@"quote"];
-                if (!self.theseAreDone || self.theseAreDone.count==array_tot)
-                {
-                    self.theseAreDone = [[NSMutableArray alloc] init];
-                }
-                [self.theseAreDone addObject:[filteredArray objectAtIndex:sortingHat]];
-                self.indx = self.theseAreDone.count;
-                if (self.indx && self.theseAreDone.count)
-                {
-                NSLog(@"%d %d",self.indx,self.theseAreDone.count);
-                }
-                if (self.theseAreDone.count==filteredArray.count)
-                {
-                    [self.theseAreDone removeAllObjects];
-                    self.indx=0;
-                }
-            }
-            else 
-            {
-                self.haiku_text.text = [[self.theseAreDone objectAtIndex:indx] valueForKey:@"quote"];
-                self.indx += 1;
-            }
-    }
-    //Need to test to make sure it starts over once all 110 haiku have been seen.
-}*/
-
 -(IBAction)nextHaiku
 {
     [self.bar removeFromSuperview];
@@ -439,10 +362,8 @@
     self.haiku_text.text=@"";
     [self.view viewWithTag:1].hidden = NO;
     [self.view viewWithTag:3].hidden = NO;
-    if (!self.indx)
-    {
-        self.indx=0;
-    }
+    int indexOfHaiku;
+    NSMutableArray *arrayOfHaikuSeen;
     NSString *cat;
     if (!self.selectedCategory) cat = @"Derfner";
     else cat = self.selectedCategory;
@@ -450,9 +371,13 @@
     if (cat==@"all")
     {
         filteredArray = self.gayHaiku;
+        indexOfHaiku = self.indxAll;
+        arrayOfHaikuSeen = self.theseAreDoneAll;
     }
     else
     {
+        indexOfHaiku = (cat==@"user")?self.indxU:self.indxD;
+        arrayOfHaikuSeen = (cat==@"user")?self.theseAreDoneU:self.theseAreDoneD;
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
         filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
     }
@@ -461,42 +386,45 @@
     NSString *txt;
     if (array_tot > 0)
     {
-        if (self.indx == self.theseAreDone.count)
+        if (indexOfHaiku == arrayOfHaikuSeen.count)
         {
             while (true)
             {
                 sortingHat = (arc4random() % array_tot);
-                if (![self.theseAreDone containsObject:[filteredArray objectAtIndex:sortingHat]]) break;
+                if (![arrayOfHaikuSeen containsObject:[filteredArray objectAtIndex:sortingHat]]) break;
             }
-
+            
             txt = [[filteredArray objectAtIndex:sortingHat] valueForKey:@"quote"];
-            if (!self.theseAreDone || self.theseAreDone.count==array_tot)
+            if (!arrayOfHaikuSeen || arrayOfHaikuSeen.count==array_tot)
             {
-                self.theseAreDone = [[NSMutableArray alloc] init];
+                arrayOfHaikuSeen = [[NSMutableArray alloc] init];
             }
-            [self.theseAreDone addObject:[filteredArray objectAtIndex:sortingHat]];
-            self.indx = self.theseAreDone.count;
-            if (self.indx && self.theseAreDone.count)
+            [arrayOfHaikuSeen addObject:[filteredArray objectAtIndex:sortingHat]];
+            indexOfHaiku = arrayOfHaikuSeen.count;
+            if (indexOfHaiku && arrayOfHaikuSeen.count)
             {
-                NSLog(@"%d %d",self.indx,self.theseAreDone.count);
+                NSLog(@"%d %d",indexOfHaiku,arrayOfHaikuSeen.count);
             }
-            if (self.theseAreDone.count==filteredArray.count)
+            if (arrayOfHaikuSeen.count==filteredArray.count)
             {
-                [self.theseAreDone removeAllObjects];
-                self.indx=0;
+                [arrayOfHaikuSeen removeAllObjects];
+                indexOfHaiku=0;
             }
         }
         else 
         {
-            txt = [[self.theseAreDone objectAtIndex:indx] valueForKey:@"quote"];
-            self.indx += 1;
+            txt = [[arrayOfHaikuSeen objectAtIndex:indexOfHaiku] valueForKey:@"quote"];
+            indexOfHaiku += 1;
         }
     }
     //Need to test to make sure it starts over once all 110 haiku have been seen.
-
+    
     CGSize dimensions = CGSizeMake(320, 400);
     CGSize xySize = [txt sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
-    NSLog(@"%f,%f",xySize.width,xySize.height);
+    if (self.theseAreDoneD.count>0 && self.theseAreDoneU.count>0 && self.theseAreDoneAll.count>0)
+    {
+    NSLog(@"seenAll %d seenD %d seenU %d seen %d indAll %d indD %d indU %d ind %d",self.theseAreDoneAll.count, self.theseAreDoneD.count, self.theseAreDoneU.count, arrayOfHaikuSeen.count, self.indxAll, self.indxD,self.indxU, indexOfHaiku);
+    }
     self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),200,320,200)];
     //Is the next line necessary?
     //self.haiku_text.delegate = self;
@@ -504,9 +432,25 @@
     self.haiku_text.backgroundColor = [UIColor clearColor];
     self.haiku_text.text=txt;
     [self.view addSubview:self.haiku_text];
+    if (cat==@"user")
+    {
+        self.theseAreDoneU = arrayOfHaikuSeen;
+        self.indxU = indexOfHaiku;
+    }
+    else if (cat==@"all")
+    {
+        self.theseAreDoneAll = arrayOfHaikuSeen;
+        self.indxAll = indexOfHaiku;
+    }
+    else 
+    {
+        self.theseAreDoneD = arrayOfHaikuSeen;
+        self.indxD = indexOfHaiku;
+    }
+    //Question:  how will it affect the user's experience if/when haiku s/he's already seen in "user" or "Derfner" categories reappear in "all" category?  Will this need to be adjusted?  If so, how?
 }
 
-
+/*
 -(IBAction)previousHaiku
 {
     if (self.bar)
@@ -517,10 +461,10 @@
     {
         [self.textView removeFromSuperview];
     }
-    /*if (self.haiku_text)
+    if (self.haiku_text)
      {
      [self.haiku_text removeFromSuperview];
-     }*/
+     }
     [self.view viewWithTag:1].hidden = NO;
     [self.view viewWithTag:3].hidden = NO;
     if (self.theseAreDone.count>1 && self.indx>1)
@@ -529,6 +473,7 @@
         self.haiku_text.text = [[self.theseAreDone objectAtIndex:self.indx-1] valueForKey:@"quote"];
     }
 }
+*/
 
 -(IBAction)showMessage
 {

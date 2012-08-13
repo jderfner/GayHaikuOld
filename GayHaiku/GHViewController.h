@@ -15,8 +15,12 @@
 @property (nonatomic, retain) NSMutableArray *gayHaiku;
 @property (nonatomic, retain) NSString *selectedCategory;
 @property (nonatomic, retain) UITextView *haiku_text;
-@property (nonatomic, retain) NSMutableArray *theseAreDone;
-@property (nonatomic) int indx;
+@property (nonatomic, retain) NSMutableArray *theseAreDoneAll;
+@property (nonatomic, retain) NSMutableArray *theseAreDoneU;
+@property (nonatomic, retain) NSMutableArray *theseAreDoneD;
+@property (nonatomic) int indxAll;
+@property (nonatomic) int indxU;
+@property (nonatomic) int indxD;
 @property (nonatomic, retain) UITextView *textView;
 @property (nonatomic, retain) UIWebView *webV;
 @property (nonatomic, retain) UINavigationItem *titulus;
