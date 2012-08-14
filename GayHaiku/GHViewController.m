@@ -10,6 +10,7 @@
 #import <MessageUI/MessageUI.h>
 #import <QuartzCore/QuartzCore.h>
 #import "GHViewController.h"
+#import <Twitter/Twitter.h>
 #import <Twitter/TWTweetComposeViewController.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
@@ -631,12 +632,35 @@
          NSLog(@"Sent to Facebook."); 
      } 
      else if (buttonIndex == 3) {
-         [self previewTweet];
-         [self sendToTwitter];
+         [self tweetTapped];
+
      }
  }
 
--(void)sendToTwitter
+- (IBAction)tweetTapped
+    {
+        if ([TWTweetComposeViewController canSendTweet])
+        {
+            TWTweetComposeViewController *tweetSheet =
+            [[TWTweetComposeViewController alloc] init];
+            [tweetSheet setInitialText:
+             @"Ignore this tweet--testing something."];
+            NSLog(@"Tweet sent.");
+            [self presentModalViewController:tweetSheet animated:YES];
+        }
+        else
+        {
+            UIAlertView *alertView = [[UIAlertView alloc]
+                                      initWithTitle:@"Sorry"
+                                      message:@"Can't send."
+                                      delegate:self
+                                      cancelButtonTitle:@"OK"                                                   
+                                      otherButtonTitles:nil];
+            NSLog(@"Not ready.");
+            [alertView show];
+        }
+    }
+/*-(void)sendToTwitter
 {
     self.tweetView = [[TWTweetComposeViewController alloc] init];
         NSLog(@"completionHandler about to be created.");
@@ -668,6 +692,6 @@
     [self.tweetView addImage:myImage];
     NSLog(@"Tweet has been composed.");
     //[self presentModalViewController:self.tweetView animated:YES];
-}
+}*/
 
 @end

@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <MessageUI/MessageUI.h>
 #import <Twitter/TWTweetComposeViewController.h>
+#import <Twitter/Twitter.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
 @interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate>
