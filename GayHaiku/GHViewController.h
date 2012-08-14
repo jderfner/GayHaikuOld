@@ -9,8 +9,14 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import <MessageUI/MessageUI.h>
+#import <Twitter/TWTweetComposeViewController.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
 @interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate>
+{
+        TWTweetComposeViewController *tweetView;
+}
 
 @property (nonatomic, retain) NSMutableArray *gayHaiku;
 @property (nonatomic, retain) NSString *selectedCategory;
@@ -27,6 +33,7 @@
 @property (nonatomic, retain) UINavigationBar *bar;
 @property (nonatomic, retain) UITextView *instructions;
 @property (nonatomic, retain) NSString *textToSave;
+@property (nonatomic, retain) TWTweetComposeViewController *tweetView;
 
 -(IBAction)chooseDatabase:(UISegmentedControl *)sender;
 -(IBAction)nextHaiku;

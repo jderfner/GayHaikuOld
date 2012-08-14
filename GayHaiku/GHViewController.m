@@ -10,6 +10,8 @@
 #import <MessageUI/MessageUI.h>
 #import <QuartzCore/QuartzCore.h>
 #import "GHViewController.h"
+#import <Twitter/TWTweetComposeViewController.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
 @interface GHViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate,UIAlertViewDelegate,UIWebViewDelegate>
 
@@ -17,7 +19,7 @@
 
 @implementation GHViewController
 
-@synthesize gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU;
+@synthesize gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU, tweetView;
 
 
 -(void)loadNavBar:(NSString *)titl
@@ -387,34 +389,39 @@
     else self.selectedCategory = @"Derfner";
 }
   
+-(UIImage *)createImage
+{
+    UIView *whatToUse;
+    [whatToUse viewWithTag:10];
+    [whatToUse viewWithTag:20];
+    CGRect newRect = CGRectMake(0, 0, 320, 416);
+    UIGraphicsBeginImageContext(newRect.size); //([self.view frame].size])
+    //[self.view viewWithTag:30].hidden=YES;
+    [self.view viewWithTag:40].hidden=YES;
+    [self.view viewWithTag:3].hidden=YES;
+    
+    [[self.view layer] renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
+    [self.view viewWithTag:30].hidden=NO;
+    [self.view viewWithTag:40].hidden=NO;
+    UIGraphicsEndImageContext();
+    
+    UIGraphicsBeginImageContext([self.view bounds].size);
+    [myImage drawInRect:CGRectMake(0, 0, 320,416)];
+    myImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return myImage;
+}
+
 - (void)openMail {
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
         mailer.mailComposeDelegate = self;
-        //Replace "Someone" in following line with user's name.
         [mailer setSubject:[NSString stringWithFormat:@"%@ has sent you a gay haiku.", [[UIDevice currentDevice] name]]];
-        UIView *whatToUse;
-        [whatToUse viewWithTag:10];
-        [whatToUse viewWithTag:20];
-        CGRect newRect = CGRectMake(0, 0, 320, 416);
-        UIGraphicsBeginImageContext(newRect.size); //([self.view frame].size])
-        [self.view viewWithTag:30].hidden=YES;
-        [self.view viewWithTag:40].hidden=YES;
-        [self.view viewWithTag:3].hidden=YES;
-
-        [[self.view layer] renderInContext:UIGraphicsGetCurrentContext()];
-        UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
-        [self.view viewWithTag:30].hidden=NO;
-        [self.view viewWithTag:40].hidden=NO;
-        UIGraphicsEndImageContext();
-        
-        UIGraphicsBeginImageContext([self.view bounds].size);
-        [myImage drawInRect:CGRectMake(0, 0, 320,416)];
-        myImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *myImage = [self createImage];
         NSData *imageData = UIImagePNGRepresentation(myImage);
         [mailer addAttachmentData:imageData mimeType:@"image/jpg" fileName:@"blah"];
-        
         NSString *emailBody = @"I thought you might like this gay haiku from the Gay Haiku iPhone app.  Please love me?";
         [mailer setMessageBody:emailBody isHTML:NO];
         
@@ -608,31 +615,8 @@
             self.indxD = indexOfHaiku;
         }
 }
-/*
--(void)saveOnCloseApplication
-{
-    //Reading from File
-    NSError *error;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
-    NSString *documentsDirectory = [paths objectAtIndex:0]; //2
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    if (![fileManager fileExistsAtPath: path]) //4
-    {
-        NSString *bundle = [[NSBundle mainBundle] pathForResource:@”gayHaiku” ofType:@”plist”]; //5
-        
-        [fileManager copyItemAtPath:bundle toPath: path error:&error]; //6
-    }
-}*/
-/*
- [self.view viewWithTag:60].hidden=YES;
- NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"gayHaiku" ofType:@"plist"];
- self.gayHaiku = [NSMutableArray arrayWithContentsOfFile:plistCatPath];
- */
 
-
+//Replace this with an action sheet after finding out what an action sheet is.
 -(IBAction)showMessage
 {
     UIAlertView *message = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Email",@"Facebook",@"Twitter", nil];
@@ -647,8 +631,43 @@
          NSLog(@"Sent to Facebook."); 
      } 
      else if (buttonIndex == 3) {
-         //Deal with Twitter API.
-         NSLog(@"Sent to Twitter.");
+         [self previewTweet];
+         [self sendToTwitter];
      }
  }
+
+-(void)sendToTwitter
+{
+    self.tweetView = [[TWTweetComposeViewController alloc] init];
+        NSLog(@"completionHandler about to be created.");
+    TWTweetComposeViewControllerCompletionHandler completionHandler =
+    ^(TWTweetComposeViewControllerResult result)
+    {
+        switch (result)
+        {
+            case TWTweetComposeViewControllerResultCancelled:
+                NSLog(@"Twitter Result: canceled");
+                break;
+            case TWTweetComposeViewControllerResultDone:
+                NSLog(@"Twitter Result: sent");
+                break;
+            default:
+                NSLog(@"Twitter Result: default");
+                break;
+        }
+        //[self dismissModalViewControllerAnimated:YES];
+    };
+    [tweetView setCompletionHandler:completionHandler];
+    NSLog(@"Finished sending to Twitter.");
+}
+
+- (void) previewTweet
+{
+    UIImage *myImage = [self createImage];
+    [self.tweetView setInitialText:@"Ignore this tweet--I'm testing something."];  //self.haiku_text.text];
+    [self.tweetView addImage:myImage];
+    NSLog(@"Tweet has been composed.");
+    //[self presentModalViewController:self.tweetView animated:YES];
+}
+
 @end
