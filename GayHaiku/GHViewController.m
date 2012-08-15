@@ -61,7 +61,6 @@
 -(void)haikuInstructions
 {
     self.textToSave = self.textView.text;
-    NSLog(@"during instructions view %@ save %@", self.textView.text, self.textToSave);
     if (self.bar)
     {
         [self.bar removeFromSuperview];
@@ -98,28 +97,25 @@
     
      NSData *urlData;
      NSString *baseURLString =  @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
-    //URL in following line should be replaced by name of a file?
+     //URL in following line should be replaced by name of a file?
      NSString *urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
      
-     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 10.0];
+     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 20];
      
      NSURLConnection *connection=[[NSURLConnection alloc] initWithRequest:request delegate:nil];
-    NSError *error=nil;
-    NSURLResponse *response=nil;
-     if (connection) {
+     NSError *error=nil;
+     NSURLResponse *response=nil;
+     if (connection)
+     {
          urlData = [ NSURLConnection sendSynchronousRequest: request returningResponse:&response error:&error];
      NSString *htmlString = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
      [self.webV loadHTMLString:htmlString baseURL:[NSURL URLWithString:baseURLString]];
      }
-     
-    
-    /*NSString *fullURL=@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
-    NSURL *url = [NSURL URLWithString:fullURL];
-    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    [self.webV loadRequest:requestObj];*/
     self.webV.scalesPageToFit=YES;
     [self.webV setFrame:(CGRectMake(0,44,320,372))];
-    [self.view addSubview:self.webV];    
+    [self.view addSubview:self.webV];
+    
+    //NEED TO ADD:  Code that displays an error message if user clicks on Amazon link while not connected.
 }
 
 -(void)doneWithAmazon
@@ -155,6 +151,8 @@
         self.textView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
         self.textView.scrollEnabled = YES;
         self.textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        self.textView.userInteractionEnabled = YES;
+
     //}
     self.textView.backgroundColor = [UIColor colorWithRed:217 green:147 blue:182 alpha:.5];
     [self.view addSubview: self.textView];
@@ -183,10 +181,12 @@
     [self.textView becomeFirstResponder];
     
     //Keyboard notifications.
-    
+    if (self.textView.editable=YES);
+    {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    }
     /*
      Still to do:
      Give user chance to opt out of sending any haiku s/he composes to my central database.
@@ -195,6 +195,8 @@
 
 -(void)keyboardWillShow:(NSNotification *)aNotification
 {
+    if (self.textView)
+    {
     CGRect keyboardRect = [[[aNotification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     NSTimeInterval animationDuration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     CGRect frame = self.view.frame;
@@ -202,6 +204,7 @@
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
     [UIView setAnimationDuration:animationDuration];
     [UIView commitAnimations];
+    }
 }
 
 -(void)userEditsHaiku
@@ -223,6 +226,7 @@
     [self.bar removeFromSuperview];
     [self.textView resignFirstResponder];
     self.textView.backgroundColor= [UIColor clearColor];
+    [self.textView removeFromSuperview];
     [self loadNavBar:@"Review"];
     [self addLeftButton:@"Edit" callingMethod:@"userWritesHaiku"];
         //If you've entered Edit, the text in the box disappears.
@@ -234,47 +238,6 @@
     self.titulus.hidesBackButton=YES;
     [self seeNavBar];
     [self.view viewWithTag:1].hidden=YES;
-    
-        //Maybe I should leave this out?  I give instructions.  Maybe no need to play the police officer?
-    /*int noOfLines = 0;
-    BOOL syllableCountCorrectLineOne = NO;
-    BOOL syllableCountCorrectLineTwo = YES;
-    BOOL syllableCountCorrectLineThree = YES;
-    NSMutableString *warningMessage;
-    TO DO:
-     1.  Check that haiku is three lines.
-     2.  Check that syllable count is correct (as per CMU pronouncing dictionary (in public domain) --how do I load that in?)
-    if (noOfLines<3)
-    {
-        [warningMessage appendString:(@"Your haiku seems to have fewer than three lines.  ")];
-    }
-    if (noOfLines>3)
-    {
-        [warningMessage appendString:(@"Your haiku seems to have more than three lines.  ")];
-    }
-    if (!syllableCountCorrectLineOne)
-    {
-        [warningMessage appendString:(@"Your first line seems not to have five syllables.  ")];
-    }
-    if (!syllableCountCorrectLineTwo)
-    {
-        [warningMessage appendString:(@"Your second line seems not to have seven syllables.  ")];
-    }
-    if (!syllableCountCorrectLineThree)
-    {
-        [warningMessage appendString:(@"Your third line seems not to have five syllables.  ")];
-    }
-    if (warningMessage!=@"")
-    {
-        [warningMessage appendString:(@"Would you prefer to leave things as they are or go back and edit?")];
-    }
-    //Why isn't this next line showing?
-    self.haiku_text.text=warningMessage;*/
-    //Offer choice between saving as is or editing.
-    //How is the above choice (save as is or edit) offered?  alertView?  Text plus new UINavigationItem?
-    //Write code to deal with the above choice.
-    //self.textView.hidden=YES;
-    //If haiku was saved, display in self.haiku_text.
     }
 
 -(void)keyboardWillHide:(NSNotification *)aNotification
@@ -300,6 +263,7 @@
     NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
     NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
     [[self gayHaiku] addObject:dictToSave];
+        self.textView.editable=NO;
     if (self.bar) [self.bar removeFromSuperview];
     self.textView.text=@"";
     self.textToSave=@"";
@@ -307,6 +271,7 @@
     [self.view viewWithTag:3].hidden = NO;
     self.haiku_text.text = [[self.gayHaiku lastObject] valueForKey:@"quote"];
     [self.view addSubview:self.haiku_text];
+    self.textView.editable=NO;
     
     //Then update the array in the documents folder.
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
@@ -334,8 +299,6 @@
      // To see what the response from your server is, NSLog returnString to the console or use it whichever way you want it.
      NSLog (@"%@", returnString);
      */
-    
-    
 }
 else
 {
@@ -344,6 +307,7 @@ else
 }
 
 //————————————————code for all pages——————————————————
+
 
 -(void)viewDidLoad {
 	[super viewDidLoad];
@@ -356,7 +320,7 @@ else
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     [self.view addGestureRecognizer:swipeLeft];
      NSError *error;
-     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); 
      NSString *documentsDirectory = [paths objectAtIndex:0];
      NSString *path = [documentsDirectory stringByAppendingPathComponent:@"gayHaiku.plist"];
      NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -367,6 +331,7 @@ else
      }
      self.gayHaiku = [[NSMutableArray alloc] initWithContentsOfFile: path];
      [self nextHaiku];
+    self.textView.editable=NO;
 }
 
 -(void)clearScreen
@@ -378,6 +343,7 @@ else
     [self.bar removeFromSuperview];
     [self.webV removeFromSuperview];
     [self.view viewWithTag:3].hidden=YES;
+    [self.textView setEditable:NO];
 }
 
 -(void)viewDidUnload {
@@ -390,6 +356,7 @@ else
 -(UIImage *)createImage
 {
     UIView *whatToUse;
+    self.textView.userInteractionEnabled = NO;
     [whatToUse viewWithTag:10];
     [whatToUse viewWithTag:20];
     CGRect newRect = CGRectMake(0, 0, 320, 416);
@@ -451,7 +418,6 @@ else if (buttonIndex == 3) {
                                   delegate:self
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
-        NSLog(@"Not ready.");
         [alertView show];
     }
 }
@@ -478,6 +444,8 @@ else if (buttonIndex == 3) {
 /*-(void)postToFacebook
 {
  
+    THIS DOESN'T WORK WITHOUT FACEBOOK SDK INSTALLED.  HOW THE FUCK DO I INSTALL FACEBOOK SDK WHEN FACEBOOK SDK IS FULL OF [RELEASE]S AND THIS IS AN ARC PROJECT?  I CAN'T FLAG THE FACEBOOK FILES AS -FNO-OBJ-WHATEVER BECAUSE THERE'S NO FLAG COLUMN IN BUILD PHASES IN TARGET VIEW.
+ 
     UIImage *pic = [self createImage];
     NSString *list = self.haiku_text.text;
     NSString *kAppId=@"446573368720507";
@@ -488,9 +456,6 @@ else if (buttonIndex == 3) {
 
     
 }*/
-
-//NSURL httpwww.facebook.com/dialog/feed?app_id=446573368720507&picture=pic&name=Gay%20Haiku&description=self.haiku_text.text;
-//}
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {  
@@ -522,6 +487,7 @@ else if (buttonIndex == 3) {
 //————————————————code for display page——————————————————
 
 - (IBAction)chooseDatabase:(UISegmentedControl *)segment {
+    
     if (segment.selectedSegmentIndex==1) {
         self.selectedCategory = @"user";
     }
@@ -529,16 +495,18 @@ else if (buttonIndex == 3) {
         self.selectedCategory = @"all";
     }
     else self.selectedCategory = @"Derfner";
+    self.textView.editable=NO;
+    [self.textView removeFromSuperview];
 }
 
 -(void)nextHaiku
 {
     [self.view.layer removeAllAnimations];
-    NSLog(@"Next");
-    [self.bar removeFromSuperview];
-    self.textView.text=@"";
-    self.textToSave=@"";
+    self.textView.editable=NO;
     [self.textView removeFromSuperview];
+    [self textViewShouldBeginEditing:self.textView];
+    [self.bar removeFromSuperview];
+    self.textToSave=@"";
     self.haiku_text.text=@"";
     [self.view viewWithTag:1].hidden = NO;
     [self.view viewWithTag:3].hidden = NO;
@@ -597,18 +565,16 @@ else if (buttonIndex == 3) {
     CGSize dimensions = CGSizeMake(320, 400);
     CGSize xySize = [txt sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
     self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),200,320,200)];
-    //Is the next line necessary?
-    //self.haiku_text.delegate = self;
     self.haiku_text.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
     self.haiku_text.backgroundColor = [UIColor clearColor];
     self.haiku_text.text=txt;
-    CATransition *transitionL = [CATransition animation];
-    transitionL.duration = 0.25;
-    transitionL.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transitionL.type = kCATransitionPush;
-    transitionL.subtype =kCATransitionFromRight;
-    transitionL.delegate = self;
-    [self.view.layer addAnimation:transitionL forKey:nil];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.25;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush;
+    transition.subtype =kCATransitionFromRight;
+    transition.delegate = self;
+    [self.view.layer addAnimation:transition forKey:nil];
     [self.view addSubview:self.haiku_text];
 
     if (cat==@"user")
@@ -626,15 +592,18 @@ else if (buttonIndex == 3) {
         self.theseAreDoneD = arrayOfHaikuSeen;
         self.indxD = indexOfHaiku;
     }
-    NSLog(@"array: %d, index: %d",arrayOfHaikuSeen.count, indexOfHaiku);
     //Question:  how will it affect the user's experience if/when haiku s/he's already seen in "user" or "Derfner" categories reappear in "all" category?  Will this need to be adjusted?  If so, how?
+    self.textView.editable=NO;
+    [self.textView removeFromSuperview];
 }
 
 
 -(void)previousHaiku
 {
+    self.textView.editable=NO;
+    [self textViewShouldBeginEditing:self.textView];
+    [self.textView setEditable:NO];
     [self.bar removeFromSuperview];
-    [self.textView removeFromSuperview];
         int indexOfHaiku;
         NSMutableArray *arrayOfHaikuSeen;
         NSString *cat;
@@ -659,12 +628,9 @@ else if (buttonIndex == 3) {
     
         if (arrayOfHaikuSeen.count>=2 && indexOfHaiku>=2)
         {
-            NSLog(@"array: %d index: %d", arrayOfHaikuSeen.count, indexOfHaiku);
             indexOfHaiku -= 1;
-            NSLog(@"after index minus 1:  array: %d index: %d", arrayOfHaikuSeen.count, indexOfHaiku);
             CGSize dimensions = CGSizeMake(320, 400);
             CGSize xySize = [[[arrayOfHaikuSeen objectAtIndex:indexOfHaiku] valueForKey:@"quote"] sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
-            NSLog(@"after creating xySize array: %d index: %d", arrayOfHaikuSeen.count, indexOfHaiku);
             [self.haiku_text removeFromSuperview];
             self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),200,320,200)];
 
@@ -695,7 +661,6 @@ else if (buttonIndex == 3) {
             self.theseAreDoneD = arrayOfHaikuSeen;
             self.indxD = indexOfHaiku;
         }
-        NSLog(@"Previous");
 }
 
 
