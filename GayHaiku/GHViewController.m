@@ -66,14 +66,14 @@
         [self.bar removeFromSuperview];
     }
     [self loadNavBar:@"Instructions"];
-    [self addLeftButton:@"Back" callingMethod:@"userWritesHaiku"];
+    [self addLeftButton:@"Compose" callingMethod:@"userWritesHaiku"];
     self.titulus.hidesBackButton=YES;
     [self seeNavBar];
     self.textView.hidden=YES;
     [self.textView resignFirstResponder];
     self.instructions = [[UITextView alloc] initWithFrame:CGRectMake(20, 44, 280, 480-44)];
     self.instructions.backgroundColor=[UIColor clearColor];
-    self.instructions.text = @"\n\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation or an interrupting word.\n\nHave a fabulous time writing your own gay haiku.  Be aware that the author of this program may rely upon haiku you save as inspiration for future updates.";
+    self.instructions.text = @"\n\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation or an interrupting word.\n\nHave a fabulous time composing your own gay haiku.  Be aware that the author of this program may rely upon haiku you save as inspiration for future updates.";
     [self.view addSubview:self.instructions];
 }
 
@@ -264,6 +264,7 @@
     NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
     [[self gayHaiku] addObject:dictToSave];
         self.textView.editable=NO;
+    [[self.view viewWithTag:4] resignFirstResponder];
     if (self.bar) [self.bar removeFromSuperview];
     self.textView.text=@"";
     self.textToSave=@"";
@@ -330,7 +331,11 @@ else
      [fileManager copyItemAtPath:bundle toPath: path error:&error];
      }
      self.gayHaiku = [[NSMutableArray alloc] initWithContentsOfFile: path];
-     [self nextHaiku];
+    
+    //THIS IS WHERE I DID THE HIDDEN TEXT VIEW THING.
+    //[[self.view viewWithTag:4] becomeFirstResponder];
+    
+    [self nextHaiku];
     self.textView.editable=NO;
 }
 
@@ -504,7 +509,6 @@ else if (buttonIndex == 3) {
     [self.view.layer removeAllAnimations];
     self.textView.editable=NO;
     [self.textView removeFromSuperview];
-    [self textViewShouldBeginEditing:self.textView];
     [self.bar removeFromSuperview];
     self.textToSave=@"";
     self.haiku_text.text=@"";
@@ -530,6 +534,12 @@ else if (buttonIndex == 3) {
         filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
     }
     int array_tot = [filteredArray count];
+    if (cat==@"user" && array_tot==0)
+    {
+        [self userWritesHaiku];
+    }
+    else
+    {
     int sortingHat;
     NSString *txt;
     if (array_tot > 0)
@@ -595,6 +605,7 @@ else if (buttonIndex == 3) {
     //Question:  how will it affect the user's experience if/when haiku s/he's already seen in "user" or "Derfner" categories reappear in "all" category?  Will this need to be adjusted?  If so, how?
     self.textView.editable=NO;
     [self.textView removeFromSuperview];
+    }
 }
 
 
