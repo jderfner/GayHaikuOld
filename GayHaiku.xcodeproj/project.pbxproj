@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D20493D15DC28670006D1CC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D20493C15DC28670006D1CC /* FacebookSDK.framework */; };
 		5D2E197E15D714A300ED3EEB /* GayHaiku for iPhone guy supine.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D2E197D15D714A300ED3EEB /* GayHaiku for iPhone guy supine.png */; };
 		5D2F944E15D3D5090065FA2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2F944D15D3D5090065FA2D /* QuartzCore.framework */; };
 		5D68F94F15D9C343000E8AE5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D68F94E15D9C343000E8AE5 /* Twitter.framework */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D20493C15DC28670006D1CC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		5D2E197D15D714A300ED3EEB /* GayHaiku for iPhone guy supine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "GayHaiku for iPhone guy supine.png"; path = "../../GayHaiku for iPhone guy supine.png"; sourceTree = "<group>"; };
 		5D2F944D15D3D5090065FA2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5D68F94E15D9C343000E8AE5 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -48,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D20493D15DC28670006D1CC /* FacebookSDK.framework in Frameworks */,
 				5D68F94F15D9C343000E8AE5 /* Twitter.framework in Frameworks */,
 				5D2F944E15D3D5090065FA2D /* QuartzCore.framework in Frameworks */,
 				5D88856615D2C05200F38679 /* MessageUI.framework in Frameworks */,
@@ -63,6 +66,7 @@
 		5DA213B915BE2284007FEAFB = {
 			isa = PBXGroup;
 			children = (
+				5D20493C15DC28670006D1CC /* FacebookSDK.framework */,
 				5DA213CE15BE2284007FEAFB /* GayHaiku */,
 				5DA213C715BE2284007FEAFB /* Frameworks */,
 				5DA213C515BE2284007FEAFB /* Products */,
@@ -259,6 +263,10 @@
 		5DA213E315BE2284007FEAFB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GayHaiku/GayHaiku-Prefix.pch";
 				INFOPLIST_FILE = "GayHaiku/GayHaiku-Info.plist";
@@ -270,6 +278,10 @@
 		5DA213E415BE2284007FEAFB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GayHaiku/GayHaiku-Prefix.pch";
 				INFOPLIST_FILE = "GayHaiku/GayHaiku-Info.plist";
