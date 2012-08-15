@@ -14,7 +14,7 @@
 #import <Twitter/Twitter.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate>
+@interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate>
 {
         TWTweetComposeViewController *tweetView;
 }

@@ -14,7 +14,7 @@
 #import <Twitter/TWTweetComposeViewController.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@interface GHViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate,UIAlertViewDelegate,UIWebViewDelegate>
+@interface GHViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate,UIAlertViewDelegate,UIWebViewDelegate,UIGestureRecognizerDelegate>
 
 @end
 
@@ -22,6 +22,7 @@
 
 @synthesize gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU, tweetView;
 
+//————————————————code to set up navBars——————————————————
 
 -(void)loadNavBar:(NSString *)titl
 {
@@ -55,6 +56,8 @@
     [self.view addSubview:self.bar];
 }
 
+//————————————————code for Instructions page——————————————————
+
 -(void)haikuInstructions
 {
     self.textToSave = self.textView.text;
@@ -74,6 +77,8 @@
     self.instructions.text = @"\n\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation or an interrupting word.\n\nHave a fabulous time writing your own gay haiku.  Be aware that the author of this program may rely upon haiku you save as inspiration for future updates.";
     [self.view addSubview:self.instructions];
 }
+
+//————————————————code for Amazon page——————————————————
                              
 -(void)loadAmazon
 {    
@@ -114,10 +119,7 @@
     [self.webV loadRequest:requestObj];*/
     self.webV.scalesPageToFit=YES;
     [self.webV setFrame:(CGRectMake(0,44,320,372))];
-    [self.view addSubview:self.webV];
-    
-
-    
+    [self.view addSubview:self.webV];    
 }
 
 -(void)doneWithAmazon
@@ -135,6 +137,8 @@
     }
 }
 
+//————————————————code for compose page——————————————————
+
 -(void)setupForWriting
 {
     [self.textView becomeFirstResponder];
@@ -148,23 +152,12 @@
         self.textView.delegate = self;
         self.textView.returnKeyType = UIReturnKeyDefault;
         self.textView.keyboardType = UIKeyboardTypeDefault;
+        self.textView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
         self.textView.scrollEnabled = YES;
         self.textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     //}
     self.textView.backgroundColor = [UIColor colorWithRed:217 green:147 blue:182 alpha:.5];
     [self.view addSubview: self.textView];
-    NSLog(@"after create space to write: view %@, save %@",self.textView.text, self.textToSave);
-}
-
--(void)clearScreen
-{
-    [self.instructions removeFromSuperview];
-    [self.textView removeFromSuperview];
-    self.textView.text=@"";
-    [self.haiku_text removeFromSuperview];
-    [self.bar removeFromSuperview];
-    [self.webV removeFromSuperview];
-    [self.view viewWithTag:3].hidden=YES;
 }
 
 -(void)userWritesHaiku
@@ -187,8 +180,6 @@
         self.textView.text = self.textToSave;
     }
     [self.view addSubview:self.textView];
-
-    //Why doesn't this bring the keyboard back and set the cursor blinking in self.textView?
     [self.textView becomeFirstResponder];
     
     //Keyboard notifications.
@@ -196,7 +187,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    NSLog(@"after setup of userWrites:  view %@ textToSave: %@",self.textView.text, self.textToSave);
     /*
      Still to do:
      Give user chance to opt out of sending any haiku s/he composes to my central database.
@@ -221,11 +211,10 @@
 
 -(void)userFinishedWritingHaiku
 {
-    
-    //Still need to figure out how to dismiss keyboard.
     if (!self.textView.text || self.textView.text.length==0)
         {
             [self nextHaiku];
+            //But currently it goes to Review navBar--why?
         }
     else
     {
@@ -288,8 +277,6 @@
     //If haiku was saved, display in self.haiku_text.
     }
 
-
-
 -(void)keyboardWillHide:(NSNotification *)aNotification
 {
     NSTimeInterval animationDuration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
@@ -304,11 +291,70 @@
     self.navigationItem.rightBarButtonItem = saveItem;
 }*/
 
+-(void)saveUserHaiku
+{   if (self.textView.text.length>0)
+{
+    //First, add the haiku to self.gayHaiku.
+    
+    NSArray *quotes = [[NSArray alloc] initWithObjects:@"user", self.textView.text, nil];
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
+    NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
+    [[self gayHaiku] addObject:dictToSave];
+    if (self.bar) [self.bar removeFromSuperview];
+    self.textView.text=@"";
+    self.textToSave=@"";
+    [self.view viewWithTag:1].hidden = NO;
+    [self.view viewWithTag:3].hidden = NO;
+    self.haiku_text.text = [[self.gayHaiku lastObject] valueForKey:@"quote"];
+    [self.view addSubview:self.haiku_text];
+    
+    //Then update the array in the documents folder.
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"gayHaiku.plist"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath: path])
+    {
+        [self.gayHaiku writeToFile:path atomically:YES];
+    }
+    
+    //Should there be an option to DELETE haiku the user has written?
+    
+    /*
+     
+     This is part of the code to get haiku to "haiku" table on "gayhaiku" MySQL on db.joelderfner.com, but I have no idea what the fuck it says.  Or, rather, I can tell what it says, on a very basic level, sort of, but not how to set up what it's sending the message to.  "gayhaiku'."haiku" is set up, but what's the mechanism to get this haiku there?
+     
+     NSString *myRequestString = [NSString stringWithFormat:@"%@",self.haiku_text.text];
+     NSData *myRequestData = [NSData dataWithBytes:[myRequestString UTF8String] length:[myRequestString length]];
+     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.joelderfner.com/"]];
+     [request setHTTPMethod: @"POST"];
+     [request setHTTPBody: myRequestData];
+     NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+     NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+     // To see what the response from your server is, NSLog returnString to the console or use it whichever way you want it.
+     NSLog (@"%@", returnString);
+     */
+    
+    
+}
+else
+{
+    [self nextHaiku];
+}
+}
+
+//————————————————code for all pages——————————————————
+
 -(void)viewDidLoad {
 	[super viewDidLoad];
-	//NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"gayHaiku" ofType:@"plist"];
-	//self.gayHaiku = [NSMutableArray arrayWithContentsOfFile:plistCatPath];
-    
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(previousHaiku)];
+    swipeRight.numberOfTouchesRequired = 1;
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeRight];
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(nextHaiku)];
+    swipeLeft.numberOfTouchesRequired = 1;
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeLeft];
      NSError *error;
      NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
      NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -323,73 +369,24 @@
      [self nextHaiku];
 }
 
--(void)saveUserHaiku
-{   if (self.textView.text.length>0)
-    {
-        //First, add the haiku to self.gayHaiku.
-        
-        NSArray *quotes = [[NSArray alloc] initWithObjects:@"user", self.textView.text, nil];
-        NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
-        NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
-        [[self gayHaiku] addObject:dictToSave];
-        if (self.bar) [self.bar removeFromSuperview];
-        self.textView.text=@"";
-        self.textToSave=@"";
-        [self.view viewWithTag:1].hidden = NO;
-        [self.view viewWithTag:3].hidden = NO;
-        self.haiku_text.text = [[self.gayHaiku lastObject] valueForKey:@"quote"];
-        [self.view addSubview:self.haiku_text];
-        
-        //Then update the array in the documents folder.
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
-        NSString *documentsDirectory = [paths objectAtIndex:0];
-        NSString *path = [documentsDirectory stringByAppendingPathComponent:@"gayHaiku.plist"];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if ([fileManager fileExistsAtPath: path])
-        {
-            [self.gayHaiku writeToFile:path atomically:YES];
-        }
-        
-        //Should there be an option to DELETE haiku the user has written?
-        
-        /*
-         
-         This is part of the code to get haiku to "haiku" table on "gayhaiku" MySQL on db.joelderfner.com, but I have no idea what the fuck it says.  Or, rather, I can tell what it says, on a very basic level, sort of, but not how to set up what it's sending the message to.  "gayhaiku'."haiku" is set up, but what's the mechanism to get this haiku there?
-         
-        NSString *myRequestString = [NSString stringWithFormat:@"%@",self.haiku_text.text];
-        NSData *myRequestData = [NSData dataWithBytes:[myRequestString UTF8String] length:[myRequestString length]];
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.joelderfner.com/"]]; 
-        [request setHTTPMethod: @"POST"];
-        [request setHTTPBody: myRequestData];
-        NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-        NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-        // To see what the response from your server is, NSLog returnString to the console or use it whichever way you want it.
-        NSLog (@"%@", returnString);
-         */
-
-
-    }
-    else 
-    {
-        [self nextHaiku];
-    }
+-(void)clearScreen
+{
+    [self.instructions removeFromSuperview];
+    [self.textView removeFromSuperview];
+    self.textView.text=@"";
+    [self.haiku_text removeFromSuperview];
+    [self.bar removeFromSuperview];
+    [self.webV removeFromSuperview];
+    [self.view viewWithTag:3].hidden=YES;
 }
 
 -(void)viewDidUnload {
 	[super viewDidUnload];
 
 }
-
-- (IBAction)chooseDatabase:(UISegmentedControl *)segment {
-    if (segment.selectedSegmentIndex==1) {
-        self.selectedCategory = @"user";
-    }
-    else if (segment.selectedSegmentIndex==2) {
-        self.selectedCategory = @"all";
-    }
-    else self.selectedCategory = @"Derfner";
-}
   
+//————————————————code for action sheet——————————————————
+
 -(UIImage *)createImage
 {
     UIView *whatToUse;
@@ -415,6 +412,50 @@
     return myImage;
 }
 
+//Replace this with an action sheet after finding out what an action sheet is.
+-(IBAction)showMessage
+{
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Email",@"Facebook",@"Twitter", nil];
+    [message show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex { if (buttonIndex == 1) {
+    [self openMail];
+}
+else if (buttonIndex == 2) {
+    //Deal with Facebook API.
+    NSLog(@"Sent to Facebook.");
+}
+else if (buttonIndex == 3) {
+    [self tweetTapped];
+    
+}
+}
+
+- (void)tweetTapped
+{
+    if ([TWTweetComposeViewController canSendTweet])
+    {
+        TWTweetComposeViewController *tweetSheet =
+        [[TWTweetComposeViewController alloc] init];
+        [tweetSheet setInitialText:
+         @"Ignore this tweet--testing something."];
+        NSLog(@"Tweet sent.");
+        [self presentModalViewController:tweetSheet animated:YES];
+    }
+    else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Sorry"
+                                  message:@"Can't send."
+                                  delegate:self
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        NSLog(@"Not ready.");
+        [alertView show];
+    }
+}
+
 - (void)openMail {
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
@@ -433,7 +474,24 @@
         [alert show];
     }
 }
+
+/*-(void)postToFacebook
+{
+ 
+    UIImage *pic = [self createImage];
+    NSString *list = self.haiku_text.text;
+    NSString *kAppId=@"446573368720507";
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:kAppId, @"app_id",pic, @"picture",@"Gay Haiku", @"name",@"Maybe he'll love me if I give him a gay haiku....",@"message",nil];
+    [facebook dialog:@"feed"
+           andParams:params
+         andDelegate:self];
+
     
+}*/
+
+//NSURL httpwww.facebook.com/dialog/feed?app_id=446573368720507&picture=pic&name=Gay%20Haiku&description=self.haiku_text.text;
+//}
+
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {  
     switch (result)
@@ -461,8 +519,22 @@
 //- work this:
 //- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result;
 
--(IBAction)nextHaiku
+//————————————————code for display page——————————————————
+
+- (IBAction)chooseDatabase:(UISegmentedControl *)segment {
+    if (segment.selectedSegmentIndex==1) {
+        self.selectedCategory = @"user";
+    }
+    else if (segment.selectedSegmentIndex==2) {
+        self.selectedCategory = @"all";
+    }
+    else self.selectedCategory = @"Derfner";
+}
+
+-(void)nextHaiku
 {
+    [self.view.layer removeAllAnimations];
+    NSLog(@"Next");
     [self.bar removeFromSuperview];
     self.textView.text=@"";
     self.textToSave=@"";
@@ -501,7 +573,6 @@
                 sortingHat = (arc4random() % array_tot);
                 if (![arrayOfHaikuSeen containsObject:[filteredArray objectAtIndex:sortingHat]]) break;
             }
-            
             txt = [[filteredArray objectAtIndex:sortingHat] valueForKey:@"quote"];
             if (!arrayOfHaikuSeen || arrayOfHaikuSeen.count==array_tot)
             {
@@ -509,10 +580,6 @@
             }
             [arrayOfHaikuSeen addObject:[filteredArray objectAtIndex:sortingHat]];
             indexOfHaiku = arrayOfHaikuSeen.count;
-            if (indexOfHaiku && arrayOfHaikuSeen.count)
-            {
-                NSLog(@"%d %d",indexOfHaiku,arrayOfHaikuSeen.count);
-            }
             if (arrayOfHaikuSeen.count==filteredArray.count)
             {
                 [arrayOfHaikuSeen removeAllObjects];
@@ -535,7 +602,15 @@
     self.haiku_text.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
     self.haiku_text.backgroundColor = [UIColor clearColor];
     self.haiku_text.text=txt;
+    CATransition *transitionL = [CATransition animation];
+    transitionL.duration = 0.25;
+    transitionL.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transitionL.type = kCATransitionPush;
+    transitionL.subtype =kCATransitionFromRight;
+    transitionL.delegate = self;
+    [self.view.layer addAnimation:transitionL forKey:nil];
     [self.view addSubview:self.haiku_text];
+
     if (cat==@"user")
     {
         self.theseAreDoneU = arrayOfHaikuSeen;
@@ -551,20 +626,15 @@
         self.theseAreDoneD = arrayOfHaikuSeen;
         self.indxD = indexOfHaiku;
     }
+    NSLog(@"array: %d, index: %d",arrayOfHaikuSeen.count, indexOfHaiku);
     //Question:  how will it affect the user's experience if/when haiku s/he's already seen in "user" or "Derfner" categories reappear in "all" category?  Will this need to be adjusted?  If so, how?
 }
 
 
--(IBAction)previousHaiku
+-(void)previousHaiku
 {
-    if (self.bar)
-    {
-        [self.bar removeFromSuperview];
-    }
-        if (self.textView)
-    {
-        [self.textView removeFromSuperview];
-    }
+    [self.bar removeFromSuperview];
+    [self.textView removeFromSuperview];
         int indexOfHaiku;
         NSMutableArray *arrayOfHaikuSeen;
         NSString *cat;
@@ -587,18 +657,28 @@
         [self.view viewWithTag:1].hidden = NO;
         [self.view viewWithTag:3].hidden = NO;
     
-        if (arrayOfHaikuSeen.count>1 && indexOfHaiku>0)
+        if (arrayOfHaikuSeen.count>=2 && indexOfHaiku>=2)
         {
-            
+            NSLog(@"array: %d index: %d", arrayOfHaikuSeen.count, indexOfHaiku);
+            indexOfHaiku -= 1;
+            NSLog(@"after index minus 1:  array: %d index: %d", arrayOfHaikuSeen.count, indexOfHaiku);
             CGSize dimensions = CGSizeMake(320, 400);
-            CGSize xySize = [[[arrayOfHaikuSeen objectAtIndex:indexOfHaiku-2] valueForKey:@"quote"] sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
+            CGSize xySize = [[[arrayOfHaikuSeen objectAtIndex:indexOfHaiku] valueForKey:@"quote"] sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
+            NSLog(@"after creating xySize array: %d index: %d", arrayOfHaikuSeen.count, indexOfHaiku);
             [self.haiku_text removeFromSuperview];
             self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),200,320,200)];
-            self.haiku_text.text = [[arrayOfHaikuSeen objectAtIndex:indexOfHaiku-2] valueForKey:@"quote"];
+
+            self.haiku_text.text = [[arrayOfHaikuSeen objectAtIndex:indexOfHaiku-1] valueForKey:@"quote"];
             self.haiku_text.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
             self.haiku_text.backgroundColor = [UIColor clearColor];
+            CATransition *transition = [CATransition animation];
+            transition.duration = 0.25;
+            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            transition.type = kCATransitionPush;
+            transition.subtype =kCATransitionFromLeft;
+            transition.delegate = self;
+            [self.view.layer addAnimation:transition forKey:nil];
             [self.view addSubview:self.haiku_text];
-            indexOfHaiku -= 1;
         }
         if (cat==@"user")
         {
@@ -615,83 +695,9 @@
             self.theseAreDoneD = arrayOfHaikuSeen;
             self.indxD = indexOfHaiku;
         }
+        NSLog(@"Previous");
 }
 
-//Replace this with an action sheet after finding out what an action sheet is.
--(IBAction)showMessage
-{
-    UIAlertView *message = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Email",@"Facebook",@"Twitter", nil];
-    [message show];
-}
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex { if (buttonIndex == 1) { 
-     [self openMail]; 
-    } 
-     else if (buttonIndex == 2) { 
-         //Deal with Facebook API.
-         NSLog(@"Sent to Facebook."); 
-     } 
-     else if (buttonIndex == 3) {
-         [self tweetTapped];
-
-     }
- }
-
-- (IBAction)tweetTapped
-    {
-        if ([TWTweetComposeViewController canSendTweet])
-        {
-            TWTweetComposeViewController *tweetSheet =
-            [[TWTweetComposeViewController alloc] init];
-            [tweetSheet setInitialText:
-             @"Ignore this tweet--testing something."];
-            NSLog(@"Tweet sent.");
-            [self presentModalViewController:tweetSheet animated:YES];
-        }
-        else
-        {
-            UIAlertView *alertView = [[UIAlertView alloc]
-                                      initWithTitle:@"Sorry"
-                                      message:@"Can't send."
-                                      delegate:self
-                                      cancelButtonTitle:@"OK"                                                   
-                                      otherButtonTitles:nil];
-            NSLog(@"Not ready.");
-            [alertView show];
-        }
-    }
-/*-(void)sendToTwitter
-{
-    self.tweetView = [[TWTweetComposeViewController alloc] init];
-        NSLog(@"completionHandler about to be created.");
-    TWTweetComposeViewControllerCompletionHandler completionHandler =
-    ^(TWTweetComposeViewControllerResult result)
-    {
-        switch (result)
-        {
-            case TWTweetComposeViewControllerResultCancelled:
-                NSLog(@"Twitter Result: canceled");
-                break;
-            case TWTweetComposeViewControllerResultDone:
-                NSLog(@"Twitter Result: sent");
-                break;
-            default:
-                NSLog(@"Twitter Result: default");
-                break;
-        }
-        //[self dismissModalViewControllerAnimated:YES];
-    };
-    [tweetView setCompletionHandler:completionHandler];
-    NSLog(@"Finished sending to Twitter.");
-}
-
-- (void) previewTweet
-{
-    UIImage *myImage = [self createImage];
-    [self.tweetView setInitialText:@"Ignore this tweet--I'm testing something."];  //self.haiku_text.text];
-    [self.tweetView addImage:myImage];
-    NSLog(@"Tweet has been composed.");
-    //[self presentModalViewController:self.tweetView animated:YES];
-}*/
 
 @end
