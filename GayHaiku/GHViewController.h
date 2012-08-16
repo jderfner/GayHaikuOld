@@ -13,6 +13,7 @@
 #import <Twitter/TWTweetComposeViewController.h>
 #import <Twitter/Twitter.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate>
 {
@@ -31,10 +32,13 @@
 @property (nonatomic, retain) UITextView *textView;
 @property (nonatomic, retain) UIWebView *webV;
 @property (nonatomic, retain) UINavigationItem *titulus;
+@property (nonatomic, retain) UINavigationItem *tb;
 @property (nonatomic, retain) UINavigationBar *bar;
 @property (nonatomic, retain) UITextView *instructions;
 @property (nonatomic, retain) NSString *textToSave;
 @property (nonatomic, retain) TWTweetComposeViewController *tweetView;
+@property (nonatomic, retain) UIToolbar *toolb;
+@property (nonatomic) BOOL instructionsSeen;
 
 -(IBAction)chooseDatabase:(UISegmentedControl *)sender;
 -(IBAction)nextHaiku;
