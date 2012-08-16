@@ -30,39 +30,11 @@
 
 @interface GHViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate,UIAlertViewDelegate,UIWebViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate>
 
-@property (strong, nonatomic) IBOutlet FBProfilePictureView *profilePic;
-@property (strong, nonatomic) IBOutlet UIButton *buttonPostStatus;
-@property (strong, nonatomic) IBOutlet UIButton *buttonPostPhoto;
-@property (strong, nonatomic) IBOutlet UIButton *buttonPickFriends;
-@property (strong, nonatomic) IBOutlet UIButton *buttonPickPlace;
-@property (strong, nonatomic) IBOutlet UILabel *labelFirstName;
-@property (strong, nonatomic) FBLoginView *loginView;
-@property (strong, nonatomic) id<FBGraphUser> loggedInUser;
-
-- (IBAction)postStatusUpdateClick:(UIButton *)sender;
-- (IBAction)postPhotoClick:(UIButton *)sender;
-- (IBAction)pickFriendsClick:(UIButton *)sender;
-- (IBAction)pickPlaceClick:(UIButton *)sender;
-
-- (void)showAlert:(NSString *)message
-           result:(id)result
-            error:(NSError *)error;
-
-
 @end
 
 @implementation GHViewController
 
 @synthesize gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU, tweetView, toolb, tb, instructionsSeen;
-
-@synthesize buttonPostStatus = _buttonPostStatus;
-@synthesize buttonPostPhoto = _buttonPostPhoto;
-@synthesize buttonPickFriends = _buttonPickFriends;
-@synthesize buttonPickPlace = _buttonPickPlace;
-@synthesize labelFirstName = _labelFirstName;
-@synthesize loggedInUser = _loggedInUser;
-@synthesize profilePic = _profilePic;
-@synthesize loginView = _loginView;
 
 
 //————————————————code for all pages——————————————————
@@ -91,20 +63,7 @@
     
     //write code that runs haikuInstructions if user presses "My Haiku" in the segmented controller and it's never been pressed before:
     //if ([self chooseDatabase:1] && self.gayHaiku==0)
-    
-    //Here's the facebook stuff:
-    
-    //FBLoginView *loginview =
-    
-    self.loginView = 
-    [[FBLoginView alloc] initWithPermissions:[NSArray arrayWithObject:@"status_update"]];
-    
-    self.loginView.frame = CGRectOffset(self.loginView.frame, 5, 5);
-    //THIS NEXT LINE IS NOT GOOD.
-    self.loginView.delegate = self;
-    
-    [self.loginView sizeToFit];
-    
+       
     [self nextHaiku];
 }
 
@@ -646,7 +605,7 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
         [facebook dialog:@"feed" andDelegate:self];
     }
 */
-    
+ /*
 -(void)postToFacebook
 {
     UIImage *pic = [self createImage];
@@ -654,112 +613,8 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     NSString *kAppId=@"446573368720507";
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:kAppId, @"app_id",nil, @"link", pic, @"picture",@"Gay Haiku", @"name",nil, @"caption",@"Maybe he'll love me if I give him a gay haiku....",@"description",nil];
     
-     //ARGH!  IN THE NEXT LINE, "facebook" GIVES AN UNRECOGNIZED IDENTIFIER ERROR.  WHAT IS IT SUPPOSED TO BE AN INSTANTIATION OF?
-    
-    /*[facebook dialog:@"feed"
-           andParams:params
-         andDelegate:self];
+}
 */
-   
-///////////
-            [self.view addSubview:self.loginView];
-}
-
-    
-    // UIAlertView helper for post buttons
-- (void)showAlert:(NSString *)message
-result:(id)result
-error:(NSError *)error {
-    
-    NSString *alertMsg;
-    NSString *alertTitle;
-    if (error) {
-        alertMsg = error.localizedDescription;
-        alertTitle = @"Error";
-    } else {
-        NSDictionary *resultDict = (NSDictionary *)result;
-        alertMsg = [NSString stringWithFormat:@"Successfully posted '%@'.\nPost ID: %@",
-                    message, [resultDict valueForKey:@"id"]];
-        alertTitle = @"Success";
-    }
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:alertTitle
-                                                        message:alertMsg
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-    [alertView show];
-}
-    
-    // Post Photo button handler
-    - (IBAction)postPhotoClick:(UIButton *)sender {
-        
-        // Just use the icon image from the application itself.  A real app would have a more
-        // useful way to get an image.
-        UIImage *img = [UIImage imageNamed:@"Icon-72@2x.png"];
-        
-        [FBRequestConnection startForUploadPhoto:img
-                               completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                   [self showAlert:@"Photo Post" result:result error:error];
-                                   self.buttonPostPhoto.enabled = YES;
-                               }];
-        
-        self.buttonPostPhoto.enabled = NO;
-    }
-    
-    // Post Status Update button handler
-    - (IBAction)postStatusUpdateClick:(UIButton *)sender {
-        
-        // Post a status update to the user's feed via the Graph API, and display an alert view
-        // with the results or an error.
-        
-        NSString *message = [NSString stringWithFormat:@"Updating %@'s status at %@",
-                             self.loggedInUser.first_name, [NSDate date]];
-        
-        [FBRequestConnection startForPostStatusUpdate:message
-                                    completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                        
-                                        [self showAlert:message result:result error:error];
-                                        self.buttonPostStatus.enabled = YES;
-                                    }];
-        
-        self.buttonPostStatus.enabled = NO;
-    }
-    
-    - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
-        // first get the buttons set for login mode
-        self.buttonPostPhoto.enabled = YES;
-        self.buttonPostStatus.enabled = YES;
-        self.buttonPickFriends.enabled = YES;
-        self.buttonPickPlace.enabled = YES;
-    }
-    
-    - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
-user:(id<FBGraphUser>)user {
-    // here we use helper properties of FBGraphUser to dot-through to first_name and
-    // id properties of the json response from the server; alternatively we could use
-    // NSDictionary methods such as objectForKey to get values from the my json object
-    self.labelFirstName.text = [NSString stringWithFormat:@"Hello %@!", user.first_name];
-    // setting the profileID property of the FBProfilePictureView instance
-    // causes the control to fetch and display the profile picture for the user
-    self.profilePic.profileID = user.id;
-    self.loggedInUser = user;
-}
-    
-    - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
-        self.buttonPostPhoto.enabled = NO;
-        self.buttonPostStatus.enabled = NO;
-        self.buttonPickFriends.enabled = NO;
-        self.buttonPickPlace.enabled = NO;
-        
-        self.profilePic.profileID = nil;
-        self.labelFirstName.text = nil;
-    
-    
-}
-
-//////////////////////////////////HERE ENDS THE FACEBOOK STUFF
-
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {  
     switch (result)
@@ -976,28 +831,5 @@ user:(id<FBGraphUser>)user {
             self.indxD = indexOfHaiku;
         }
 }
-
-//////////////////////////////////////////////////////////////////////////////////////
-
-
-/*
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    // Create Login View so that the app will be granted "status_update" permission.
-
-}
-
-- (void)viewDidUnload {
-    self.buttonPickFriends = nil;
-    self.buttonPickPlace = nil;
-    self.buttonPostPhoto = nil;
-    self.buttonPostStatus = nil;
-    self.labelFirstName = nil;
-    self.loggedInUser = nil;
-    self.profilePic = nil;
-    [super viewDidUnload];
-}
-*/
 
 @end
