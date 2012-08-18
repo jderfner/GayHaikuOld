@@ -15,7 +15,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <FacebookSDK/FacebookSDK.h>
 
-@interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate>
+@interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,MFMessageComposeViewControllerDelegate>
 {
         TWTweetComposeViewController *tweetView;
 }
