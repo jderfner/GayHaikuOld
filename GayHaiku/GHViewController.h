@@ -42,14 +42,14 @@
 @property (nonatomic) BOOL savedEdit;
 @property (nonatomic) BOOL checkboxSelected;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segContrAsOutlet;
-@property (weak, nonatomic) IBOutlet UIButton *checkboxButton;
 @property (nonatomic, retain) NSString *meth;
 @property (weak, nonatomic) IBOutlet UITextField *userName;
+@property (nonatomic) BOOL boxSelected;
+@property (nonatomic, weak) IBOutlet UIButton *checkbox;
 
-
--(IBAction)checkboxButton:(id)sender;
+-(IBAction)SelectButton;
 -(IBAction)valueChanged:(UISegmentedControl *)sender;
--(IBAction)chooseDatabase:(UISegmentedControl *)sender;
+-(IBAction)chooseDatabase:(UISegmentedControl *)segment;
 -(IBAction)nextHaiku;
 -(IBAction)previousHaiku;
 -(IBAction)showMessage;

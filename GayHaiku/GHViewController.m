@@ -35,25 +35,28 @@
 #import "GHViewController.h"
 #import <Twitter/Twitter.h>
 #import <Twitter/TWTweetComposeViewController.h>
-#import <MobileCoreServices/MobileCoreServices.h>
+//#import <MobileCoreServices/MobileCoreServices.h>
 #import <FacebookSDK/FacebookSDK.h>
 
-@interface GHViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate,UIAlertViewDelegate,UIWebViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UITextFieldDelegate>
+@interface GHViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,UIAlertViewDelegate,UIWebViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UITextFieldDelegate,MFMessageComposeViewControllerDelegate>
 
 @end
 
 @implementation GHViewController
 @synthesize userName;
 @synthesize segContrAsOutlet;
-@synthesize checkboxButton;
+@synthesize checkbox;
 
-@synthesize gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU, tweetView, toolb, tb, instructionsSeen, savedEdit, checkboxSelected, meth;
+@synthesize gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU, tweetView, toolb, tb, instructionsSeen, savedEdit, boxSelected, meth;
 
 
 //————————————————code for all pages——————————————————
 
 -(void)viewDidLoad {
 	[super viewDidLoad];
+    
+    /*TEMPORARILY CODED OUT
+    //Swipe gesture recognizers
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(previousHaiku)];
     swipeRight.numberOfTouchesRequired = 1;
     swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
@@ -62,6 +65,10 @@
     swipeLeft.numberOfTouchesRequired = 1;
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     [self.view addGestureRecognizer:swipeLeft];
+    */
+     
+    /*TEMPORARILY CODED OUT
+    //Load haiku from documents directory
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -73,43 +80,43 @@
         [fileManager copyItemAtPath:bundle toPath: path error:&error];
     }
     self.gayHaiku = [[NSMutableArray alloc] initWithContentsOfFile: path];
-    [self.view viewWithTag:8].hidden=YES;
+    */
+    //Visual elements
     [self.view viewWithTag:5].hidden=YES;
     [self.view viewWithTag:6].hidden=YES;
     [self.view viewWithTag:7].hidden=YES;
+    [self.view viewWithTag:8].hidden=YES;
     self.checkboxSelected=NO;
-    [self nextHaiku];
+    //TEMPORARILY COMMENTED OUT
+    //[self nextHaiku];
 }
-
+/* TEMPORARILY CODED OUT
 -(void)clearScreen
 {
     [self.instructions removeFromSuperview];
     [self.textView removeFromSuperview];
-    self.textView.hidden = YES;
     [self.haiku_text removeFromSuperview];
     [self.bar removeFromSuperview];
     [self.toolb removeFromSuperview];
     [self.webV removeFromSuperview];
-    self.textView.text=@"";
     [self.toolb removeFromSuperview];
     [self.view viewWithTag:3].hidden=YES;
-    self.textView.editable=NO;
 }
+ */
 
 -(void)viewDidUnload
 {
-    [self setSegContrAsOutlet:nil];
-    self.checkboxSelected=NO;
-    [self setCheckboxButton:nil];
+    /*[self setSegContrAsOutlet:nil];
+    self.boxSelected=NO;
     [self setUserName:nil];
-	[super viewDidUnload];
     self.instructionsSeen=NO;
-    self.savedEdit=NO;
+    self.savedEdit=NO;*/
+    [super viewDidUnload];
 }
 
 //————————————————code to set up navBars——————————————————
 
--(void)loadNavBar:(NSString *)titl
+/*-(void)loadNavBar:(NSString *)titl
 {
     self.bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     self.titulus = [[UINavigationItem alloc] initWithTitle:titl];
@@ -117,7 +124,7 @@
 
 -(void)addLeftButton:(NSString *)titl callingMethod:(NSString *)method
 {
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:titl style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(meth)];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:titl style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(method)];
     self.titulus.leftBarButtonItem = button;
 }
 
@@ -136,8 +143,6 @@
     self.titulus.rightBarButtonItem = done;
 }
 
-
-
 /*-(void)addRightButton:(NSString *)titl callingMethod:(NSString *)method
 {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:titl style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(method)];
@@ -151,7 +156,7 @@
     NSArray *buttons = [[NSArray alloc] initWithObjects:button, button2, nil];
     self.titulus.rightBarButtonItems = buttons;
 }*/
-
+/*
 -(void)seeNavBar
 {
     [self.bar pushNavigationItem:self.titulus animated:YES];
@@ -222,17 +227,22 @@
     NSArray *buttons = [NSArray arrayWithObjects:compose, flex, action, flex, edit, flex, delete, flex, more, nil];
     [self.toolb setItems:buttons animated:NO];
 }
+*/
 
 //————————————————code for Instructions page——————————————————
-
+/* TEMPORARILY CODED OUT
 -(void)haikuInstructions
 {
     self.textToSave = self.textView.text;
     [self clearScreen];
-    [self loadNavBar:@"Instructions"];
-    self.meth=@"nextHaiku";
-    [self addDoneButton];
-    [self addLeftButton:@"Compose" callingMethod:@"userWritesHaiku"];
+    //TEMPORARILY COMMENTED OUT
+    //[self loadNavBar:@"Instructions"];
+    self.meth=@"userWritesHaiku";
+        //TEMPORARILY COMMENTED OUT
+    //[self addDoneButton];
+    //Why does hitting Compose send nextHaiku rather than userWritesHaiku?
+        //TEMPORARILY COMMENTED OUT
+    //[self addLeftButton:@"Compose" callingMethod:@"userWritesHaiku"];
     NSString *cat=@"user";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
     NSArray *filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
@@ -241,29 +251,27 @@
         self.selectedCategory=@"Derfner";
         self.segContrAsOutlet.selectedSegmentIndex=0;
     }
-    [self seeNavBar];
+        //TEMPORARILY COMMENTED OUT
+    //[self seeNavBar];
     self.instructions = [[UITextView alloc] initWithFrame:CGRectMake(20, 44, 280, 480-44)];
     self.instructions.backgroundColor=[UIColor clearColor];
-    [self loadToolbar];
-    [self addComposeAndActionAndMore];
+        //TEMPORARILY COMMENTED OUT
+    //[self loadToolbar];
+        //TEMPORARILY COMMENTED OUT
+    //[self addComposeAndActionAndMore];
     self.instructionsSeen=YES;
     self.instructions.text = @"\n\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation or an interrupting word.\n\nHave a fabulous time composing your own gay haiku.  Be aware that the author of this program may rely upon haiku you save as inspiration for future updates.";
     [self.view addSubview:self.instructions];
 }
-
--(void)displayInstructions:(id)sender
-{
-    
-}
-
+*/
 //————————————————code for Amazon page——————————————————
-      
+      /*
 -(void)addBackButton
 {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(webBack)];
     self.titulus.leftBarButtonItem = button;
-}
-
+}*/
+/*TEMPORARILY COMMENTED OUT
 -(void)loadAmazon
 {    
     //Create nav bar and toolbar.
@@ -308,9 +316,9 @@
     [self.webV setFrame:(CGRectMake(0,44,320,372))];
     [self.view addSubview:self.webV];
 }
-  
+  */
     //NEED TO ADD:  Code that displays an error message if user clicks on Amazon link while not connected.  It's this next method, I just don't understand how it works.
-
+/*TEMPORARILY CODED OUT
 -(void)webView:(UIWebView *)webview didFailLoadWithError:(NSError *)error {
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
@@ -322,9 +330,10 @@
     NSLog(@"Yuck.");
     NSLog(@"error: %@",[error localizedDescription]);
 }
-
+*/
 //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedString ] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 
+/*TEMPORARILY CODED OUT
 -(void)doneWithAmazon
 {
     [self clearScreen];
@@ -338,45 +347,41 @@
         [self.webV goBack];
     }
 }
+ */
 
 //————————————————code for compose page——————————————————
 
 
--(void)editSavedHaiku
+/*TEMPORARILY CODED OUT
+ -(void)editSavedHaiku
 {
     self.textToSave = self.haiku_text.text;
     self.savedEdit=YES;
     [self userWritesHaiku];
-}
+}*/
 
--(void)createSaveButton
+/*TEMPORARILY CODED OUT
+ -(void)createSaveButton
 {
     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:3 target:self action:@selector(saveUserHaiku)];
     
     save.style=UIBarButtonItemStyleBordered;
     
     self.titulus.rightBarButtonItem = save;
-}
+}*/
 
+/*TEMPORARILY CODED OUT FOR TESTING.
+ 
 -(void)createSpaceToWrite
 {
-    //if (!(self.textView.text.length>0 ))
-    //{
     [self.webV removeFromSuperview];
-        self.textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 60, 280, 150)];
-        self.textView.delegate = self;
-        self.textView.returnKeyType = UIReturnKeyDefault;
-        self.textView.keyboardType = UIKeyboardTypeDefault;
-        self.textView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
-        self.textView.scrollEnabled = YES;
-        self.textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        self.textView.userInteractionEnabled = YES;
-
-    //}
+    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 60, 280, 150)];
+    self.textView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
+    self.textView.userInteractionEnabled = YES;
     self.textView.backgroundColor = [UIColor colorWithRed:217 green:147 blue:182 alpha:.5];
     [self.view addSubview: self.textView];
-}
-
+}*/
+/*
 -(void)userNeedsInstructions
 {
     NSString *cat = @"user";
@@ -385,12 +390,15 @@
     filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
     if (self.instructionsSeen==NO && filteredArray.count == 0)
     {
-        [self haikuInstructions];
+            //TEMPORARILY COMMENTED OUT
+        //[self haikuInstructions];
     }
 }
-
+*/
+/*TEMPORARILY CODED OUT
 -(void)userWritesHaiku
 {
+    NSLog(@"instructionsSeen at beginning of userWritesHaiku:  %d",self.instructionsSeen);
     [self clearScreen];
     [self.view viewWithTag:5].hidden=YES;
     [self.view viewWithTag:6].hidden=YES;
@@ -398,43 +406,42 @@
     [self.view viewWithTag:8].hidden=YES;
     [self loadNavBar:@"Compose"];
     [self addLeftButton:@"Instructions" callingMethod:@"haikuInstructions"];
-    //If you've added text before calling haikuInstructions, when you return from haikuInstructions the textView window with the different background color AND the keyboard.
     self.meth=@"userFinishedWritingHaiku";
     [self addDoneButton];
     self.titulus.hidesBackButton=YES;
     [self seeNavBar];
     [self loadToolbar];
     [self addComposeAndActionAndMore];
-    NSLog(@"%c",self.instructionsSeen);
+    
     //Create and add the space for user to write.
     if (self.instructionsSeen==YES)
     {
-        [self createSpaceToWrite];
+        //[self createSpaceToWrite];
         if (self.textToSave!=@"")
-    {
-        self.textView.text = self.textToSave;
-    }
-    [self.view addSubview:self.textView];
-    //NOTE:  IF THE NEXT LINE IS REMOVED, WHEN THE USER TOUCHES THE "COMPOSE" BUTTON, THE COMPOSE SPACE SHOWS UP BUT THE KEYBOARD DOESN'T AUTOMATICALLY APPEAR--IT'S ONLY WHEN THE USER TOUCHES INSIDE THE COMPOSE SPACE THAT THE KEYBOARD APPEARS.  PERHAPS THIS CAN HELP WITH THE GODDAMN KEYBOARD PROBLEM.
-    [self.textView becomeFirstResponder];
+        {
+            self.textView.text = self.textToSave;
+        }
+        [self.view addSubview:self.textView];
     
-    //Keyboard notifications.
-    if (self.textView.editable=YES);
-    {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        //NOTE:  IF THE NEXT LINE IS REMOVED, WHEN THE USER TOUCHES THE "COMPOSE" BUTTON, THE COMPOSE SPACE SHOWS UP BUT THE KEYBOARD DOESN'T AUTOMATICALLY APPEAR--IT'S ONLY WHEN THE USER TOUCHES INSIDE THE COMPOSE SPACE THAT THE KEYBOARD APPEARS.  PERHAPS THIS CAN HELP WITH THE GODDAMN KEYBOARD PROBLEM.
+        [self.textView becomeFirstResponder];
+    
+        //Keyboard notifications.
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:)    name:UIKeyboardWillShowNotification object:nil];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    }
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     }
     else if (self.instructionsSeen==NO)
-        {
-            [self haikuInstructions];
-        }
-}
+    {
+        [self haikuInstructions];
+    }
+}*/
 
--(void)keyboardWillShow:(NSNotification *)aNotification
+/*TEMPORARILY CODED OUT.
+ 
+ -(void)keyboardWillShow:(NSNotification *)aNotification
 {
-    if (self.textView)
+    if (self.textView.editable)
     {
     CGRect keyboardRect = [[[aNotification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     NSTimeInterval animationDuration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
@@ -444,13 +451,8 @@
     [UIView setAnimationDuration:animationDuration];
     [UIView commitAnimations];
     }
-}
-
--(void)userEditsHaiku
-{
-    //Still need to write this.
-}
-
+}*/
+/*
 -(void)userFinishedWritingHaiku
 {
     if (!self.textView || self.textView.text.length==0)
@@ -474,52 +476,51 @@
     UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Delete Haiku" otherButtonTitles:@"Save", @"Opt Out", nil];
     actSheet.tag=1;
     [actSheet showInView:self.view];
-}
-
+}*/
+/*
 -(void)actionSheet:(UIActionSheet *)actSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    switch (actSheet.tag)
-    {
-        case 1:
-    
-    if (buttonIndex==0)
-    {
-        [self nextHaiku];
-    }
-    else if (buttonIndex==1)
-    {
-        [self saveUserHaiku];
-    }
-    else if (buttonIndex==2)
-    {
-        [self takeToOptOut];
-    }
-    else
-    {
-        [actSheet dismissWithClickedButtonIndex:2 animated:YES];
-    }
-            
-        case 2:
-       
-        if (buttonIndex == 1)
+    NSLog(@"actSheet.tag:  %d",actSheet.tag);
+    if (actSheet.tag==1)
         {
-            [self openMail];
+            if (buttonIndex==0)
+            {
+                [self nextHaiku];
+            }
+            else if (buttonIndex==1)
+            {
+                [self saveUserHaiku];
+            }
+            else if (buttonIndex==2)
+            {
+                //TEMPORARILY CODED OUT
+                //[self takeToOptOut];
+            }
+            else
+            {
+                [actSheet dismissWithClickedButtonIndex:2 animated:YES];
+            }
         }
-        else if (buttonIndex == 2)
+        else if (actSheet.tag==2)
         {
-            //Deal with Facebook API.
-            NSLog(@"Sent to Facebook.");
+            if (buttonIndex == 1)
+            {*/
+                /*TEMPORARILY CODED OUT
+                 [self openMail];
+                 */
+            /*}
+            else if (buttonIndex == 2)
+            {
+                //Deal with Facebook API.
+                NSLog(@"Sent to Facebook.");
+            }
+            else if (buttonIndex == 3)
+            {
+                TEMPORARILY CODED OUT
+                 [self tweetTapped];
+                 
+            }
         }
-        else if (buttonIndex == 3)
-        {
-            [self tweetTapped];
-        }
-            
-        default:
-
-        NSLog(@"Nanny, nanny, boo, boo!");
-    }
-
 }
 
 -(void)deleteHaiku
@@ -534,19 +535,22 @@
         if ([[[blah objectAtIndex:i] valueForKey:@"quote"] isEqualToString:textToDelete])
         {
             [self.gayHaiku removeObjectIdenticalTo:[blah objectAtIndex:i]];
-            [self saveToDocsFolder];
+            [self saveToDocsFolder:@"gayhaiku.plist"];
             if (blah.count>1)
             {
                 [self nextHaiku];   
             }
             else if (blah.count==1)
             {
-                [self haikuInstructions];
+                    //TEMPORARILY COMMENTED OUT
+                //[self haikuInstructions];
             }
             break;
         }
     }
 }
+*/
+/*TEMPORARILY CODED OUT.
 
 -(void)keyboardWillHide:(NSNotification *)aNotification
 {
@@ -554,50 +558,47 @@
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
     [UIView setAnimationDuration:animationDuration];
     [UIView commitAnimations];
-}
+}*/
 
 /*- (void)textViewDidBeginEditing:(UITextView *)textView
 {
     UIBarButtonItem *saveItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveAction:)];
     self.navigationItem.rightBarButtonItem = saveItem;
 }*/
-
+/*
 -(void)saveUserHaiku
 {   if (self.textView.text.length>0)
-{
-    //First, add the haiku to self.gayHaiku.
-    
-    NSArray *quotes = [[NSArray alloc] initWithObjects:@"user", self.textView.text, nil];
-    NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
-    NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
-    [[self gayHaiku] addObject:dictToSave];
-        self.textView.editable=NO;
-    [self clearScreen];
-    self.textToSave=@"";
-    [self.view viewWithTag:1].hidden = NO;
-    [self.view viewWithTag:3].hidden = NO;
-    self.haiku_text.text = [[self.gayHaiku lastObject] valueForKey:@"quote"];
-    [self.view addSubview:self.haiku_text];
-    self.textView.editable=NO;
-    [self loadToolbar];
-    [self addComposeAndActionAndMore];
-    [self saveToDocsFolder];
-    
-    //Then update the array in the documents folder.
-}}
-
--(void)saveToDocsFolder
+    {
+        NSArray *quotes = [[NSArray alloc] initWithObjects:@"user", self.textView.text, nil];
+        NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
+        NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
+        [[self gayHaiku] addObject:dictToSave];
+        //[self clearScreen];
+        self.textToSave=@"";
+        [self.view viewWithTag:1].hidden = NO;
+        [self.view viewWithTag:3].hidden = NO;
+        self.haiku_text.text = [[self.gayHaiku lastObject] valueForKey:@"quote"];
+        [self.view addSubview:self.haiku_text];
+            //TEMPORARILY COMMENTED OUT
+        //[self loadToolbar];
+        //[self addComposeAndActionAndMore];
+        [self saveToDocsFolder:@"gayHaiku.plist"];
+    }
+}
+*/
+/*
+-(void)saveToDocsFolder:(NSString *)string
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"gayHaiku.plist"];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:string];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath: path])
     {
         [self.gayHaiku writeToFile:path atomically:YES];
     }
 }
-
+*/
     /*
      
      This is part of the code to get haiku to "haiku" table on "gayhaiku" MySQL on db.joelderfner.com, but I have no idea what the fuck it says.  Or, rather, I can tell what it says, on a very basic level, sort of, but not how to set up what it's sending the message to.  "gayhaiku'."haiku" is set up, but what's the mechanism to get this haiku there?
@@ -614,11 +615,11 @@
      */
   
 //————————————————code for action sheet——————————————————
-
+/*
 -(UIImage *)createImage
 {
     UIView *whatToUse;
-    self.textView.userInteractionEnabled = NO;
+    self.textView.editable = NO;
     [whatToUse viewWithTag:10];
     [whatToUse viewWithTag:20];
     CGRect newRect = CGRectMake(0, 0, 320, 416);
@@ -638,8 +639,9 @@
 
     return myImage;
 }
-
+*/
 //Replace this with an action sheet after finding out what an action sheet is.
+/*
 -(void)showMessage
 {
     [self.webV removeFromSuperview];
@@ -648,8 +650,8 @@
     [actSheet showInView:self.view];
     //UIAlertView *message = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Email",@"Facebook",@"Twitter", nil];
     //[message show];
-}
-
+}*/
+/* TEMPORARILY COMMENTED OUT
 -(void)takeToOptOut
 {
     [self clearScreen];
@@ -668,24 +670,28 @@
     //Need to connect this with database.
     //Need to get checkbox working.
 }
-
+ */
+/*
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
     return YES;
 }
-
-- (IBAction)checkboxButton {
-	if (self.checkboxSelected == 0)
+*/
+/*
+- (IBAction)SelectButton
+{
+    if (self.boxSelected == 0)
     {
-		self.checkboxSelected = 1;
-	}
+        self.boxSelected = 1;
+    }
     else
     {
-		self.checkboxSelected = 0;
-	}
+        self.boxSelected = 0;
+    }
 }
-
+*/
+/*TEMPORARILY CODED OUT.
 - (void)tweetTapped
 {
     if ([TWTweetComposeViewController canSendTweet])
@@ -706,7 +712,8 @@
                                   otherButtonTitles:nil];
         [alertView show];
     }
-}
+}*/
+/*TEMPORARILY CODED OUT.
 
 - (void)openMail {
     if ([MFMailComposeViewController canSendMail]) {
@@ -727,7 +734,7 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failure." message:@"Your device doesn't support the composer sheet." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
     }
-}
+}*/
 
 /*
  
@@ -774,6 +781,7 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     
 }
 */
+/*
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {  
     switch (result)
@@ -796,9 +804,9 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     }
     [self dismissModalViewControllerAnimated:YES];
 }
-
+*/
 //- work this:
-//- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result;
+
 
 //————————————————code for display page——————————————————
 
@@ -838,8 +846,9 @@ An attempt to create the segmented control programmatically--but I somehow can't
 }
 
 */
-
-- (IBAction)chooseDatabase:(UISegmentedControl *)segment {
+/*
+ - (IBAction)chooseDatabase:(UISegmentedControl *)segment 
+ {
     if (segment.selectedSegmentIndex==1) {
         self.selectedCategory = @"user";
         //[self valueChanged:segment];
@@ -851,7 +860,8 @@ An attempt to create the segmented control programmatically--but I somehow can't
         self.selectedCategory = @"Derfner";
     }
 }
-
+ */
+/*
 -(void)nextHaiku
 {
     [self clearScreen];
@@ -860,7 +870,6 @@ An attempt to create the segmented control programmatically--but I somehow can't
     [self.view viewWithTag:3].hidden = NO;
     [self loadToolbar];
     [self addComposeAndActionAndMore];
-    //[self createSegmentedControl];
     int indexOfHaiku;
     NSMutableArray *arrayOfHaikuSeen;
     NSString *cat;
@@ -924,6 +933,7 @@ An attempt to create the segmented control programmatically--but I somehow can't
     self.haiku_text.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
     self.haiku_text.backgroundColor = [UIColor clearColor];
     self.haiku_text.text=txt;
+    self.haiku_text.editable=NO;
     CATransition *transition = [CATransition animation];
     transition.duration = 0.25;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -953,18 +963,14 @@ An attempt to create the segmented control programmatically--but I somehow can't
     }
     
     //Question:  how will it affect the user's experience if/when haiku s/he's already seen in "user" or "Derfner" categories reappear in "all" category?  Will this need to be adjusted?  If so, how?
-    self.textView.editable=NO;
-    [self.textView removeFromSuperview];
 }
+*/
 
-
+/* TEMPORARILY CODED OUT
 -(void)previousHaiku
 {
     [self clearScreen];
     [self.webV removeFromSuperview];
-    self.textView.editable=NO;
-    [self.textView setEditable:NO];
-    //[self createSegmentedControl];
     [self.bar removeFromSuperview];
         int indexOfHaiku;
         NSMutableArray *arrayOfHaikuSeen;
@@ -1030,7 +1036,7 @@ An attempt to create the segmented control programmatically--but I somehow can't
             self.indxD = indexOfHaiku;
         }
 }
-
+*//*
 - (IBAction)valueChanged:(UISegmentedControl *)sender
 {
         if (sender.selectedSegmentIndex==1 && self.instructionsSeen==YES)
@@ -1039,8 +1045,8 @@ An attempt to create the segmented control programmatically--but I somehow can't
         }
         else if (sender.selectedSegmentIndex==1 && self.instructionsSeen==NO)
         {
-            [self userNeedsInstructions];
+            //[self userNeedsInstructions];
         }
-}
+}*/
 
 @end
