@@ -39,7 +39,16 @@
 @property (nonatomic, retain) TWTweetComposeViewController *tweetView;
 @property (nonatomic, retain) UIToolbar *toolb;
 @property (nonatomic) BOOL instructionsSeen;
+@property (nonatomic) BOOL savedEdit;
+@property (nonatomic) BOOL checkboxSelected;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segContrAsOutlet;
+@property (weak, nonatomic) IBOutlet UIButton *checkboxButton;
+@property (nonatomic, retain) NSString *meth;
+@property (weak, nonatomic) IBOutlet UITextField *userName;
 
+
+-(IBAction)checkboxButton:(id)sender;
+-(IBAction)valueChanged:(UISegmentedControl *)sender;
 -(IBAction)chooseDatabase:(UISegmentedControl *)sender;
 -(IBAction)nextHaiku;
 -(IBAction)previousHaiku;
