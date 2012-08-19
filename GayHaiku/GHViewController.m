@@ -17,11 +17,13 @@
  
  3.  Connect app to central database so that haiku can be sent there.
  
- 4.  Need to get checkbox in opt-out working (I can probably figure this out) and opt-out connected to database (no clue).
+ 4.  Need to get opt-out connected to database (no clue).
  
  Other thoughts:
  
- 5.  Question:  how will it affect the user's experience if/when haiku
+ 5.  Still need to set user defaults
+ 
+ 6.  Question:  how will it affect the user's experience if/when haiku
  s/he's already seen in "user" or "Derfner" categories reappear in "all"
  category?  Will this need to be adjusted?  If so, how?
 
@@ -42,12 +44,16 @@
 
 @implementation GHViewController
 
-@synthesize userName, segContrAsOutlet, checkbox, gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU, tweetView, toolb, tb, instructionsSeen, savedEdit, checkboxSelected, meth;
+@synthesize userName, segContrAsOutlet, checkbox, gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU, tweetView, toolb, tb, instructionsSeen, savedEdit, checkboxChecked, meth;
 
 
 //————————————————code for all pages——————————————————
 
 -(void)viewDidLoad {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.instructionsSeen=[defaults boolForKey:@"seen?"];
+    NSLog(@"instructions seen:  %d",self.instructionsSeen);
+    NSLog(@"seen as data:  %d",[defaults boolForKey:@"seen?"]);
 	[super viewDidLoad];
     
 
@@ -79,7 +85,7 @@
     [self.view viewWithTag:6].hidden=YES;
     [self.view viewWithTag:7].hidden=YES;
     [self.view viewWithTag:8].hidden=YES;
-    self.checkboxSelected=YES;
+    self.checkboxChecked=YES;
     [self nextHaiku];
 }
 
@@ -98,11 +104,24 @@
 -(void)viewDidUnload
 {
     [self setSegContrAsOutlet:nil];
-    self.checkboxSelected=NO;
+    self.checkboxChecked=NO;
     [self setUserName:nil];
     self.instructionsSeen=NO;
     self.savedEdit=NO;
     [super viewDidUnload];
+}
+
+-(void)saveData
+{
+    if (self.instructionsSeen)
+    {
+        //NSData *data = [seenOrNotSeen dataUsingEncoding:NSUTF8StringEncoding];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:self.instructionsSeen forKey:@"seen?"];
+        [defaults synchronize];
+        NSLog(@"instructions seen:  %d",self.instructionsSeen);
+        NSLog(@"seen as data:  %d",[defaults boolForKey:@"seen?"]);
+    }
 }
 
 //————————————————code to set up navBars——————————————————
@@ -226,7 +245,7 @@
     self.textToSave = self.textView.text;
     [self clearScreen];
     [self loadNavBar:@"Instructions"];
-    self.meth=@"userWritesHaiku";
+    self.meth=@"nextHaiku";
     [self addDoneButton];
     [self addLeftButton:@"Compose" callingMethod:@"userWritesHaiku"];
     NSString *cat=@"user";
@@ -243,8 +262,10 @@
     [self loadToolbar];
     [self addComposeAndActionAndMore];
     self.instructionsSeen=YES;
+    [self saveData];
     self.instructions.text = @"\n\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation or an interrupting word.\n\nHave a fabulous time composing your own gay haiku.  Be aware that the author of this program may rely upon haiku you save as inspiration for future updates.";
     [self.view addSubview:self.instructions];
+    NSLog(@"instructions seen in method:  %d",self.instructionsSeen);
 }
 
 //————————————————code for Amazon page——————————————————
@@ -639,12 +660,12 @@
 
 - (IBAction)selectButton
 {
-    (self.checkboxSelected)=!(self.checkboxSelected);
-    if (self.checkboxSelected)
+    (self.checkboxChecked)=!(self.checkboxChecked);
+    if (self.checkboxChecked)
     {
         [self.checkbox setImage:[UIImage imageNamed:@"checkbox-checked.png"] forState:UIControlStateNormal];
     }
-    else if (!self.checkboxSelected)
+    else if (!self.checkboxChecked)
     {
         [self.checkbox setImage:[UIImage imageNamed:@"checkbox.png"] forState:UIControlStateNormal];
     }

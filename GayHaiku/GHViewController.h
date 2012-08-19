@@ -40,9 +40,9 @@
 @property (nonatomic, retain) UIToolbar *toolb;
 @property (nonatomic) BOOL instructionsSeen;
 @property (nonatomic) BOOL savedEdit;
-@property (nonatomic) BOOL checkboxSelected;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segContrAsOutlet;
+@property (nonatomic) BOOL checkboxChecked;
 @property (nonatomic, retain) NSString *meth;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segContrAsOutlet;
 @property (weak, nonatomic) IBOutlet UITextField *userName;
 @property (nonatomic, weak) IBOutlet UIButton *checkbox;
 
