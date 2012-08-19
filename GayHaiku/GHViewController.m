@@ -41,11 +41,8 @@
 @end
 
 @implementation GHViewController
-@synthesize userName;
-@synthesize segContrAsOutlet;
-@synthesize checkbox;
 
-@synthesize gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU, tweetView, toolb, tb, instructionsSeen, savedEdit, boxSelected, meth;
+@synthesize userName, segContrAsOutlet, checkbox, gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU, tweetView, toolb, tb, instructionsSeen, savedEdit, checkboxSelected, meth;
 
 
 //————————————————code for all pages——————————————————
@@ -82,7 +79,7 @@
     [self.view viewWithTag:6].hidden=YES;
     [self.view viewWithTag:7].hidden=YES;
     [self.view viewWithTag:8].hidden=YES;
-    self.checkboxSelected=NO;
+    self.checkboxSelected=YES;
     [self nextHaiku];
 }
 
@@ -101,7 +98,7 @@
 -(void)viewDidUnload
 {
     [self setSegContrAsOutlet:nil];
-    self.boxSelected=NO;
+    self.checkboxSelected=NO;
     [self setUserName:nil];
     self.instructionsSeen=NO;
     self.savedEdit=NO;
@@ -376,7 +373,6 @@
 
 -(void)userWritesHaiku
 {
-    NSLog(@"instructionsSeen at beginning of userWritesHaiku:  %d",self.instructionsSeen);
     [self clearScreen];
     [self.view viewWithTag:5].hidden=YES;
     [self.view viewWithTag:6].hidden=YES;
@@ -454,7 +450,6 @@
 
 -(void)actionSheet:(UIActionSheet *)actSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSLog(@"actSheet.tag:  %d",actSheet.tag);
     if (actSheet.tag==1)
         {
             if (buttonIndex==0)
@@ -492,6 +487,10 @@
         }
 }
 
+-(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    //XCode wants this method implemented, but I have no idea where or what goes inside it.
+}
 -(void)deleteHaiku
 {
     NSString *textToDelete = self.haiku_text.text;
@@ -615,6 +614,7 @@
 -(void)takeToOptOut
 {
     [self clearScreen];
+    [self selectButton];
     [self loadNavBar:@"Your Haiku"];
     [self addLeftButton:@"Back" callingMethod:@"userWritesHaiku"];
     [self seeNavBar];
@@ -631,21 +631,22 @@
     //Need to get checkbox working.
 }
 
-/*- (BOOL)textFieldShouldReturn:(UITextField *)textField
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
     return YES;
-}*/
+}
 
-- (IBAction)SelectButton
+- (IBAction)selectButton
 {
-    if (self.boxSelected == 0)
+    (self.checkboxSelected)=!(self.checkboxSelected);
+    if (self.checkboxSelected)
     {
-        self.boxSelected = 1;
+        [self.checkbox setImage:[UIImage imageNamed:@"checkbox-checked.png"] forState:UIControlStateNormal];
     }
-    else
+    else if (!self.checkboxSelected)
     {
-        self.boxSelected = 0;
+        [self.checkbox setImage:[UIImage imageNamed:@"checkbox.png"] forState:UIControlStateNormal];
     }
 }
 
@@ -840,7 +841,6 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
             indexOfHaiku += 1;
         }
     }
-
     CGSize dimensions = CGSizeMake(320, 400);
     CGSize xySize = [txt sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
     self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),200,320,200)];
@@ -860,6 +860,7 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     [self.view viewWithTag:7].hidden=YES;
     [self.view viewWithTag:8].hidden=YES;
     [self.view addSubview:self.haiku_text];
+    NSLog(@"index %d, array seen %d",indexOfHaiku,arrayOfHaikuSeen.count);
     if (cat==@"user")
     {
         self.theseAreDoneU = arrayOfHaikuSeen;
@@ -877,87 +878,91 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     }
     
     //Question:  how will it affect the user's experience if/when haiku s/he's already seen in "user" or "Derfner" categories reappear in "all" category?  Will this need to be adjusted?  If so, how?
+    NSLog(@"Blah!");
 }
 
 -(void)previousHaiku
 {
-    [self clearScreen];
+    //[self clearScreen];
     [self.webV removeFromSuperview];
     [self.bar removeFromSuperview];
-        int indexOfHaiku;
-        NSMutableArray *arrayOfHaikuSeen;
-        NSString *cat;
-        if (!self.selectedCategory) cat = @"Derfner";
-        else cat = self.selectedCategory;
-        NSArray *filteredArray;
-        if (cat==@"all")
-        {
-            filteredArray = self.gayHaiku;
-            indexOfHaiku = self.indxAll;
-            arrayOfHaikuSeen = self.theseAreDoneAll;
-        }
-        else
-        {
-            indexOfHaiku = (cat==@"user")?self.indxU:self.indxD;
-            arrayOfHaikuSeen = (cat==@"user")?self.theseAreDoneU:self.theseAreDoneD;
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
-            filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
-            if (cat==@"user")
-            {
-                [self.toolb removeFromSuperview];
-                [self loadToolbar];
-                [self addComposeAndActionAndMoreAndDelete];
-            }
-        }
-        [self.view viewWithTag:3].hidden = NO;
-    
-        if (arrayOfHaikuSeen.count>=2 && indexOfHaiku>=2)
-        {
-            indexOfHaiku -= 1;
-            CGSize dimensions = CGSizeMake(320, 400);
-            CGSize xySize = [[[arrayOfHaikuSeen objectAtIndex:indexOfHaiku] valueForKey:@"quote"] sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
-            [self.haiku_text removeFromSuperview];
-            self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),200,320,200)];
-
-            self.haiku_text.text = [[arrayOfHaikuSeen objectAtIndex:indexOfHaiku-1] valueForKey:@"quote"];
-            self.haiku_text.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
-            self.haiku_text.backgroundColor = [UIColor clearColor];
-            CATransition *transition = [CATransition animation];
-            transition.duration = 0.25;
-            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-            transition.type = kCATransitionPush;
-            transition.subtype =kCATransitionFromLeft;
-            transition.delegate = self;
-            [self.view.layer addAnimation:transition forKey:nil];
-            [self.view addSubview:self.haiku_text];
-        }
+    [self loadToolbar];
+    [self addComposeAndActionAndMore];
+    int indexOfHaiku;
+    NSMutableArray *arrayOfHaikuSeen;
+    NSString *cat;
+    if (!self.selectedCategory) cat = @"Derfner";
+    else cat = self.selectedCategory;
+    NSArray *filteredArray;
+    if (cat==@"all")
+    {
+        filteredArray = self.gayHaiku;
+        indexOfHaiku = self.indxAll;
+        arrayOfHaikuSeen = self.theseAreDoneAll;
+    }
+    else
+    {
+        indexOfHaiku = (cat==@"user")?self.indxU:self.indxD;
+        arrayOfHaikuSeen = (cat==@"user")?self.theseAreDoneU:self.theseAreDoneD;
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
+        filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
         if (cat==@"user")
         {
-            self.theseAreDoneU = arrayOfHaikuSeen;
-            self.indxU = indexOfHaiku;
+            [self.toolb removeFromSuperview];
+            [self loadToolbar];
+            [self addComposeAndActionAndMoreAndDelete];
         }
-        else if (cat==@"all")
-        {
-            self.theseAreDoneAll = arrayOfHaikuSeen;
-            self.indxAll = indexOfHaiku;
-        }
-        else 
-        {
-            self.theseAreDoneD = arrayOfHaikuSeen;
-            self.indxD = indexOfHaiku;
-        }
+    }
+    [self.view viewWithTag:3].hidden = NO;
+    NSLog(@"index %d, array seen %d",indexOfHaiku,arrayOfHaikuSeen.count);
+    if (arrayOfHaikuSeen.count>=2 && indexOfHaiku>=2)
+    {
+        NSLog(@"index %d, array seen %d",indexOfHaiku,arrayOfHaikuSeen.count);
+        indexOfHaiku -= 1;
+        CGSize dimensions = CGSizeMake(320, 400);
+        CGSize xySize = [[[arrayOfHaikuSeen objectAtIndex:indexOfHaiku] valueForKey:@"quote"] sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
+        [self.haiku_text removeFromSuperview];
+        self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),200,320,200)];
+        self.haiku_text.text = [[arrayOfHaikuSeen objectAtIndex:indexOfHaiku-1] valueForKey:@"quote"];
+        self.haiku_text.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
+        self.haiku_text.backgroundColor = [UIColor clearColor];
+        CATransition *transition = [CATransition animation];
+        transition.duration = 0.25;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type = kCATransitionPush;
+        transition.subtype =kCATransitionFromLeft;
+        transition.delegate = self;
+        [self.view.layer addAnimation:transition forKey:nil];
+        [self.view addSubview:self.haiku_text];
+    NSLog(@"index %d, array seen %d",indexOfHaiku,arrayOfHaikuSeen.count);
+    }
+    if (cat==@"user")
+    {
+        self.theseAreDoneU = arrayOfHaikuSeen;
+        self.indxU = indexOfHaiku;
+    }
+    else if (cat==@"all")
+    {
+        self.theseAreDoneAll = arrayOfHaikuSeen;
+        self.indxAll = indexOfHaiku;
+    }
+    else
+    {
+        self.theseAreDoneD = arrayOfHaikuSeen;
+        self.indxD = indexOfHaiku;
+    }
 }
 
 - (IBAction)valueChanged:(UISegmentedControl *)sender
 {
-        if (sender.selectedSegmentIndex==1 && self.instructionsSeen==YES)
-        {
-                [self userWritesHaiku];
-        }
-        else if (sender.selectedSegmentIndex==1 && self.instructionsSeen==NO)
-        {
-            [self userNeedsInstructions];
-        }
+    if (sender.selectedSegmentIndex==1 && self.instructionsSeen==YES)
+    {
+            [self userWritesHaiku];
+    }
+    else if (sender.selectedSegmentIndex==1 && self.instructionsSeen==NO)
+    {
+        [self userNeedsInstructions];
+    }
 }
 
 @end

@@ -17,7 +17,7 @@
 
 @interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,MFMessageComposeViewControllerDelegate>
 {
-        TWTweetComposeViewController *tweetView;
+
 }
 
 @property (nonatomic, retain) NSMutableArray *gayHaiku;
@@ -44,16 +44,15 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segContrAsOutlet;
 @property (nonatomic, retain) NSString *meth;
 @property (weak, nonatomic) IBOutlet UITextField *userName;
-@property (nonatomic) BOOL boxSelected;
 @property (nonatomic, weak) IBOutlet UIButton *checkbox;
 
--(IBAction)SelectButton;
+-(IBAction)selectButton;
 -(IBAction)valueChanged:(UISegmentedControl *)sender;
 -(IBAction)chooseDatabase:(UISegmentedControl *)segment;
 -(IBAction)nextHaiku;
 -(IBAction)previousHaiku;
--(IBAction)showMessage;
--(IBAction)loadAmazon;
--(IBAction)userWritesHaiku;
+//-(IBAction)showMessage;
+//-(IBAction)loadAmazon;
+//-(IBAction)userWritesHaiku;
 
 @end
