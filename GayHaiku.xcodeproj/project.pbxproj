@@ -327,6 +327,7 @@
 		5DB8D93615DD724200CD94FE /* SwitchUserSample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SwitchUserSample-Info.plist"; sourceTree = "<group>"; };
 		5DB8D93715DD724200CD94FE /* SwitchUserSample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwitchUserSample-Prefix.pch"; sourceTree = "<group>"; };
 		5DB8D93815DD724200CD94FE /* SwitchUserSample.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SwitchUserSample.xcodeproj; sourceTree = "<group>"; };
+		5DCDAE1915E20647002589D1 /* build_facebook_ios_sdk_static_lib.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = build_facebook_ios_sdk_static_lib.sh; path = "../../facebook-ios-sdk/scripts/build_facebook_ios_sdk_static_lib.sh"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -367,6 +368,7 @@
 		5DA213C715BE2284007FEAFB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5DCDAE1915E20647002589D1 /* build_facebook_ios_sdk_static_lib.sh */,
 				5DB8D82315DD724100CD94FE /* FacebookSDK.framework */,
 				5D68F94E15D9C343000E8AE5 /* Twitter.framework */,
 				5D2F944D15D3D5090065FA2D /* QuartzCore.framework */,

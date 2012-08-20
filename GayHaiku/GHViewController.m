@@ -13,7 +13,7 @@
  Is it necessary to create GHWebView as a separate class?
  
  2.  Write code that gives error if user tries to click on Amazon and a
- connection isn't available.  Use Reachability classes I just downloaded?
+ connection isn't available.
  
  3.  Connect app to central database so that haiku can be sent there.
  
@@ -21,9 +21,7 @@
  
  Other thoughts:
  
- 5.  Still need to set user defaults
- 
- 6.  Question:  how will it affect the user's experience if/when haiku
+6.  Question:  how will it affect the user's experience if/when haiku
  s/he's already seen in "user" or "Derfner" categories reappear in "all"
  category?  Will this need to be adjusted?  If so, how?
 
@@ -44,7 +42,7 @@
 
 @implementation GHViewController
 
-@synthesize userName, segContrAsOutlet, checkbox, gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU, tweetView, toolb, tb, instructionsSeen, savedEdit, checkboxChecked, meth;
+@synthesize userName, segContrAsOutlet, checkbox, gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU, tweetView, toolb, tb, instructionsSeen, savedEdit, checkboxChecked, meth, urlData, connection, request, urlString, baseURLString;
 
 
 //————————————————code for all pages——————————————————
@@ -52,11 +50,7 @@
 -(void)viewDidLoad {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.instructionsSeen=[defaults boolForKey:@"seen?"];
-    NSLog(@"instructions seen:  %d",self.instructionsSeen);
-    NSLog(@"seen as data:  %d",[defaults boolForKey:@"seen?"]);
 	[super viewDidLoad];
-    
-
     //Swipe gesture recognizers
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(previousHaiku)];
     swipeRight.numberOfTouchesRequired = 1;
@@ -66,6 +60,7 @@
     swipeLeft.numberOfTouchesRequired = 1;
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     [self.view addGestureRecognizer:swipeLeft];
+    self.webV.delegate = self;
      
     //Load haiku from documents directory
     NSError *error;
@@ -119,8 +114,6 @@
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setBool:self.instructionsSeen forKey:@"seen?"];
         [defaults synchronize];
-        NSLog(@"instructions seen:  %d",self.instructionsSeen);
-        NSLog(@"seen as data:  %d",[defaults boolForKey:@"seen?"]);
     }
 }
 
@@ -263,7 +256,7 @@
     [self addComposeAndActionAndMore];
     self.instructionsSeen=YES;
     [self saveData];
-    self.instructions.text = @"\n\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation or an interrupting word.\n\nHave a fabulous time composing your own gay haiku.  Be aware that the author of this program may rely upon haiku you save as inspiration for future updates.";
+    self.instructions.text = @"\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation or an interrupting word.\n\nHave a fabulous time composing your own gay haiku.  Be aware that the author of this program may rely upon haiku you save as inspiration for future updates.";
     [self.view addSubview:self.instructions];
     NSLog(@"instructions seen in method:  %d",self.instructionsSeen);
 }
@@ -292,50 +285,49 @@
     [self addComposeAndAction];
     
     //Create UIWebView.
-    self.webV.delegate = self;
+
     self.webV = [[UIWebView alloc] init];
     
     //Load Amazon page.
-     NSData *urlData;
-     NSString *baseURLString =  @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
-     NSString *urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
-     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 20];
-     NSURLConnection *connection=[[NSURLConnection alloc] initWithRequest:request delegate:nil];
-     NSError *error=nil;
-     NSURLResponse *response=nil;
-     if (connection)
-     {
-         urlData = [ NSURLConnection sendSynchronousRequest: request returningResponse:&response error:&error];
-     NSString *htmlString = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
-     [self.webV loadHTMLString:htmlString baseURL:[NSURL URLWithString:baseURLString]];
-     }
-    else
-    {
-        UIAlertView *alert = [[UIAlertView alloc] init];
-        alert.title = @"Yuck!";
-        NSLog(@"Yuck.");
-        [alert show];
-    }
+     self.baseURLString =  @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
+     self.urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
+    [self loadWebViewWithbaseURLString:self.baseURLString withURLString:self.urlString];
     self.webV.scalesPageToFit=YES;
     [self.webV setFrame:(CGRectMake(0,44,320,372))];
     [self.view addSubview:self.webV];
 }
 
-    //NEED TO ADD:  Code that displays an error message if user clicks on Amazon link while not connected.  It's this next method, I just don't understand how it works.
-
--(void)webView:(UIWebView *)webview didFailLoadWithError:(NSError *)error {
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                    message:@"Sucks to be you."
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-    NSLog(@"Yuck.");
-    NSLog(@"error: %@",[error localizedDescription]);
+-(void)loadWebViewWithbaseURLString:bus withURLString:us
+{
+    self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:us] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 20];
+    self.connection=[[NSURLConnection alloc] initWithRequest:self.request delegate:nil];
+    NSError *error=nil;
+    NSURLResponse *response=nil;
+    if (self.connection)
+    {
+        self.urlData = [ NSURLConnection sendSynchronousRequest: self.request returningResponse:&response error:&error];
+        NSString *htmlString = [[NSString alloc] initWithData:self.urlData encoding:NSUTF8StringEncoding];
+        [self.webV loadHTMLString:htmlString baseURL:[NSURL URLWithString:bus]];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] init];
+        alert.title = @"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I'll make it worth your while, I promise.";
+        [alert show];
+    }
 }
 
-//UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedString ] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    //This does nothing.
+    NSLog(@"Yah, yah, yah.");
+}
+
+- (void)webView:(UIWebView*)webView didFailLoadWithError:(NSError *)error
+{
+    //This does nothing.
+    NSLog(@"Wah, wah, wah.");
+}
 
 -(void)doneWithAmazon
 {
@@ -498,7 +490,6 @@
             }
             else if (buttonIndex == 1)
             {
-                //Deal with Facebook API.
                 NSLog(@"Sent to Facebook.");
             }
             else if (buttonIndex == 2)
@@ -756,8 +747,8 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     NSString *kAppId=@"446573368720507";
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:kAppId, @"app_id",nil, @"link", pic, @"picture",@"Gay Haiku", @"name",nil, @"caption",@"Maybe he'll love me if I give him a gay haiku....",@"description",nil];
     
-}
-*/
+}*/
+
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {  
@@ -881,7 +872,6 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     [self.view viewWithTag:7].hidden=YES;
     [self.view viewWithTag:8].hidden=YES;
     [self.view addSubview:self.haiku_text];
-    NSLog(@"index %d, array seen %d",indexOfHaiku,arrayOfHaikuSeen.count);
     if (cat==@"user")
     {
         self.theseAreDoneU = arrayOfHaikuSeen;
@@ -899,7 +889,6 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     }
     
     //Question:  how will it affect the user's experience if/when haiku s/he's already seen in "user" or "Derfner" categories reappear in "all" category?  Will this need to be adjusted?  If so, how?
-    NSLog(@"Blah!");
 }
 
 -(void)previousHaiku

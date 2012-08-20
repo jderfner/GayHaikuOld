@@ -30,7 +30,6 @@
 @property (nonatomic) int indxU;
 @property (nonatomic) int indxD;
 @property (nonatomic, retain) UITextView *textView;
-@property (nonatomic, retain) UIWebView *webV;
 @property (nonatomic, retain) UINavigationItem *titulus;
 @property (nonatomic, retain) UINavigationItem *tb;
 @property (nonatomic, retain) UINavigationBar *bar;
@@ -45,6 +44,12 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segContrAsOutlet;
 @property (weak, nonatomic) IBOutlet UITextField *userName;
 @property (nonatomic, weak) IBOutlet UIButton *checkbox;
+@property (nonatomic, weak) NSData *urlData;
+@property (nonatomic, strong) NSURLConnection *connection;
+@property (nonatomic, strong) NSURLRequest *request;
+@property (nonatomic, strong) NSString *urlString;
+@property (nonatomic, strong) NSString *baseURLString;
+@property (nonatomic, strong) UIWebView *webV;
 
 -(IBAction)selectButton;
 -(IBAction)valueChanged:(UISegmentedControl *)sender;
