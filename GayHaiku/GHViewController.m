@@ -734,10 +734,9 @@
 
 -(void)showMessage
 {
-    //If you press the action (=showMessage) button on the Instructions page, instead of this you get a keyboard.  Why?
+    //If you call this from Instructions (from other places too?) you get the haiku displayed too far to the right.
     [self.instructions removeFromSuperview];
     [self.webV removeFromSuperview];
-    //[self resignFirstResponder];
     [self clearScreen];
     [self nextHaiku];
     [self previousHaiku];
@@ -763,7 +762,6 @@
     [self loadToolbar];
     [self addComposeAndActionAndMore];
     //Need to connect this with database.
-    //Need to get checkbox working.
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -920,6 +918,7 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
 
 -(void)nextHaiku
 {
+    //Okay, now this and previousHaiku bring up the keyboard when you click on the lower far left side of the screen.  WHY?!?!?!
     [self clearScreen];
     self.textToSave=@"";
     self.haiku_text.text=@"";
@@ -988,7 +987,6 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     self.haiku_text.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
     self.haiku_text.backgroundColor = [UIColor clearColor];
     self.haiku_text.text=txt;
-    self.haiku_text.editable=NO;
     CATransition *transition = [CATransition animation];
     transition.duration = 0.25;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -1016,7 +1014,7 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
         self.theseAreDoneD = arrayOfHaikuSeen;
         self.indxD = indexOfHaiku;
     }
-    
+        self.haiku_text.editable=NO;
     //Question:  how will it affect the user's experience if/when haiku s/he's already seen in "user" or "Derfner" categories reappear in "all" category?  Will this need to be adjusted?  If so, how?
 }
 
@@ -1087,6 +1085,7 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
         self.theseAreDoneD = arrayOfHaikuSeen;
         self.indxD = indexOfHaiku;
     }
+        self.haiku_text.editable=NO;
 }
 
 - (IBAction)valueChanged:(UISegmentedControl *)sender
