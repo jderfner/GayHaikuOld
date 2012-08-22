@@ -15,10 +15,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <FacebookSDK/FacebookSDK.h>
 
-@interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,MFMessageComposeViewControllerDelegate>
-{
-
-}
+@interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,MFMessageComposeViewControllerDelegate,UIWebViewDelegate>
 
 @property (nonatomic, retain) NSMutableArray *gayHaiku;
 @property (nonatomic, retain) NSString *selectedCategory;
@@ -44,11 +41,16 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segContrAsOutlet;
 @property (weak, nonatomic) IBOutlet UITextField *userName;
 @property (nonatomic, weak) IBOutlet UIButton *checkbox;
+@property (nonatomic, strong) NSURLRequest *requ;
+@property (nonatomic, strong) NSURLConnection *conn;
+@property (nonatomic, strong) NSData *urlData;
+/*
 @property (nonatomic, weak) NSData *urlData;
 @property (nonatomic, strong) NSURLConnection *connection;
 @property (nonatomic, strong) NSURLRequest *request;
 @property (nonatomic, strong) NSString *urlString;
 @property (nonatomic, strong) NSString *baseURLString;
+ */
 @property (nonatomic, strong) UIWebView *webV;
 
 -(IBAction)selectButton;

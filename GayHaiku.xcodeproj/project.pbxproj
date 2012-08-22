@@ -99,6 +99,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5D01A81715E5588200B3DBE6 /* build_facebook_ios_sdk_static_lib.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build_facebook_ios_sdk_static_lib.sh; sourceTree = "<group>"; };
 		5D20493F15DC290E0006D1CC /* GayHaiku for iPhone guy supine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GayHaiku for iPhone guy supine.png"; sourceTree = "<group>"; };
 		5D2F944D15D3D5090065FA2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5D3C5F5315DF2D0900655854 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked.png"; sourceTree = "<group>"; };
@@ -347,9 +348,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D01A81615E5588200B3DBE6 /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				5D01A81715E5588200B3DBE6 /* build_facebook_ios_sdk_static_lib.sh */,
+			);
+			name = scripts;
+			path = ../scripts;
+			sourceTree = "<group>";
+		};
 		5DA213B915BE2284007FEAFB = {
 			isa = PBXGroup;
 			children = (
+				5D01A81615E5588200B3DBE6 /* scripts */,
 				5DB8D82215DD724100CD94FE /* FacebookSDK */,
 				5DA213CE15BE2284007FEAFB /* GayHaiku */,
 				5DA213C715BE2284007FEAFB /* Frameworks */,

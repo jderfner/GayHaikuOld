@@ -34,7 +34,6 @@
 #import <Twitter/Twitter.h>
 #import <Twitter/TWTweetComposeViewController.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-#import <FacebookSDK/FacebookSDK.h>
 
 @interface GHViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,UIAlertViewDelegate,UIWebViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UITextFieldDelegate,MFMessageComposeViewControllerDelegate>
 
@@ -42,15 +41,19 @@
 
 @implementation GHViewController
 
-@synthesize userName, segContrAsOutlet, checkbox, gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU, tweetView, toolb, tb, instructionsSeen, savedEdit, checkboxChecked, meth, urlData, connection, request, urlString, baseURLString;
+@synthesize userName, segContrAsOutlet, checkbox, gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU, tweetView, toolb, tb, instructionsSeen, savedEdit, checkboxChecked, meth; //, urlData, connection, request, urlString, baseURLString;
 
 
 //————————————————code for all pages——————————————————
+
+#pragma mark -
+#pragma Setup
 
 -(void)viewDidLoad {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.instructionsSeen=[defaults boolForKey:@"seen?"];
 	[super viewDidLoad];
+    
     //Swipe gesture recognizers
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(previousHaiku)];
     swipeRight.numberOfTouchesRequired = 1;
@@ -81,6 +84,7 @@
     [self.view viewWithTag:7].hidden=YES;
     [self.view viewWithTag:8].hidden=YES;
     self.checkboxChecked=YES;
+    //[self createWebViewDelegate];
     [self nextHaiku];
 }
 
@@ -118,6 +122,11 @@
 }
 
 //————————————————code to set up navBars——————————————————
+
+#pragma mark -
+#pragma NavBars/ToolBars
+
+//THIS NEEDS TO BE CLEANED UP AND STRIPPED DOWN.
 
 -(void)loadNavBar:(NSString *)titl
 {
@@ -174,22 +183,6 @@
     [self.view addSubview:self.toolb];
 }
 
--(void)addComposeAndAction
-{
-    UIBarButtonItem *compose = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:7 target:self action:@selector(userWritesHaiku)];
-    
-    compose.style=UIBarButtonItemStyleBordered;
-  
-    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    
-    UIBarButtonItem *action = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:9 target:self action:@selector(showMessage)];
-    
-    action.style=UIBarButtonItemStyleBordered;
-    
-    NSArray *buttons = [NSArray arrayWithObjects: flex, compose, flex, action, flex, nil];
-    [self.toolb setItems:buttons animated:NO];
-}
-
 -(void)addComposeAndActionAndMore
 {
     UIBarButtonItem *compose = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:7 target:self action:@selector(userWritesHaiku)];
@@ -202,11 +195,12 @@
  
     UIBarButtonItem *more = [[UIBarButtonItem alloc] initWithTitle:@"More" style:UIBarButtonItemStyleBordered target:self action:@selector(loadAmazon)];
     
+    UIBarButtonItem *home = [[UIBarButtonItem alloc] initWithTitle:@"Home" style:UIBarButtonItemStyleBordered target:self action:@selector(home)];
+    
     UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
-    NSArray *buttons = [NSArray arrayWithObjects:compose, flex, action, flex, more, nil];
+    NSArray *buttons = [NSArray arrayWithObjects:home, flex, compose, flex, action, flex, more, nil];
     [self.toolb setItems:buttons animated:NO];
-    
 }
 
 -(void)addComposeAndActionAndMoreAndDelete
@@ -233,10 +227,14 @@
 
 //————————————————code for Instructions page——————————————————
 
+#pragma mark - 
+#pragma Instructions
+
 -(void)haikuInstructions
 {
     self.textToSave = self.textView.text;
     [self clearScreen];
+    [self resignFirstResponder];
     [self loadNavBar:@"Instructions"];
     self.meth=@"nextHaiku";
     [self addDoneButton];
@@ -252,17 +250,22 @@
     [self seeNavBar];
     self.instructions = [[UITextView alloc] initWithFrame:CGRectMake(20, 44, 280, 480-44)];
     self.instructions.backgroundColor=[UIColor clearColor];
-    [self loadToolbar];
-    [self addComposeAndActionAndMore];
+    self.instructions.editable=NO;
+
     self.instructionsSeen=YES;
     [self saveData];
     self.instructions.text = @"\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation or an interrupting word.\n\nHave a fabulous time composing your own gay haiku.  Be aware that the author of this program may rely upon haiku you save as inspiration for future updates.";
     [self.view addSubview:self.instructions];
-    NSLog(@"instructions seen in method:  %d",self.instructionsSeen);
+    [self loadToolbar];
+    [self addComposeAndActionAndMore];
+    //[self resignFirstResponder];
 }
 
 //————————————————code for Amazon page——————————————————
-      
+   
+#pragma mark -
+#pragma Connection 
+
 -(void)addBackButton
 {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(webBack)];
@@ -282,21 +285,117 @@
     self.titulus.hidesBackButton=YES;
     [self seeNavBar];
     [self loadToolbar];
-    [self addComposeAndAction];
+    [self addComposeAndActionAndMore];
     
     //Create UIWebView.
 
     self.webV = [[UIWebView alloc] init];
+    //self.webV = [[GHWebView alloc] init];
     
     //Load Amazon page.
-     self.baseURLString =  @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
-     self.urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
-    [self loadWebViewWithbaseURLString:self.baseURLString withURLString:self.urlString];
+    [self followLink:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
+     /*NSString *baseURLString =  @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
+     NSString *urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];*/
+
     self.webV.scalesPageToFit=YES;
     [self.webV setFrame:(CGRectMake(0,44,320,372))];
     [self.view addSubview:self.webV];
 }
 
+-(void)followLink:(NSString *)link
+{
+    NSString *baseURLString = link;
+    NSString *urlString = [baseURLString stringByAppendingPathComponent:link];
+    self.requ = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 20];
+    self.conn=[[NSURLConnection alloc] initWithRequest:self.requ delegate:self];
+    NSLog(@"%@",self.conn);
+        NSError *error=nil;
+    NSURLResponse *resp=nil;
+    if (self.conn)
+    {
+        self.urlData = [NSURLConnection sendSynchronousRequest: self.requ returningResponse:&resp error:&error];
+        NSString *htmlString = [[NSString alloc] initWithData:self.urlData encoding:NSUTF8StringEncoding];
+        [self.webV loadHTMLString:htmlString baseURL:[NSURL URLWithString:baseURLString]];
+    }
+    else
+    {
+        //This doesn't get called when there's no connection.
+        [self webView:self.webV didFailLoadWithError:error];
+        UIAlertView *alert = [[UIAlertView alloc] init];
+        alert.title = @"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I'll make it worth your while, I promise.";
+        [alert show];
+    }
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    NSLog(@"could not load the website caused by error: %@", error);
+}
+
+//Why doesn't this method ever get called?  I feel like this is the way to send a connection error message if the user clicks a link from the cached version of the Amazon page.  But I need to get it working.
+
+-(BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType
+{
+    if ( inType == UIWebViewNavigationTypeLinkClicked )
+    {
+        NSLog(@"No");
+        return NO;
+    }
+    NSLog(@"Yes");
+    return YES;
+}
+
+
+-(void)createWebViewDelegate
+{
+    self.webV.delegate = self;
+}
+
+-(void)listenForClicks
+{
+    [self.webV.delegate webView:self.webV shouldStartLoadWithRequest:self.requ navigationType:UIWebViewNavigationTypeLinkClicked];
+    NSLog(@"Yes!");
+}
+
+-(void)doneWithAmazon
+{
+    [self clearScreen];
+    [self nextHaiku];
+}
+
+-(void)home
+{
+    [self previousHaiku];
+    [self nextHaiku];
+}
+/*
+-(BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if (navigationType==UIWebViewNavigationTypeLinkClicked)
+    {
+        NSLog(@"Yes!");
+    }
+    else
+    {
+        NSLog(@"No.");
+    }
+    return YES;
+}
+*/
+/*
+        NSURL *url = request.URL;
+        //This launches your custom ViewController, replace it with your initialization-code
+        [self openBrowserWithUrl:url];
+        return NO;
+    }
+    //No need to intercept the initial request to fill the WebView
+    else {
+        self.interceptLinks = TRUE;
+        return YES;
+    }
+}
+*/
+/*
 -(void)loadWebViewWithbaseURLString:bus withURLString:us
 {
     self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:us] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 20];
@@ -316,6 +415,24 @@
         [alert show];
     }
 }
+*/
+/*
+-(bool) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    //You might need to set up a interceptLinks-Bool since you don't want to intercept the initial loading of the content
+    if (self.interceptLinks) {
+        NSURL *url = request.URL;
+        //This launches your custom ViewController, replace it with your initialization-code
+        [BrowserViewController openBrowserWithUrl:url];
+        return NO;
+    }
+    //No need to intercept the initial request to fill the WebView
+    else {
+        self.interceptLinks = TRUE;
+        return YES;
+    }
+}
+
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
@@ -329,12 +446,6 @@
     NSLog(@"Wah, wah, wah.");
 }
 
--(void)doneWithAmazon
-{
-    [self clearScreen];
-    [self nextHaiku];
-}
-
 -(void)webBack
 {
     if (self.webV.canGoBack)
@@ -343,8 +454,11 @@
     }
 }
 
+ */
 //————————————————code for compose page——————————————————
 
+#pragma mark -
+#pragma Compose
 
  -(void)editSavedHaiku
 {
@@ -591,6 +705,9 @@
   
 //————————————————code for action sheet——————————————————
 
+#pragma mark -
+#pragma Share
+
 -(UIImage *)createImage
 {
     UIView *whatToUse;
@@ -617,7 +734,13 @@
 
 -(void)showMessage
 {
+    //If you press the action (=showMessage) button on the Instructions page, instead of this you get a keyboard.  Why?
+    [self.instructions removeFromSuperview];
     [self.webV removeFromSuperview];
+    //[self resignFirstResponder];
+    [self clearScreen];
+    [self nextHaiku];
+    [self previousHaiku];
     UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Email",@"Facebook",@"Twitter", nil];
     actSheet.tag=2;
     [actSheet showInView:self.view];
@@ -669,7 +792,10 @@
         TWTweetComposeViewController *tweetSheet =
         [[TWTweetComposeViewController alloc] init];
         [tweetSheet setInitialText:
-         @"Ignore this tweet--testing something."];
+         self.haiku_text.text];
+        UIImage *pic = [self createImage];
+        [tweetSheet addImage:pic];
+        [tweetSheet addURL:[NSURL URLWithString:@"http://gayhaiku.com"]];
         [self presentModalViewController:tweetSheet animated:YES];
     }
     else
@@ -774,6 +900,9 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
 }
 
 //————————————————code for display page——————————————————
+
+#pragma mark -
+#pragma Main View
 
  - (IBAction)chooseDatabase:(UISegmentedControl *)segment 
  {
@@ -924,10 +1053,8 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
         }
     }
     [self.view viewWithTag:3].hidden = NO;
-    NSLog(@"index %d, array seen %d",indexOfHaiku,arrayOfHaikuSeen.count);
     if (arrayOfHaikuSeen.count>=2 && indexOfHaiku>=2)
     {
-        NSLog(@"index %d, array seen %d",indexOfHaiku,arrayOfHaikuSeen.count);
         indexOfHaiku -= 1;
         CGSize dimensions = CGSizeMake(320, 400);
         CGSize xySize = [[[arrayOfHaikuSeen objectAtIndex:indexOfHaiku] valueForKey:@"quote"] sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
@@ -944,7 +1071,6 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
         transition.delegate = self;
         [self.view.layer addAnimation:transition forKey:nil];
         [self.view addSubview:self.haiku_text];
-    NSLog(@"index %d, array seen %d",indexOfHaiku,arrayOfHaikuSeen.count);
     }
     if (cat==@"user")
     {
