@@ -9,8 +9,6 @@
 /*
  Code I don't know how to write:
  
- 1.  Get "back" button to appear if user clicks a link in UIWebView but not otherwise.  Is it necessary to create GHWebView as a separate class?
- 
  3.  Connect app to central database so that haiku can be sent there.
  
  4.  Need to get opt-out connected to database.
@@ -138,6 +136,11 @@
     self.titulus.leftBarButtonItem = button;
 }
 
+-(void)addLeftButtons:(NSArray *)titles
+{
+    self.titulus.leftBarButtonItems = titles;
+}
+
 -(void)createCancelButton
 {
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:1 target:self action:@selector(userWritesHaiku)];
@@ -184,6 +187,24 @@
     UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
     NSArray *buttons = [NSArray arrayWithObjects: flex, home, compose, action, more, flex, nil];
+    [self.toolb setItems:buttons animated:NO];
+}
+
+-(void)addToolbarButtonsPlusDone
+{
+    UIBarButtonItem *compose = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:7 target:self action:@selector(userWritesHaiku)];
+    
+    compose.style=UIBarButtonItemStyleBordered;
+    
+    UIBarButtonItem *action = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:9 target:self action:@selector(showMessage)];
+    
+    action.style=UIBarButtonItemStyleBordered;
+    
+    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0  target:self action:@selector(home)];
+    
+    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    
+    NSArray *buttons = [NSArray arrayWithObjects: flex, done, compose, action, flex, nil];
     [self.toolb setItems:buttons animated:NO];
 }
 
@@ -255,14 +276,40 @@
 
 -(void)addBackButton
 {
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webBack")];
     self.titulus.leftBarButtonItem = button;
 }
 
 -(void)addForwardButton
 {
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Forward" style:UIBarButtonItemStyleBordered target:self action:@selector(goForward)];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Forward" style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webForward")];
     self.titulus.leftBarButtonItem = button;
+}
+
+-(void)webBack
+{
+    if (self.webV.canGoBack)
+    {
+        [self.webV goBack];
+    }
+}
+
+-(void)webForward
+{
+    if (self.webV.canGoForward)
+    {
+        [self.webV goForward];
+    }
+}
+
+-(void)webRefresh
+{
+    [self.webV reload];
+}
+
+-(void)webStop
+{
+    [self.webV stopLoading];
 }
 
 -(void)loadAmazon
@@ -270,13 +317,11 @@
     //Create nav bar and toolbar.
     [self clearScreen];
     [self.view viewWithTag:1].hidden=YES;
-    [self loadNavBar:@"Joel Derfner's Books"];
-    //[self.titulus.leftBarButtonItem setEnabled:[self.webV canGoBack]];
+    [self loadNavBar:@"Buy"];
     self.meth=@"nextHaiku";
-    [self addDoneButton];
+    //[self addDoneButton];
     self.titulus.hidesBackButton=YES;
     [self seeNavBar];
-
     [self loadToolbar];
     [self addToolbarButtons];
     
@@ -291,6 +336,35 @@
     [self connectWithURL:self.urlString andBaseURLString:self.baseURLString];
 }
 
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSMutableArray *buttons = [[NSMutableArray alloc] init];
+    NSMutableArray *rightButtons = [[NSMutableArray alloc] init];
+    UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:NSSelectorFromString(@"webRefresh")];
+    UIBarButtonItem *stop = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:NSSelectorFromString(@"webStop")];
+    [rightButtons addObject:stop];
+    [rightButtons addObject:refresh];
+    [self.bar removeFromSuperview];
+    [self loadNavBar:@"Buy"];
+    self.titulus.rightBarButtonItems=rightButtons;
+    self.titulus.hidesBackButton=YES;
+    if (self.webV.canGoBack)
+    {
+        UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:NSSelectorFromString(@"webBack")];
+        [buttons addObject:back];
+    }
+    if (self.webV.canGoForward)
+    {
+        UIBarButtonItem *forward = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:NSSelectorFromString(@"webForward")];
+        [buttons addObject:forward];
+    }
+    self.titulus.leftBarButtonItems=buttons;
+    [self seeNavBar];
+    [self.toolb removeFromSuperview];
+    [self loadToolbar];
+    [self addToolbarButtonsPlusDone];
+}
+
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)req navigationType:(UIWebViewNavigationType)navigationType
 {
     if (navigationType==UIWebViewNavigationTypeLinkClicked)
@@ -303,22 +377,6 @@
             [alert show];
         }
     }
-    [self.bar removeFromSuperview];
-    [self loadNavBar:@"Joel Derfner's Books"];
-    if (self.webV.canGoBack)
-    {
-        NSLog(@"Back");
-        [self addBackButton];
-    }
-    else NSLog(@"Nope B.");
-    if (self.webV.canGoForward)
-    {
-        NSLog(@"Forward");
-        [self addForwardButton];
-    }
-    else NSLog(@"Nope F.");
-    [self addDoneButton];
-    [self seeNavBar];
     return YES;
 }
 
@@ -327,12 +385,12 @@
     self.requ = [NSURLRequest requestWithURL:[NSURL URLWithString:us] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 20];
     self.conn=[[NSURLConnection alloc] initWithRequest:self.requ delegate:self];
     NSError *error=nil;
-    NSURLResponse *resp=nil;
+    //NSURLResponse *resp=nil;
     if (self.conn)
     {
-        self.urlData = [NSURLConnection sendSynchronousRequest: self.requ returningResponse:&resp error:&error];
-        NSString *htmlString = [[NSString alloc] initWithData:self.urlData encoding:NSUTF8StringEncoding];
-        [self.webV loadHTMLString:htmlString baseURL:[NSURL URLWithString:bus]];
+        //self.urlData = [NSURLConnection sendSynchronousRequest: self.requ returningResponse:&resp error:&error];
+        //NSString *htmlString = [[NSString alloc] initWithData:self.urlData encoding:NSUTF8StringEncoding];
+        [self.webV loadRequest:self.requ]; //loadHTMLString:htmlString baseURL:[NSURL URLWithString:bus]];
     }
     else
     {
@@ -377,93 +435,7 @@
     [self nextHaiku];
     [self previousHaiku];
 }
-/*
--(BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    if (navigationType==UIWebViewNavigationTypeLinkClicked)
-    {
-        NSLog(@"Yes!");
-    }
-    else
-    {
-        NSLog(@"No.");
-    }
-    return YES;
-}
-*/
-/*
-        NSURL *url = request.URL;
-        //This launches your custom ViewController, replace it with your initialization-code
-        [self openBrowserWithUrl:url];
-        return NO;
-    }
-    //No need to intercept the initial request to fill the WebView
-    else {
-        self.interceptLinks = TRUE;
-        return YES;
-    }
-}
-*/
-/*
--(void)loadWebViewWithbaseURLString:bus withURLString:us
-{
-    self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:us] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 20];
-    self.connection=[[NSURLConnection alloc] initWithRequest:self.request delegate:nil];
-    NSError *error=nil;
-    NSURLResponse *response=nil;
-    if (self.connection)
-    {
-        self.urlData = [ NSURLConnection sendSynchronousRequest: self.request returningResponse:&response error:&error];
-        NSString *htmlString = [[NSString alloc] initWithData:self.urlData encoding:NSUTF8StringEncoding];
-        [self.webV loadHTMLString:htmlString baseURL:[NSURL URLWithString:bus]];
-    }
-    else
-    {
-        UIAlertView *alert = [[UIAlertView alloc] init];
-        alert.title = @"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I'll make it worth your while, I promise.";
-        [alert show];
-    }
-}
-*/
-/*
--(bool) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    //You might need to set up a interceptLinks-Bool since you don't want to intercept the initial loading of the content
-    if (self.interceptLinks) {
-        NSURL *url = request.URL;
-        //This launches your custom ViewController, replace it with your initialization-code
-        [BrowserViewController openBrowserWithUrl:url];
-        return NO;
-    }
-    //No need to intercept the initial request to fill the WebView
-    else {
-        self.interceptLinks = TRUE;
-        return YES;
-    }
-}
 
-
--(void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    //This does nothing.
-    NSLog(@"Yah, yah, yah.");
-}
-
-- (void)webView:(UIWebView*)webView didFailLoadWithError:(NSError *)error
-{
-    //This does nothing.
-    NSLog(@"Wah, wah, wah.");
-}
-
--(void)webBack
-{
-    if (self.webV.canGoBack)
-    {
-        [self.webV goBack];
-    }
-}
-
- */
 //————————————————code for compose page——————————————————
 
 #pragma mark -
