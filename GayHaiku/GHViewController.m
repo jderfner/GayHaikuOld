@@ -9,15 +9,13 @@
 /*
  Code I don't know how to write:
  
- 1.  Get "back" button to appear if user clicks a link in UIWebView but not otherwise.
- Is it necessary to create GHWebView as a separate class?
- 
- 2.  Write code that gives error if user tries to click on Amazon and a
- connection isn't available.
+ 1.  Get "back" button to appear if user clicks a link in UIWebView but not otherwise.  Is it necessary to create GHWebView as a separate class?
  
  3.  Connect app to central database so that haiku can be sent there.
  
- 4.  Need to get opt-out connected to database (no clue).
+ 4.  Need to get opt-out connected to database.
+ 
+ 5.  Coupla bugs to fix too:  if you call showMessage from the Instructions page, haiku ends up not centered but too far to the right.
  
  Other thoughts:
  
@@ -35,13 +33,14 @@
 #import <Twitter/TWTweetComposeViewController.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
+
 @interface GHViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,UIAlertViewDelegate,UIWebViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UITextFieldDelegate,MFMessageComposeViewControllerDelegate>
 
 @end
 
 @implementation GHViewController
 
-@synthesize userName, segContrAsOutlet, checkbox, gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU, tweetView, toolb, tb, instructionsSeen, savedEdit, checkboxChecked, meth; //, urlData, connection, request, urlString, baseURLString;
+@synthesize userName, segContrAsOutlet, checkbox, gayHaiku, textView, titulus, bar, instructions, textToSave, haiku_text, selectedCategory, webV, theseAreDoneAll, theseAreDoneD, theseAreDoneU, indxAll, indxD, indxU, tweetView, toolb, tb, instructionsSeen, savedEdit, checkboxChecked, meth, urlData, connection, request, urlString, baseURLString;
 
 
 //————————————————code for all pages——————————————————
@@ -84,7 +83,7 @@
     [self.view viewWithTag:7].hidden=YES;
     [self.view viewWithTag:8].hidden=YES;
     self.checkboxChecked=YES;
-    //[self createWebViewDelegate];
+    
     [self nextHaiku];
 }
 
@@ -114,7 +113,6 @@
 {
     if (self.instructionsSeen)
     {
-        //NSData *data = [seenOrNotSeen dataUsingEncoding:NSUTF8StringEncoding];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setBool:self.instructionsSeen forKey:@"seen?"];
         [defaults synchronize];
@@ -155,20 +153,6 @@
     self.titulus.rightBarButtonItem = done;
 }
 
--(void)addRightButton:(NSString *)titl callingMethod:(NSString *)method
-{
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:titl style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(method)];
-    self.titulus.rightBarButtonItem = button;
-}
-
--(void)addRightButtons:(NSArray *)titl callingMethod:(NSArray *)method
-{
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:[titl objectAtIndex:0] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString([method objectAtIndex:0])];
-    UIBarButtonItem *button2 = [[UIBarButtonItem alloc] initWithTitle:[titl objectAtIndex:1] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString([method objectAtIndex:1])];
-    NSArray *buttons = [[NSArray alloc] initWithObjects:button, button2, nil];
-    self.titulus.rightBarButtonItems = buttons;
-}
-
 -(void)seeNavBar
 {
     [self.bar pushNavigationItem:self.titulus animated:YES];
@@ -183,7 +167,7 @@
     [self.view addSubview:self.toolb];
 }
 
--(void)addComposeAndActionAndMore
+-(void)addToolbarButtons
 {
     UIBarButtonItem *compose = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:7 target:self action:@selector(userWritesHaiku)];
     
@@ -199,11 +183,11 @@
     
     UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
-    NSArray *buttons = [NSArray arrayWithObjects:home, flex, compose, flex, action, flex, more, nil];
+    NSArray *buttons = [NSArray arrayWithObjects: flex, home, compose, action, more, flex, nil];
     [self.toolb setItems:buttons animated:NO];
 }
 
--(void)addComposeAndActionAndMoreAndDelete
+-(void)addToolbarButtonsPlusDelete;
 {
     UIBarButtonItem *compose = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:7 target:self action:@selector(userWritesHaiku)];
     
@@ -221,7 +205,9 @@
     
     UIBarButtonItem *delete = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self action:@selector(deleteHaiku)];
     
-    NSArray *buttons = [NSArray arrayWithObjects:compose, flex, action, flex, edit, flex, delete, flex, more, nil];
+    UIBarButtonItem *home = [[UIBarButtonItem alloc] initWithTitle:@"Home" style:UIBarButtonItemStyleBordered target:self action:@selector(home)];
+    
+    NSArray *buttons = [NSArray arrayWithObjects: flex, home, compose, action, more, delete, edit, flex, nil];
     [self.toolb setItems:buttons animated:NO];
 }
 
@@ -235,10 +221,12 @@
     self.textToSave = self.textView.text;
     [self clearScreen];
     [self resignFirstResponder];
+    
     [self loadNavBar:@"Instructions"];
     self.meth=@"nextHaiku";
     [self addDoneButton];
     [self addLeftButton:@"Compose" callingMethod:@"userWritesHaiku"];
+    
     NSString *cat=@"user";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
     NSArray *filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
@@ -250,15 +238,14 @@
     [self seeNavBar];
     self.instructions = [[UITextView alloc] initWithFrame:CGRectMake(20, 44, 280, 480-44)];
     self.instructions.backgroundColor=[UIColor clearColor];
-    self.instructions.editable=NO;
-
     self.instructionsSeen=YES;
     [self saveData];
     self.instructions.text = @"\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation or an interrupting word.\n\nHave a fabulous time composing your own gay haiku.  Be aware that the author of this program may rely upon haiku you save as inspiration for future updates.";
     [self.view addSubview:self.instructions];
     [self loadToolbar];
-    [self addComposeAndActionAndMore];
-    //[self resignFirstResponder];
+    [self addToolbarButtons];
+    [self resignFirstResponder];
+    self.instructions.editable=NO;
 }
 
 //————————————————code for Amazon page——————————————————
@@ -268,7 +255,13 @@
 
 -(void)addBackButton
 {
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(webBack)];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
+    self.titulus.leftBarButtonItem = button;
+}
+
+-(void)addForwardButton
+{
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Forward" style:UIBarButtonItemStyleBordered target:self action:@selector(goForward)];
     self.titulus.leftBarButtonItem = button;
 }
 
@@ -278,83 +271,99 @@
     [self clearScreen];
     [self.view viewWithTag:1].hidden=YES;
     [self loadNavBar:@"Joel Derfner's Books"];
-    [self addBackButton];
-    [self.titulus.leftBarButtonItem setEnabled:[self.webV canGoBack]];
+    //[self.titulus.leftBarButtonItem setEnabled:[self.webV canGoBack]];
     self.meth=@"nextHaiku";
     [self addDoneButton];
     self.titulus.hidesBackButton=YES;
     [self seeNavBar];
+
     [self loadToolbar];
-    [self addComposeAndActionAndMore];
+    [self addToolbarButtons];
     
     //Create UIWebView.
-
     self.webV = [[UIWebView alloc] init];
-    //self.webV = [[GHWebView alloc] init];
+    self.webV.delegate = self;
     
     //Load Amazon page.
-    [self followLink:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
-     /*NSString *baseURLString =  @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
-     NSString *urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];*/
 
-    self.webV.scalesPageToFit=YES;
-    [self.webV setFrame:(CGRectMake(0,44,320,372))];
-    [self.view addSubview:self.webV];
+     self.baseURLString =  @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
+     self.urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
+    [self connectWithURL:self.urlString andBaseURLString:self.baseURLString];
 }
 
--(void)followLink:(NSString *)link
+- (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)req navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSString *baseURLString = link;
-    NSString *urlString = [baseURLString stringByAppendingPathComponent:link];
-    self.requ = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 20];
+    if (navigationType==UIWebViewNavigationTypeLinkClicked)
+    {
+        NSURL *scriptUrl = [NSURL URLWithString:@"http://www.google.com"];
+        NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+        if (data == nil)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I'll make it worth your while, I promise." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+    }
+    [self.bar removeFromSuperview];
+    [self loadNavBar:@"Joel Derfner's Books"];
+    if (self.webV.canGoBack)
+    {
+        NSLog(@"Back");
+        [self addBackButton];
+    }
+    else NSLog(@"Nope B.");
+    if (self.webV.canGoForward)
+    {
+        NSLog(@"Forward");
+        [self addForwardButton];
+    }
+    else NSLog(@"Nope F.");
+    [self addDoneButton];
+    [self seeNavBar];
+    return YES;
+}
+
+-(void)connectWithURL:(NSString *)us andBaseURLString:(NSString *)bus
+{
+    self.requ = [NSURLRequest requestWithURL:[NSURL URLWithString:us] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 20];
     self.conn=[[NSURLConnection alloc] initWithRequest:self.requ delegate:self];
-    NSLog(@"%@",self.conn);
-        NSError *error=nil;
+    NSError *error=nil;
     NSURLResponse *resp=nil;
     if (self.conn)
     {
         self.urlData = [NSURLConnection sendSynchronousRequest: self.requ returningResponse:&resp error:&error];
         NSString *htmlString = [[NSString alloc] initWithData:self.urlData encoding:NSUTF8StringEncoding];
-        [self.webV loadHTMLString:htmlString baseURL:[NSURL URLWithString:baseURLString]];
+        [self.webV loadHTMLString:htmlString baseURL:[NSURL URLWithString:bus]];
     }
     else
     {
-        //This doesn't get called when there's no connection.
-        [self webView:self.webV didFailLoadWithError:error];
-        UIAlertView *alert = [[UIAlertView alloc] init];
-        alert.title = @"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I'll make it worth your while, I promise.";
-        [alert show];
+        [self connection:self.conn didFailWithError:error];
     }
+    self.webV.scalesPageToFit=YES;
+    [self.webV setFrame:(CGRectMake(0,44,320,372))];
+    [self.view addSubview:self.webV];
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+-(BOOL)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLog(@"could not load the website caused by error: %@", error);
-}
-
-//Why doesn't this method ever get called?  I feel like this is the way to send a connection error message if the user clicks a link from the cached version of the Amazon page.  But I need to get it working.
-
--(BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType
-{
-    if ( inType == UIWebViewNavigationTypeLinkClicked )
-    {
-        NSLog(@"No");
-        return NO;
-    }
-    NSLog(@"Yes");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I'll make it worth your while, I promise." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
     return YES;
 }
 
-
--(void)createWebViewDelegate
+-(void)followLink:(NSString *)link
 {
-    self.webV.delegate = self;
-}
-
--(void)listenForClicks
-{
-    [self.webV.delegate webView:self.webV shouldStartLoadWithRequest:self.requ navigationType:UIWebViewNavigationTypeLinkClicked];
-    NSLog(@"Yes!");
+    NSString *baseURLStr = link;
+    NSString *urlStr = [baseURLString stringByAppendingPathComponent:link];
+    self.requ = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 20];
+    self.conn=[[NSURLConnection alloc] initWithRequest:self.requ delegate:self];
+    NSError *error=nil;
+    NSURLResponse *resp=nil;
+    if (self.conn)
+    {
+        self.urlData = [NSURLConnection sendSynchronousRequest: self.requ returningResponse:&resp error:&error];
+        NSString *htmlString = [[NSString alloc] initWithData:self.urlData encoding:NSUTF8StringEncoding];
+        [self.webV loadHTMLString:htmlString baseURL:[NSURL URLWithString:baseURLStr]];
+    }
 }
 
 -(void)doneWithAmazon
@@ -365,8 +374,8 @@
 
 -(void)home
 {
-    [self previousHaiku];
     [self nextHaiku];
+    [self previousHaiku];
 }
 /*
 -(BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -470,9 +479,7 @@
  -(void)createSaveButton
 {
     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:3 target:self action:@selector(saveUserHaiku)];
-    
     save.style=UIBarButtonItemStyleBordered;
-    
     self.titulus.rightBarButtonItem = save;
 }
  
@@ -512,7 +519,7 @@
     self.titulus.hidesBackButton=YES;
     [self seeNavBar];
     [self loadToolbar];
-    [self addComposeAndActionAndMore];
+    [self addToolbarButtons];
     
     //Create and add the space for user to write.
     if (self.instructionsSeen==YES)
@@ -617,6 +624,7 @@
 {
     //XCode wants this method implemented, but I have no idea where or what goes inside it.
 }
+
 -(void)deleteHaiku
 {
     NSString *textToDelete = self.haiku_text.text;
@@ -671,7 +679,7 @@
         self.haiku_text.text = [[self.gayHaiku lastObject] valueForKey:@"quote"];
         [self.view addSubview:self.haiku_text];
         [self loadToolbar];
-        [self addComposeAndActionAndMore];
+        [self addToolbarButtons];
         [self saveToDocsFolder:@"gayHaiku.plist"];
     }
 }
@@ -719,16 +727,13 @@
     [self.view viewWithTag:30].hidden=YES;
     [self.view viewWithTag:40].hidden=YES;
     [self.view viewWithTag:3].hidden=YES;
-    
     [[self.view layer] renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
     UIGraphicsBeginImageContext([self.view bounds].size);
     [myImage drawInRect:CGRectMake(0, 0, 320,416)];
     myImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-
     return myImage;
 }
 
@@ -760,8 +765,7 @@
     [self.view viewWithTag:6].hidden=NO;
     [self.view viewWithTag:7].hidden=NO;
     [self loadToolbar];
-    [self addComposeAndActionAndMore];
-    //Need to connect this with database.
+    [self addToolbarButtons];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -820,7 +824,6 @@
         [mailer addAttachmentData:imageData mimeType:@"image/jpg" fileName:@"blah"];
         NSString *emailBody = @"I thought you might like this gay haiku from the Gay Haiku iPhone app.  Please love me?";
         [mailer setMessageBody:emailBody isHTML:NO];
-        
         [self presentModalViewController:mailer animated:YES];
     }
     else {
@@ -828,51 +831,6 @@
         [alert show];
     }
 }
-
-/*
- 
-    APPARENTLY THIS CODE ENABLES DEALING WITH FACEBOOK?  BUT FACEBOOK ISN'T RECOGNIZED AS A POSSIBLE VARIABLE.  WTF!?!?
-
-    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-        Facebook *facebook = [[Facebook alloc] initWithAppId:@"XXXXXXXXXX" andDelegate:fbControl];
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        if ([defaults objectForKey:@"FBAccessTokenKey"]
-            && [defaults objectForKey:@"FBExpirationDateKey"]) {
-            facebook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
-            facebook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
-        }
-        
-        if (![facebook isSessionValid]) {
-            [facebook authorize:nil];
-        }
-        
-    }
-    
-    - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
-sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
-    return [facebook handleOpenURL:url];
-}
-    
-    - (void)fbDidLogin {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:[facebook accessToken] forKey:@"FBAccessTokenKey"];
-        [defaults setObject:[facebook expirationDate] forKey:@"FBExpirationDateKey"];
-        [defaults synchronize];
-        
-        [facebook dialog:@"feed" andDelegate:self];
-    }
-
--(void)postToFacebook
-{
-    UIImage *pic = [self createImage];
-    NSString *list = self.haiku_text.text;
-    NSString *kAppId=@"446573368720507";
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:kAppId, @"app_id",nil, @"link", pic, @"picture",@"Gay Haiku", @"name",nil, @"caption",@"Maybe he'll love me if I give him a gay haiku....",@"description",nil];
-    
-}*/
-
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {  
@@ -924,7 +882,7 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     self.haiku_text.text=@"";
     [self.view viewWithTag:3].hidden = NO;
     [self loadToolbar];
-    [self addComposeAndActionAndMore];
+    [self addToolbarButtons];
     int indexOfHaiku;
     NSMutableArray *arrayOfHaikuSeen;
     NSString *cat;
@@ -947,7 +905,7 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
         {
             [self.toolb removeFromSuperview];
             [self loadToolbar];
-            [self addComposeAndActionAndMoreAndDelete];
+            [self addToolbarButtonsPlusDelete];
         }
     }
     int array_tot = [filteredArray count];
@@ -983,7 +941,7 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     }
     CGSize dimensions = CGSizeMake(320, 400);
     CGSize xySize = [txt sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
-    self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),200,320,200)];
+    self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),150,320,200)];
     self.haiku_text.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
     self.haiku_text.backgroundColor = [UIColor clearColor];
     self.haiku_text.text=txt;
@@ -1014,8 +972,10 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
         self.theseAreDoneD = arrayOfHaikuSeen;
         self.indxD = indexOfHaiku;
     }
-        self.haiku_text.editable=NO;
-    //Question:  how will it affect the user's experience if/when haiku s/he's already seen in "user" or "Derfner" categories reappear in "all" category?  Will this need to be adjusted?  If so, how?
+    self.haiku_text.editable=NO;
+    self.textView.editable=NO;
+    self.instructions.editable=NO;
+    
 }
 
 -(void)previousHaiku
@@ -1024,7 +984,7 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     [self.webV removeFromSuperview];
     [self.bar removeFromSuperview];
     [self loadToolbar];
-    [self addComposeAndActionAndMore];
+    [self addToolbarButtons];
     int indexOfHaiku;
     NSMutableArray *arrayOfHaikuSeen;
     NSString *cat;
@@ -1047,7 +1007,7 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
         {
             [self.toolb removeFromSuperview];
             [self loadToolbar];
-            [self addComposeAndActionAndMoreAndDelete];
+            [self addToolbarButtonsPlusDelete];
         }
     }
     [self.view viewWithTag:3].hidden = NO;
@@ -1057,7 +1017,7 @@ sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
         CGSize dimensions = CGSizeMake(320, 400);
         CGSize xySize = [[[arrayOfHaikuSeen objectAtIndex:indexOfHaiku] valueForKey:@"quote"] sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
         [self.haiku_text removeFromSuperview];
-        self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),200,320,200)];
+        self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),150,320,200)];
         self.haiku_text.text = [[arrayOfHaikuSeen objectAtIndex:indexOfHaiku-1] valueForKey:@"quote"];
         self.haiku_text.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
         self.haiku_text.backgroundColor = [UIColor clearColor];

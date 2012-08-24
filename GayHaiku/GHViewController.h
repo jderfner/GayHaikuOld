@@ -37,6 +37,8 @@
 @property (nonatomic) BOOL instructionsSeen;
 @property (nonatomic) BOOL savedEdit;
 @property (nonatomic) BOOL checkboxChecked;
+@property (nonatomic) BOOL goneForward;
+@property (nonatomic) BOOL goneBack;
 @property (nonatomic, retain) NSString *meth;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segContrAsOutlet;
 @property (weak, nonatomic) IBOutlet UITextField *userName;
@@ -44,22 +46,17 @@
 @property (nonatomic, strong) NSURLRequest *requ;
 @property (nonatomic, strong) NSURLConnection *conn;
 @property (nonatomic, strong) NSData *urlData;
-/*
-@property (nonatomic, weak) NSData *urlData;
 @property (nonatomic, strong) NSURLConnection *connection;
 @property (nonatomic, strong) NSURLRequest *request;
 @property (nonatomic, strong) NSString *urlString;
 @property (nonatomic, strong) NSString *baseURLString;
- */
 @property (nonatomic, strong) UIWebView *webV;
+@property (nonatomic, strong) NSError *error;
 
 -(IBAction)selectButton;
 -(IBAction)valueChanged:(UISegmentedControl *)sender;
 -(IBAction)chooseDatabase:(UISegmentedControl *)segment;
 -(IBAction)nextHaiku;
 -(IBAction)previousHaiku;
-//-(IBAction)showMessage;
-//-(IBAction)loadAmazon;
-//-(IBAction)userWritesHaiku;
 
 @end
