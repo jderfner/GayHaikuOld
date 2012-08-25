@@ -598,12 +598,13 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
     NSArray *blah = [self.gayHaiku filteredArrayUsingPredicate:predicate];
     if (blah.count>0)
+    {
     for (int i=0; i<blah.count; i++)
     {
         if ([[[blah objectAtIndex:i] valueForKey:@"quote"] isEqualToString:textToDelete])
         {
             [self.gayHaiku removeObjectIdenticalTo:[blah objectAtIndex:i]];
-            [self saveToDocsFolder:@"gayhaiku.plist"];
+            [self saveToDocsFolder:@"gayHaiku.plist"];
             if (blah.count>1)
             {
                 [self nextHaiku];   
@@ -612,8 +613,14 @@
             {
                 [self haikuInstructions];
             }
+            else if (blah.count==0)
+            {
+                self.selectedCategory=@"Derfner";
+                [self nextHaiku];
+            }
             break;
         }
+    }
     }
 }
 
@@ -1030,10 +1037,19 @@
 
 - (IBAction)valueChanged:(UISegmentedControl *)sender
 {
+    NSString *cat;
+    if (!self.selectedCategory) cat = @"Derfner";
+    else cat = self.selectedCategory;
     NSArray *filteredArray;
-    NSString *cat=@"user";
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
-    filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
+    if (cat==@"all")
+    {
+        filteredArray = self.gayHaiku;
+    }
+    else
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
+        filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
+    }
     if (sender.selectedSegmentIndex==1 && filteredArray.count==0 && self.instructionsSeen==YES)
     {
             [self userWritesHaiku];
@@ -1042,6 +1058,11 @@
     {
         [self userNeedsInstructions];
     }
+    else if (sender.selectedSegmentIndex==1 && filteredArray.count!=0)
+    {
+        [self nextHaiku];
+    }
+    NSLog(@"%d",filteredArray.count);
 }
 
 @end
