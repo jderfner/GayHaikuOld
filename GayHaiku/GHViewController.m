@@ -7,16 +7,7 @@
 //
 
 /*
- Code I don't know how to write:
- 
- 3.  Connect app to central database so that haiku can be sent there.
- 
- 4.  Need to get opt-out connected to database.
- 
- 5.  Coupla bugs to fix too:  if you call showMessage from the Instructions page, haiku ends up not centered but too far to the right.
- 
- Other thoughts:
- 
+
 6.  Question:  how will it affect the user's experience if/when haiku
  s/he's already seen in "user" or "Derfner" categories reappear in "all"
  category?  Will this need to be adjusted?  If so, how?
@@ -30,6 +21,7 @@
 #import <Twitter/Twitter.h>
 #import <Twitter/TWTweetComposeViewController.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <Parse/Parse.h>
 
 
 @interface GHViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,UIAlertViewDelegate,UIWebViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate,UITextFieldDelegate,MFMessageComposeViewControllerDelegate>
@@ -81,6 +73,10 @@
     [self.view viewWithTag:7].hidden=YES;
     [self.view viewWithTag:8].hidden=YES;
     self.checkboxChecked=YES;
+    
+    //Test Parse
+    [Parse setApplicationId:@"M7vcXO7ccmhNUbnLhmfnnmV8ezLvvuMvHwNZXrs8"
+                  clientKey:@"Aw8j7MhJwsHxW1FxoHKuXojNGvrPSjDkACs7egRi"];
     
     [self nextHaiku];
 }
@@ -220,15 +216,13 @@
     
     UIBarButtonItem *more = [[UIBarButtonItem alloc] initWithTitle:@"More" style:UIBarButtonItemStyleBordered target:self action:@selector(loadAmazon)];
     
-    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    UIBarButtonItem *home = [[UIBarButtonItem alloc] initWithTitle:@"Home" style:UIBarButtonItemStyleBordered target:self action:@selector(home)];
     
-    UIBarButtonItem *edit = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleBordered target:self action:@selector(editSavedHaiku)];
+    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
     UIBarButtonItem *delete = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self action:@selector(deleteHaiku)];
     
-    UIBarButtonItem *home = [[UIBarButtonItem alloc] initWithTitle:@"Home" style:UIBarButtonItemStyleBordered target:self action:@selector(home)];
-    
-    NSArray *buttons = [NSArray arrayWithObjects: flex, home, compose, action, more, delete, edit, flex, nil];
+    NSArray *buttons = [NSArray arrayWithObjects: flex, home, compose, action, more, delete, flex, nil];
     [self.toolb setItems:buttons animated:NO];
 }
 
@@ -653,6 +647,20 @@
         [self loadToolbar];
         [self addToolbarButtons];
         [self saveToDocsFolder:@"gayHaiku.plist"];
+        PFObject *haikuObject = [PFObject objectWithClassName:@"TestObject"];
+        [haikuObject setObject:self.haiku_text.text forKey:@"haiku"];
+        [haikuObject setObject:self.userName.text forKey:@"author"];
+        NSString *perm;
+        if (self.checkboxChecked)
+        {
+            perm=@"Yes";
+        }
+        else
+        {
+            perm=@"No";
+        }
+        [haikuObject setObject:perm forKey:@"permission"];
+        [haikuObject save];
     }
 }
 
@@ -836,7 +844,7 @@
  {
     if (segment.selectedSegmentIndex==1) {
         self.selectedCategory = @"user";
-        [self valueChanged:segment];
+        //[self valueChanged:segment];
     }
     else if (segment.selectedSegmentIndex==2) {
         self.selectedCategory = @"all";
@@ -887,6 +895,7 @@
     {
         if (indexOfHaiku == arrayOfHaikuSeen.count)
         {
+            //THERE'S A BUG IN HERE SOMEWHERE--WHEN USER HAIKU GETS TO END, FREEZES.
             while (true)
             {
                 sortingHat = (arc4random() % array_tot);
@@ -899,7 +908,7 @@
             }
             [arrayOfHaikuSeen addObject:[filteredArray objectAtIndex:sortingHat]];
             indexOfHaiku = arrayOfHaikuSeen.count;
-            if (arrayOfHaikuSeen.count==filteredArray.count)
+            if (arrayOfHaikuSeen.count==filteredArray.count-1)
             {
                 [arrayOfHaikuSeen removeAllObjects];
                 indexOfHaiku=0;
@@ -947,7 +956,6 @@
     self.haiku_text.editable=NO;
     self.textView.editable=NO;
     self.instructions.editable=NO;
-    
 }
 
 -(void)previousHaiku
@@ -1022,11 +1030,15 @@
 
 - (IBAction)valueChanged:(UISegmentedControl *)sender
 {
-    if (sender.selectedSegmentIndex==1 && self.instructionsSeen==YES)
+    NSArray *filteredArray;
+    NSString *cat=@"user";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
+    filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
+    if (sender.selectedSegmentIndex==1 && filteredArray.count==0 && self.instructionsSeen==YES)
     {
             [self userWritesHaiku];
     }
-    else if (sender.selectedSegmentIndex==1 && self.instructionsSeen==NO)
+    else if (sender.selectedSegmentIndex==1 && filteredArray.count==0 && self.instructionsSeen==NO)
     {
         [self userNeedsInstructions];
     }

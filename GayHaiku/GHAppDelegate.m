@@ -8,6 +8,7 @@
 
 #import "GHAppDelegate.h"
 #import "GHViewController.h"
+#import <Parse/Parse.h>
 
 @implementation GHAppDelegate
 
@@ -21,6 +22,8 @@
     self.viewController = [[GHViewController alloc] initWithNibName:@"GHViewController" bundle:nil];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    [Parse setApplicationId:@"M7vcXO7ccmhNUbnLhmfnnmV8ezLvvuMvHwNZXrs8"
+                  clientKey:@"Aw8j7MhJwsHxW1FxoHKuXojNGvrPSjDkACs7egRi"];
     return YES;
 }
 

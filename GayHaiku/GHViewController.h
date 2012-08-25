@@ -14,6 +14,7 @@
 #import <Twitter/Twitter.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import <Parse/Parse.h>
 
 @interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,MFMessageComposeViewControllerDelegate,UIWebViewDelegate>
 

@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		5D20494015DC290E0006D1CC /* GayHaiku for iPhone guy supine.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D20493F15DC290E0006D1CC /* GayHaiku for iPhone guy supine.png */; };
+		5D29D55D15E8617500AF723A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D55C15E8617500AF723A /* Parse.framework */; };
+		5D29D55F15E861C100AF723A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D55E15E861C100AF723A /* AudioToolbox.framework */; };
+		5D29D56715E861F500AF723A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D56015E861F500AF723A /* CFNetwork.framework */; };
+		5D29D56815E861F500AF723A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D56115E861F500AF723A /* libsqlite3.dylib */; };
+		5D29D56915E861F500AF723A /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D56215E861F500AF723A /* libz.1.1.3.dylib */; };
+		5D29D56A15E861F500AF723A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D56315E861F500AF723A /* MobileCoreServices.framework */; };
+		5D29D56B15E861F500AF723A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D56415E861F500AF723A /* Security.framework */; };
+		5D29D56C15E861F500AF723A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D56515E861F500AF723A /* StoreKit.framework */; };
+		5D29D56D15E861F500AF723A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D56615E861F500AF723A /* SystemConfiguration.framework */; };
 		5D2F944E15D3D5090065FA2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2F944D15D3D5090065FA2D /* QuartzCore.framework */; };
 		5D3C5F5615DF2D0900655854 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D3C5F5315DF2D0900655854 /* checkbox-checked.png */; };
 		5D3C5F5715DF2D0900655854 /* checkbox-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D3C5F5415DF2D0900655854 /* checkbox-pressed.png */; };
@@ -101,6 +110,15 @@
 /* Begin PBXFileReference section */
 		5D01A81715E5588200B3DBE6 /* build_facebook_ios_sdk_static_lib.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build_facebook_ios_sdk_static_lib.sh; sourceTree = "<group>"; };
 		5D20493F15DC290E0006D1CC /* GayHaiku for iPhone guy supine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GayHaiku for iPhone guy supine.png"; sourceTree = "<group>"; };
+		5D29D55C15E8617500AF723A /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		5D29D55E15E861C100AF723A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		5D29D56015E861F500AF723A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		5D29D56115E861F500AF723A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		5D29D56215E861F500AF723A /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
+		5D29D56315E861F500AF723A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		5D29D56415E861F500AF723A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		5D29D56515E861F500AF723A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		5D29D56615E861F500AF723A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5D2F944D15D3D5090065FA2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5D3C5F5315DF2D0900655854 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked.png"; sourceTree = "<group>"; };
 		5D3C5F5415DF2D0900655854 /* checkbox-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-pressed.png"; sourceTree = "<group>"; };
@@ -336,12 +354,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D29D56715E861F500AF723A /* CFNetwork.framework in Frameworks */,
+				5D29D56815E861F500AF723A /* libsqlite3.dylib in Frameworks */,
+				5D29D56915E861F500AF723A /* libz.1.1.3.dylib in Frameworks */,
+				5D29D56A15E861F500AF723A /* MobileCoreServices.framework in Frameworks */,
+				5D29D56B15E861F500AF723A /* Security.framework in Frameworks */,
+				5D29D56C15E861F500AF723A /* StoreKit.framework in Frameworks */,
+				5D29D56D15E861F500AF723A /* SystemConfiguration.framework in Frameworks */,
+				5D29D55F15E861C100AF723A /* AudioToolbox.framework in Frameworks */,
 				5D68F94F15D9C343000E8AE5 /* Twitter.framework in Frameworks */,
 				5D2F944E15D3D5090065FA2D /* QuartzCore.framework in Frameworks */,
 				5D88856615D2C05200F38679 /* MessageUI.framework in Frameworks */,
 				5DA213C915BE2284007FEAFB /* UIKit.framework in Frameworks */,
 				5DA213CB15BE2284007FEAFB /* Foundation.framework in Frameworks */,
 				5DA213CD15BE2284007FEAFB /* CoreGraphics.framework in Frameworks */,
+				5D29D55D15E8617500AF723A /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +406,15 @@
 		5DA213C715BE2284007FEAFB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5D29D56015E861F500AF723A /* CFNetwork.framework */,
+				5D29D56115E861F500AF723A /* libsqlite3.dylib */,
+				5D29D56215E861F500AF723A /* libz.1.1.3.dylib */,
+				5D29D56315E861F500AF723A /* MobileCoreServices.framework */,
+				5D29D56415E861F500AF723A /* Security.framework */,
+				5D29D56515E861F500AF723A /* StoreKit.framework */,
+				5D29D56615E861F500AF723A /* SystemConfiguration.framework */,
+				5D29D55E15E861C100AF723A /* AudioToolbox.framework */,
+				5D29D55C15E8617500AF723A /* Parse.framework */,
 				5DCDAE1915E20647002589D1 /* build_facebook_ios_sdk_static_lib.sh */,
 				5DB8D82315DD724100CD94FE /* FacebookSDK.framework */,
 				5D68F94E15D9C343000E8AE5 /* Twitter.framework */,
