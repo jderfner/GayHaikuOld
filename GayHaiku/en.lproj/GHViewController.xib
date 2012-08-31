@@ -95,7 +95,6 @@
 							<reference ref="4"/>
 							<reference ref="4"/>
 						</array>
-						<bool key="IBMomentary">YES</bool>
 						<object class="NSColor" key="IBTintColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC44NTA5ODAzOTIyIDAuNTc2NDcwNTg4MiAwLjcxMzcyNTQ5MDIAA</bytes>
@@ -201,7 +200,6 @@
 						<string key="NSFrame">{{245, 223}, {46, 46}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="809110590"/>
 						<bool key="IBUIAutoresizesSubviews">NO</bool>

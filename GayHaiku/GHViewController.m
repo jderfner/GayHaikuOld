@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Self. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 #import <QuartzCore/QuartzCore.h>
@@ -54,6 +55,7 @@
 @synthesize flex = _flex;
 @synthesize controlVisible = _controlVisible;
 @synthesize textEntered = _textEntered;
+@synthesize hc = _hc;
 @synthesize savedEdit = _savedEdit; //savedEdit maybe not necessary.
 
 //————————————————code used by all pages——————————————————
@@ -69,11 +71,10 @@
     self.instructionsSeen = [defaults boolForKey:@"seen?"];
     if ([defaults boolForKey:@"checked?"])
     {
-    self.checkboxChecked = [defaults boolForKey:@"checked?"];
+        self.checkboxChecked = [defaults boolForKey:@"checked?"];
     }
     else self.checkboxChecked = YES;
 	[super viewDidLoad];
-    
     
     //Swipe gesture recognizers
     
@@ -87,7 +88,6 @@
     [self.view addGestureRecognizer:swipeLeft];
     self.webV.delegate = self;
     self.textView.delegate = self;
-    
     
     //Load haiku from documents directory
     
@@ -103,7 +103,6 @@
     }
     self.gayHaiku = [[NSMutableArray alloc] initWithContentsOfFile: path];
 
-    
     //Visual elements
     
     [self.view viewWithTag:5].hidden=YES;
@@ -128,7 +127,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:
 (UIInterfaceOrientation)interfaceOrientation
 {
-        return NO;
+    return NO;
 }
 
 -(void)clearScreen
@@ -152,8 +151,7 @@
     [super viewDidUnload];
 }
 
-//This keeps track, persistently, of whether user has read instructions, so that instructions automatically appear the first time user writes a haiku.
-
+//saveData keeps track, persistently, of whether user has read instructions, so that instructions automatically appear the first time user writes a haiku.
 -(void)saveData
 {
     if (self.instructionsSeen)
@@ -238,7 +236,6 @@
     self.delet = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self action:@selector(deleteHaiku)];
 }
 
-
 //The next three methods create toolbars.
 
 -(void)addToolbarButtons
@@ -264,9 +261,11 @@
 #pragma mark - 
 #pragma Instructions
 
+//haikuInstructions sets up and displays the page of instructions on how to write haiku.
+
 -(void)haikuInstructions
 {
-    //set screen up
+    //Set screen up.
     
     self.textToSave = self.textView.text;
     [self clearScreen];
@@ -274,7 +273,7 @@
     [self resignFirstResponder];
     
     
-    //create navigation bar
+    //Create navigation bar.
     
     [self loadNavBar:@"Instructions"];
     self.meth=@"nextHaiku";
@@ -294,8 +293,7 @@
     }
     [self seeNavBar];
     
-    
-    //Show instructions.
+    //Display instructions.
     
     self.instructions = [[UITextView alloc] initWithFrame:CGRectMake(20, 44, 280, 480-44)];
     self.instructions.backgroundColor=[UIColor clearColor];
@@ -314,20 +312,23 @@
 #pragma Connection 
 
 
-//Create navigation functionality.
+//Create navigation functionality for the UIWebView.
 
+//Add a back button to the webview.
 -(void)addBackButton
 {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webBack")];
     self.titulus.leftBarButtonItem = button;
 }
 
+//Add a forward button to the webview.
 -(void)addForwardButton
 {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Forward" style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webForward")];
     self.titulus.leftBarButtonItem = button;
 }
 
+//Allow the user to go to the previous web page.
 -(void)webBack
 {
     if (self.webV.canGoBack)
@@ -336,6 +337,7 @@
     }
 }
 
+//Allow the user to follow a link.
 -(void)webForward
 {
     if (self.webV.canGoForward)
@@ -344,19 +346,19 @@
     }
 }
 
+//Refreshes the current web page.
 -(void)webRefresh
 {
     [self.webV reload];
 }
 
+//Interrupts loading the current web page.
 -(void)webStop
 {
     [self.webV stopLoading];
 }
 
-
-//Load the page.
-
+//Load the web page of Joel Derfner's books.
 -(void)loadAmazon
 {    
     //Create nav bar and toolbar.
@@ -373,15 +375,14 @@
     self.webV.delegate = self;
     
     //Load Amazon page.
-     //self.baseURLString =  @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
     NSString *baseURLString = @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
-     //self.urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
     NSString *urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
     [self connectWithURL:urlString andBaseURLString:baseURLString];
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    //Set up and display the navigation bar for the webview.
     NSMutableArray *buttons = [[NSMutableArray alloc] init];
     NSMutableArray *rightButtons = [[NSMutableArray alloc] init];
     UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:NSSelectorFromString(@"webRefresh")];
@@ -409,6 +410,7 @@
     [self addToolbarButtonsPlusDone];
 }
 
+//Sets up and displays error message in case of failure to connect.
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)req navigationType:(UIWebViewNavigationType)navigationType
 {
     if (navigationType==UIWebViewNavigationTypeLinkClicked)
@@ -424,29 +426,21 @@
     return YES;
 }
 
+//Connect to the Internet.
 -(void)connectWithURL:(NSString *)us andBaseURLString:(NSString *)bus
 {
     NSURLRequest *reques = [NSURLRequest requestWithURL:[NSURL URLWithString:us] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 20];
-    //self.requ = [NSURLRequest requestWithURL:[NSURL URLWithString:us] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 20];
-    //self.conn=[[NSURLConnection alloc] initWithRequest:self.requ delegate:self];
     NSURLConnection *connectio = [[NSURLConnection alloc] initWithRequest:reques delegate:self];
-    //NSError *error=nil;
-    //NSURLResponse *resp=nil;
     if (connectio)
     {
-        //self.urlData = [NSURLConnection sendSynchronousRequest: self.requ returningResponse:&resp error:&error];
-        //NSString *htmlString = [[NSString alloc] initWithData:self.urlData encoding:NSUTF8StringEncoding];
-        [self.webV loadRequest:reques]; //loadHTMLString:htmlString baseURL:[NSURL URLWithString:bus]];
+        [self.webV loadRequest:reques];
     }
-    /*else
-    {
-        [self connection:connectio didFailWithError:error];
-    }*/
     self.webV.scalesPageToFit=YES;
     [self.webV setFrame:(CGRectMake(0,44,320,372))];
     [self.view addSubview:self.webV];
 }
 
+//What to do in case of failure to connect.
 -(BOOL)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I'll make it worth your while, I promise." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -454,18 +448,25 @@
     return YES;
 }
 
-
 //We're finished with Amazon.
-
 -(void)doneWithAmazon
 {
     [self clearScreen];
     [self nextHaiku];
 }
 
+//This gets back to the haiku once the user is done buying Joel Derfner's books.
 -(void)hom
 {
+    NSString *cat=@"user";
+    NSArray *filteredArray;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
+    filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
     //FIND WAY TO AVOID CALLING THIS METHOD IF YOU'RE ALREADY HOME--OTHERWISE SEEMS LIKE YOU'VE CALLED JUST PREVIOUS HAIKU.
+    if (self.selectedCategory==@"user" && filteredArray.count==0)
+    {
+        self.selectedCategory=@"Derfner";
+    }
     [self nextHaiku];
     [self previousHaiku];
 }
@@ -475,6 +476,7 @@
 #pragma mark -
 #pragma Compose
 
+//This allows the user to edit haiku s/he's already written.
  -(void)editSavedHaiku
 {
     self.textToSave = self.haiku_text.text;
@@ -482,13 +484,15 @@
     [self userWritesHaiku];
 }
 
+//Creates the button to save haiku the user has written.
  -(void)createSaveButton
 {
     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:3 target:self action:@selector(saveUserHaiku)];
     save.style=UIBarButtonItemStyleBordered;
     self.titulus.rightBarButtonItem = save;
 }
- 
+
+//Creates the UITextView for the user to write haiku.
 -(void)createSpaceToWrite
 {
     [self.webV removeFromSuperview];
@@ -500,6 +504,7 @@
     [self.view addSubview: self.textView];
 }
 
+//If the user hasn't read the instructions before, this shows them the first time s/he pressed the compose button.
 -(void)userNeedsInstructions
 {
     NSString *cat = @"user";
@@ -512,6 +517,7 @@
     }
 }
 
+//This shows the cancel button if no text has been entered; if text has been entered, it shows the done button.
 -(void)textViewDidChange:(UITextView *)view
 {
     [self.bar removeFromSuperview];
@@ -531,6 +537,7 @@
     [self seeNavBar];
 }
 
+//This sets up and displays the screen for the user to write haiku.
 -(void)userWritesHaiku
 {
     [self clearScreen];
@@ -544,20 +551,15 @@
     if (self.textView.text.length>0)
     {
         method=@"userFinishedWritingHaiku";
-        NSLog(@"Greater than zero");
     }
     else
     {
         method=@"hom";
-        NSLog(@"Equal to zero");
     }
     [self loadNavBar:@"Compose"];
     [self addLeftButton:@"Instructions" callingMethod:@"haikuInstructions"];
     [self addCancelButton:@"hom"];
     [self seeNavBar];
-    
-    //NEED TO ADD FUNCTIONALITY WHEREBY ONCE USER ENTERS TEXT "CANCEL" BUTTON CHANGES TO "DONE" BUTTON.
-    
     
     //Create and add the space for user to write.
     
@@ -600,16 +602,17 @@
 -(void)userFinishedWritingHaiku
 {
     if (!self.textView || self.textView.text.length==0)
+    {
+        if (self.selectedCategory==@"user")
         {
-            if (self.selectedCategory==@"user")
-            {
-                self.selectedCategory=@"Derfner";
-                self.segContrAsOutlet.selectedSegmentIndex=0;
-            }
-        [self nextHaiku];
+            self.selectedCategory=@"Derfner";
+            self.segContrAsOutlet.selectedSegmentIndex=0;
         }
+            [self nextHaiku];
+    }
     else
     {
+        self.selectedCategory=@"user";
         [self doActionSheet];
     }
 }
@@ -729,24 +732,19 @@
     NSString *textToDelete = self.haiku_text.text;
     NSString *cat=@"user";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
-    NSArray *blah = [self.gayHaiku filteredArrayUsingPredicate:predicate];
-    if (blah.count>0)
+    if ([self.gayHaiku filteredArrayUsingPredicate:predicate].count>0)
     {
-    for (int i=0; i<blah.count; i++)
+    for (int i=0; i<[self.gayHaiku filteredArrayUsingPredicate:predicate].count; i++)
     {
-        if ([[[blah objectAtIndex:i] valueForKey:@"quote"] isEqualToString:textToDelete])
+        if ([[[[self.gayHaiku filteredArrayUsingPredicate:predicate] objectAtIndex:i] valueForKey:@"quote"] isEqualToString:textToDelete])
         {
-            [self.gayHaiku removeObjectIdenticalTo:[blah objectAtIndex:i]];
+            [self.gayHaiku removeObjectIdenticalTo:[[self.gayHaiku filteredArrayUsingPredicate:predicate] objectAtIndex:i]];
             [self saveToDocsFolder:@"gayHaiku.plist"];
-            if (blah.count>1)
+            if ([self.gayHaiku filteredArrayUsingPredicate:predicate].count>=1)
             {
                 [self nextHaiku];   
             }
-            else if (blah.count==1)
-            {
-                [self haikuInstructions];
-            }
-            else if (blah.count==0)
+            else if ([self.gayHaiku filteredArrayUsingPredicate:predicate].count==0)
             {
                 self.selectedCategory=@"Derfner";
                 [self nextHaiku];
@@ -826,8 +824,8 @@
     self.textView.editable = NO;
     CGRect newRect = CGRectMake(0, 0, 320, 416);
     UIGraphicsBeginImageContext(newRect.size); //([self.view frame].size])
-    [self.view viewWithTag:30].hidden=YES; //Is this necessary?
-    [self.view viewWithTag:40].hidden=YES; //Is this necessary?
+    //[self.view viewWithTag:30].hidden=YES; //Is this necessary?
+    //[self.view viewWithTag:40].hidden=YES; //Is this necessary?
     [self.view viewWithTag:3].hidden=YES;
     [[self.view layer] renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -942,7 +940,8 @@
 #pragma mark -
 #pragma Main View
 
- - (IBAction)chooseDatabase:(UISegmentedControl *)segment 
+ - (IBAction)chooseDatabase:(UISegmentedControl *)segment
+//Need to add functionality that makes darkening of chosen segment persist past act of choosing.
  {
     if (segment.selectedSegmentIndex==1) {
         self.selectedCategory = @"user";
@@ -959,7 +958,6 @@
 {
     [self clearScreen];
     self.textToSave=@"";
-    self.haiku_text.text=@"";
     [self.view viewWithTag:3].hidden = NO;
     [self loadToolbar];
     [self addToolbarButtons];
@@ -993,7 +991,11 @@
     NSString *txt;
     if (array_tot > 0)
     {
-        if (indexOfHaiku == arrayOfHaikuSeen.count)
+        if (array_tot==1 && self.selectedCategory==@"user")
+            {
+                txt=self.haiku_text.text;
+            }
+        else if (indexOfHaiku == arrayOfHaikuSeen.count)
         {
             while (true)
             {
@@ -1019,6 +1021,7 @@
             indexOfHaiku += 1;
         }
     }
+    self.haiku_text.text=@"";
     CGSize dimensions = CGSizeMake(320, 400);
     CGSize xySize = [txt sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
     self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),150,320,200)];
@@ -1125,76 +1128,6 @@
     }
     self.haiku_text.editable=NO;
 }
-
-/*
-- (IBAction)fadeInOut
-{
-    if (self.haiku_text.hidden==NO)
-    {
-        if (self.segContrAsOutlet.hidden==NO)
-        {
-            self.segContrAsOutlet.hidden=YES;
-        }
-        else
-        {
-            [self CGAcquireDisplayFadeReservation];
-            CGError CGDisplayFade (
-            CGDisplayFadeReservationToken myToken,
-            CGDisplayFadeInterval seconds,
-            CGDisplayBlendFraction startBlend,
-            CGDisplayBlendFraction endBlend,
-            float redBlend,
-            float greenBlend,
-            float blueBlend,
-            boolean_t synchronous
-                                   );
-        }
-            
-    }
-}
-
- const double kMyFadeTime = 1.0; /* fade time in seconds 
-const int kMyFadeSteps = 100;
-const double kMyFadeInterval = (kMyFadeTime / (double) kMyFadeSteps);
-const useconds_t kMySleepTime = (1000000 * kMyFadeInterval); /* delay in microseconds 
-
-int step;
-double fade;
-CGGammaValue redMin, redMax, redGamma,
-greenMin, greenMax, greenGamma,
-blueMin, blueMax, blueGamma;
-CGError err;
-
-err = CGGetDisplayTransferByFormula (display, // 1
-                                     &redMin, &redMax, &redGamma,
-                                     &greenMin, &greenMax, &greenGamma,
-                                     &blueMin, &blueMax, &blueGamma);
-
-for (step = 0; step < kMyFadeSteps; ++step) { // 2
-    fade = 1.0 - (step * kMyFadeInterval);
-    err = CGSetDisplayTransferByFormula (display,
-                                         redMin, fade*redMax, redGamma,
-                                         greenMin, fade*greenMax, greenGamma,
-                                         blueMin, fade*blueMax, blueGamma);
-    usleep (kMySleepTime); // 3
-}
-
-err = CGDisplayCapture (display);
-/* draw something on the captured display 
-
-for (step = 0; step < kMyFadeSteps; ++step) { // 4
-    fade = (step * kMyFadeInterval);
-    err = CGSetDisplayTransferByFormula (display,
-                                         redMin, fade*redMax, redGamma,
-                                         greenMin, fade*greenMax, greenGamma,
-                                         blueMin, fade*blueMax, blueGamma);
-    usleep (kMySleepTime); // 5
-}
-
-CGDisplayRestoreColorSyncSettings();
- 
- 
-*/
  
 - (IBAction)valueChanged:(UISegmentedControl *)sender
 {

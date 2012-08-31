@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5D0DD09515EBDE30004C5AD2 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D0DD09415EBDE30004C5AD2 /* Accounts.framework */; };
 		5D20494015DC290E0006D1CC /* GayHaiku for iPhone guy supine.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D20493F15DC290E0006D1CC /* GayHaiku for iPhone guy supine.png */; };
+		5D25F28615F0C03E004459DF /* GHHaikuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D25F28515F0C03E004459DF /* GHHaikuController.m */; };
 		5D29D55D15E8617500AF723A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D55C15E8617500AF723A /* Parse.framework */; };
 		5D29D55F15E861C100AF723A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D55E15E861C100AF723A /* AudioToolbox.framework */; };
 		5D29D56715E861F500AF723A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D56015E861F500AF723A /* CFNetwork.framework */; };
@@ -39,6 +40,8 @@
 /* Begin PBXFileReference section */
 		5D0DD09415EBDE30004C5AD2 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		5D20493F15DC290E0006D1CC /* GayHaiku for iPhone guy supine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GayHaiku for iPhone guy supine.png"; sourceTree = "<group>"; };
+		5D25F28415F0C03E004459DF /* GHHaikuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHHaikuController.h; sourceTree = "<group>"; };
+		5D25F28515F0C03E004459DF /* GHHaikuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHHaikuController.m; sourceTree = "<group>"; };
 		5D29D55C15E8617500AF723A /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		5D29D55E15E861C100AF723A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5D29D56015E861F500AF723A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -147,6 +150,8 @@
 				5DA213D815BE2284007FEAFB /* GHAppDelegate.m */,
 				5DA213DA15BE2284007FEAFB /* GHViewController.h */,
 				5DA213DB15BE2284007FEAFB /* GHViewController.m */,
+				5D25F28415F0C03E004459DF /* GHHaikuController.h */,
+				5D25F28515F0C03E004459DF /* GHHaikuController.m */,
 				5DA213DD15BE2284007FEAFB /* GHViewController.xib */,
 				5DA213CF15BE2284007FEAFB /* Supporting Files */,
 			);
@@ -243,6 +248,7 @@
 				5DA213D515BE2284007FEAFB /* main.m in Sources */,
 				5DA213D915BE2284007FEAFB /* GHAppDelegate.m in Sources */,
 				5DA213DC15BE2284007FEAFB /* GHViewController.m in Sources */,
+				5D25F28615F0C03E004459DF /* GHHaikuController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

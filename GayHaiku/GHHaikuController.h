@@ -1,12 +1,12 @@
 //
-//  GHViewController.h
-//  Gay Haiku
+//  GHHaikuController.h
+//  GayHaiku
 //
-//  Created by Joel Derfner on 7/22/12.
+//  Created by Joel Derfner on 8/31/12.
 //  Copyright (c) 2012 Self. All rights reserved.
 //
-//  Note:  Layout is a dummy, standing in until I get a graphic that isn't under copyright.
 
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import <MessageUI/MessageUI.h>
@@ -15,10 +15,9 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Parse/Parse.h>
 #import <Social/Social.h>
-#import "GHHaikuController.h"
 
 
-@interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate>
+@interface GHHaikuController : NSObject <UITextViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *gayHaiku;
 @property (nonatomic, strong) NSString *selectedCategory;
@@ -53,7 +52,6 @@
 @property (nonatomic, strong) UIBarButtonItem *more;
 @property (nonatomic) BOOL controlVisible;
 @property (nonatomic) BOOL textEntered;
-@property (nonatomic, strong) GHHaikuController *hc;
 
 -(IBAction)selectButton;
 -(IBAction)valueChanged:(UISegmentedControl *)sender;
