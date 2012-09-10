@@ -15,51 +15,57 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Parse/Parse.h>
 #import <Social/Social.h>
-#import "GHHaikuController.h"
 
 
 @interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *gayHaiku;
-@property (nonatomic, strong) NSString *selectedCategory;
-@property (nonatomic, strong) UITextView *haiku_text;
 @property (nonatomic, strong) NSMutableArray *theseAreDoneAll;
 @property (nonatomic, strong) NSMutableArray *theseAreDoneU;
 @property (nonatomic, strong) NSMutableArray *theseAreDoneD;
+@property (nonatomic, strong) NSString *selectedCategory;
+@property (nonatomic, strong) UITextView *haiku_text;
+@property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UITextView *instructions;
 @property (nonatomic) int indxAll;
 @property (nonatomic) int indxU;
 @property (nonatomic) int indxD;
-@property (nonatomic, strong) UITextView *textView;
-@property (nonatomic, strong) UINavigationItem *titulus;
-@property (nonatomic, strong) UINavigationBar *bar;
-@property (nonatomic, strong) UITextView *instructions;
-@property (nonatomic, strong) NSString *textToSave;
-@property (nonatomic, strong) UIToolbar *toolb;
-@property (nonatomic) BOOL instructionsSeen;
-//CHECK WHETHER THIS ONE NECESSARY:
-@property (nonatomic) BOOL savedEdit;
-@property (nonatomic) BOOL checkboxChecked;
-@property (nonatomic, strong) NSString *meth;
-@property (nonatomic, weak) IBOutlet UISegmentedControl *segContrAsOutlet;
-@property (nonatomic, weak) IBOutlet UITextField *userName;
-@property (nonatomic, weak) IBOutlet UIButton *checkbox;
-@property (nonatomic, strong) UIWebView *webV;
+@property (nonatomic) int establishedSegment;
 @property (nonatomic, strong) UIBarButtonItem *home;
 @property (nonatomic, strong) UIBarButtonItem *compose;
 @property (nonatomic, strong) UIBarButtonItem *action;
 @property (nonatomic, strong) UIBarButtonItem *done;
-@property (nonatomic, strong) UIBarButtonItem *delet;
+@property (nonatomic, strong) UIBarButtonItem *de;
 @property (nonatomic, strong) UIBarButtonItem *flex;
 @property (nonatomic, strong) UIBarButtonItem *more;
+@property (nonatomic, strong) UIBarButtonItem *ed;
+@property (nonatomic, strong) NSString *textToDelete;
+@property (nonatomic, strong) NSString *meth;
+@property (nonatomic, strong) NSString *textToSave;
 @property (nonatomic) BOOL controlVisible;
 @property (nonatomic) BOOL textEntered;
-@property (nonatomic, strong) GHHaikuController *hc;
+@property (nonatomic) BOOL instructionsSeen;
+@property (nonatomic) BOOL checkboxChecked;
+@property (nonatomic) BOOL checkIfJustWrote;
+@property (nonatomic, strong) UINavigationItem *titulus;
+@property (nonatomic, strong) UINavigationBar *bar;
+@property (nonatomic, strong) UIToolbar *toolb;
+@property (nonatomic, strong) UIWebView *webV;
+@property (weak, nonatomic) IBOutlet UIView *viewToFade;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *segContrAsOutlet;
+@property (nonatomic, weak) IBOutlet UITextField *userName;
+@property (nonatomic, weak) IBOutlet UIButton *checkbox;
 
 -(IBAction)selectButton;
 -(IBAction)valueChanged:(UISegmentedControl *)sender;
 -(IBAction)chooseDatabase:(UISegmentedControl *)segment;
 -(IBAction)nextHaiku;
 -(IBAction)previousHaiku;
-//- (IBAction)fadeInOut;
+
+-(void)clearScreen;
+-(void)loadToolbar;
+-(void)addToolbarButtonsPlusEditAndDelete;
+-(void)addToolbarButtons;
+-(void)fadeView;
 
 @end
