@@ -39,6 +39,8 @@
 @property (nonatomic, strong) UIBarButtonItem *flex;
 @property (nonatomic, strong) UIBarButtonItem *more;
 @property (nonatomic, strong) UIBarButtonItem *ed;
+@property (nonatomic, strong) UIBarButtonItem *next;
+@property (nonatomic, strong) UIBarButtonItem *nextNext;
 @property (nonatomic, strong) NSString *textToDelete;
 @property (nonatomic, strong) NSString *meth;
 @property (nonatomic, strong) NSString *textToSave;
@@ -47,10 +49,14 @@
 @property (nonatomic) BOOL instructionsSeen;
 @property (nonatomic) BOOL checkboxChecked;
 @property (nonatomic) BOOL checkIfJustWrote;
+@property (nonatomic) BOOL canFlipPage;
+@property (nonatomic) BOOL optOutSeen;
+@property (nonatomic) BOOL userIsEditing;
 @property (nonatomic, strong) UINavigationItem *titulus;
 @property (nonatomic, strong) UINavigationBar *bar;
 @property (nonatomic, strong) UIToolbar *toolb;
 @property (nonatomic, strong) UIWebView *webV;
+@property (nonatomic, strong) UIAlertView *alert;
 @property (weak, nonatomic) IBOutlet UIView *viewToFade;
 @property (nonatomic, weak) IBOutlet UISegmentedControl *segContrAsOutlet;
 @property (nonatomic, weak) IBOutlet UITextField *userName;
