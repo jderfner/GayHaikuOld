@@ -480,8 +480,8 @@
 //What to do in case of failure to connect.
 -(BOOL)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+    UIAlertView *alertToShow = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alertToShow show];
     return YES;
 }
 
@@ -724,8 +724,8 @@
             }
             else
             {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tweet twitted." message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                [alert show];
+                UIAlertView *alertToShow = [[UIAlertView alloc] initWithTitle:@"Tweet twitted." message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [alertToShow show];
             }
             [controller dismissViewControllerAnimated:YES completion:Nil];
         };
@@ -738,8 +738,8 @@
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"I seem to be having trouble logging in to Twitter.  Would you mind checking your iPhone settings or trying again later?" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
+        UIAlertView *alertToShow = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"I seem to be having trouble logging in to Twitter.  Would you mind checking your iPhone settings or trying again later?" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alertToShow show];
     }
 }
 
@@ -755,8 +755,8 @@
             }
             else
             {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Haiku posted." message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                [alert show];
+                UIAlertView *alertToShow = [[UIAlertView alloc] initWithTitle:@"Haiku posted." message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [alertToShow show];
             }
             [controller dismissViewControllerAnimated:YES completion:Nil];
         };
@@ -770,14 +770,14 @@
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"I seem to be having trouble logging in to Facebook.  Would you mind checking your iPhone settings or trying again later?" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
+        UIAlertView *alertToShow = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"I seem to be having trouble logging in to Facebook.  Would you mind checking your iPhone settings or trying again later?" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alertToShow show];
     }
 }
 
 -(void)deleteHaiku
 {
-    NSString *textToDelete = self.haiku_text.text;
+    NSString *textToBeDeleted = self.haiku_text.text;
     NSString *cat=@"user";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
     if ([self.gayHaiku filteredArrayUsingPredicate:predicate].count==1)
@@ -789,7 +789,7 @@
     {
         for (int i=0; i<[self.gayHaiku filteredArrayUsingPredicate:predicate].count; i++)
         {
-            if ([[[[self.gayHaiku filteredArrayUsingPredicate:predicate] objectAtIndex:i] valueForKey:@"quote"] isEqualToString:textToDelete])
+            if ([[[[self.gayHaiku filteredArrayUsingPredicate:predicate] objectAtIndex:i] valueForKey:@"quote"] isEqualToString:textToBeDeleted])
             {
                 self.canFlipPage=YES;
                 [self nextHaiku];
@@ -991,8 +991,8 @@
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"Your device doesn't seem to be able to email this haiku.  Perhaps you'd like to tweet it or post it on Facebook instead?" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
+        UIAlertView *alertToShow = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"Your device doesn't seem to be able to email this haiku.  Perhaps you'd like to tweet it or post it on Facebook instead?" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alertToShow show];
     }
 }
 
