@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5D0DD09515EBDE30004C5AD2 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D0DD09415EBDE30004C5AD2 /* Accounts.framework */; };
 		5D20494015DC290E0006D1CC /* GayHaiku for iPhone guy supine.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D20493F15DC290E0006D1CC /* GayHaiku for iPhone guy supine.png */; };
+		5D284C1C1607DE9B0027F8CC /* GHHaiku.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D284C1B1607DE9B0027F8CC /* GHHaiku.m */; };
 		5D29D55D15E8617500AF723A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D55C15E8617500AF723A /* Parse.framework */; };
 		5D29D55F15E861C100AF723A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D55E15E861C100AF723A /* AudioToolbox.framework */; };
 		5D29D56715E861F500AF723A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D56015E861F500AF723A /* CFNetwork.framework */; };
@@ -19,7 +20,6 @@
 		5D29D56C15E861F500AF723A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D56515E861F500AF723A /* StoreKit.framework */; };
 		5D29D56D15E861F500AF723A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D56615E861F500AF723A /* SystemConfiguration.framework */; };
 		5D2F944E15D3D5090065FA2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2F944D15D3D5090065FA2D /* QuartzCore.framework */; };
-		5D3C4DEC1604ED43008F5E1A /* GHDupeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D3C4DEB1604ED43008F5E1A /* GHDupeViewController.m */; };
 		5D3C5F5615DF2D0900655854 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D3C5F5315DF2D0900655854 /* checkbox-checked.png */; };
 		5D3C5F5715DF2D0900655854 /* checkbox-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D3C5F5415DF2D0900655854 /* checkbox-pressed.png */; };
 		5D3C5F5815DF2D0900655854 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D3C5F5515DF2D0900655854 /* checkbox.png */; };
@@ -41,6 +41,8 @@
 /* Begin PBXFileReference section */
 		5D0DD09415EBDE30004C5AD2 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		5D20493F15DC290E0006D1CC /* GayHaiku for iPhone guy supine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GayHaiku for iPhone guy supine.png"; sourceTree = "<group>"; };
+		5D284C1A1607DE9B0027F8CC /* GHHaiku.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHHaiku.h; sourceTree = "<group>"; };
+		5D284C1B1607DE9B0027F8CC /* GHHaiku.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHHaiku.m; sourceTree = "<group>"; };
 		5D29D55C15E8617500AF723A /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		5D29D55E15E861C100AF723A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5D29D56015E861F500AF723A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -51,8 +53,6 @@
 		5D29D56515E861F500AF723A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5D29D56615E861F500AF723A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5D2F944D15D3D5090065FA2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		5D3C4DEA1604ED43008F5E1A /* GHDupeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHDupeViewController.h; sourceTree = "<group>"; };
-		5D3C4DEB1604ED43008F5E1A /* GHDupeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHDupeViewController.m; sourceTree = "<group>"; };
 		5D3C5F5315DF2D0900655854 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked.png"; sourceTree = "<group>"; };
 		5D3C5F5415DF2D0900655854 /* checkbox-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-pressed.png"; sourceTree = "<group>"; };
 		5D3C5F5515DF2D0900655854 /* checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox.png; sourceTree = "<group>"; };
@@ -148,12 +148,12 @@
 		5DA213CE15BE2284007FEAFB /* GayHaiku */ = {
 			isa = PBXGroup;
 			children = (
+				5D284C1A1607DE9B0027F8CC /* GHHaiku.h */,
+				5D284C1B1607DE9B0027F8CC /* GHHaiku.m */,
 				5DA213D715BE2284007FEAFB /* GHAppDelegate.h */,
 				5DA213D815BE2284007FEAFB /* GHAppDelegate.m */,
 				5DA213DA15BE2284007FEAFB /* GHViewController.h */,
 				5DA213DB15BE2284007FEAFB /* GHViewController.m */,
-				5D3C4DEA1604ED43008F5E1A /* GHDupeViewController.h */,
-				5D3C4DEB1604ED43008F5E1A /* GHDupeViewController.m */,
 				5DA213DD15BE2284007FEAFB /* GHViewController.xib */,
 				5DA213CF15BE2284007FEAFB /* Supporting Files */,
 			);
@@ -252,7 +252,7 @@
 				5DA213D515BE2284007FEAFB /* main.m in Sources */,
 				5DA213D915BE2284007FEAFB /* GHAppDelegate.m in Sources */,
 				5DA213DC15BE2284007FEAFB /* GHViewController.m in Sources */,
-				5D3C4DEC1604ED43008F5E1A /* GHDupeViewController.m in Sources */,
+				5D284C1C1607DE9B0027F8CC /* GHHaiku.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

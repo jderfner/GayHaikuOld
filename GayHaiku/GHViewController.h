@@ -15,6 +15,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Parse/Parse.h>
 #import <Social/Social.h>
+#import "GHHaiku.h"
 
 
 @interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate>
@@ -23,7 +24,6 @@
 @property (nonatomic, strong) NSMutableArray *theseAreDoneAll;
 @property (nonatomic, strong) NSMutableArray *theseAreDoneU;
 @property (nonatomic, strong) NSMutableArray *theseAreDoneD;
-@property (nonatomic, strong) NSString *selectedCategory;
 @property (nonatomic, strong) UITextView *haiku_text;
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) UITextView *instructions;
@@ -41,9 +41,11 @@
 @property (nonatomic, strong) UIBarButtonItem *ed;
 @property (nonatomic, strong) UIBarButtonItem *next;
 @property (nonatomic, strong) UIBarButtonItem *nextNext;
+@property (nonatomic, strong) UIBarButtonItem *bac;
 @property (nonatomic, strong) NSString *textToDelete;
 @property (nonatomic, strong) NSString *meth;
 @property (nonatomic, strong) NSString *textToSave;
+@property (nonatomic, strong) NSString *selectedCategory;
 @property (nonatomic) BOOL controlVisible;
 @property (nonatomic) BOOL textEntered;
 @property (nonatomic) BOOL instructionsSeen;
@@ -57,6 +59,7 @@
 @property (nonatomic, strong) UIToolbar *toolb;
 @property (nonatomic, strong) UIWebView *webV;
 @property (nonatomic, strong) UIAlertView *alert;
+@property (nonatomic, strong) GHHaiku *ghhaiku;
 @property (weak, nonatomic) IBOutlet UIView *viewToFade;
 @property (nonatomic, weak) IBOutlet UISegmentedControl *segContrAsOutlet;
 @property (nonatomic, weak) IBOutlet UITextField *userName;
@@ -70,8 +73,6 @@
 
 -(void)clearScreen;
 -(void)loadToolbar;
--(void)addToolbarButtonsPlusEditAndDelete;
--(void)addToolbarButtons;
 -(void)fadeView;
 
 @end

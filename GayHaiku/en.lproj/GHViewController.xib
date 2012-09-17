@@ -46,7 +46,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{-6, 0}, {324, 423}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
-						<reference key="NSNextKeyView" ref="917201913"/>
+						<reference key="NSNextKeyView" ref="479366569"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="809110590">
 							<int key="NSColorSpace">3</int>
@@ -102,7 +102,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIBorderStyle">3</int>
-						<string key="IBUIPlaceholder">Name</string>
+						<string key="IBUIPlaceholder">Name (optional)</string>
 						<bool key="IBUIClearsOnBeginEditing">YES</bool>
 						<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
 						<float key="IBUIMinimumFontSize">17</float>
@@ -247,6 +247,7 @@
 						</array>
 						<string key="NSFrame">{{20, 20}, {280, 70}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
+						<reference key="NSNextKeyView" ref="917201913"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="809110590"/>
 						<reference key="IBUIGestureRecognizers" ref="0"/>
