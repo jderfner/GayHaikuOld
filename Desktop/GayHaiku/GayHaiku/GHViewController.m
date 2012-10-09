@@ -23,38 +23,16 @@
 
 @implementation GHViewController
 
-@synthesize userName = _userName;
-@synthesize segContrAsOutlet = _segContrAsOutlet;
-@synthesize checkbox = _checkbox;
-@synthesize gayHaiku = _gayHaiku;
-@synthesize textView = _textView;
-@synthesize titulus = _titulus;
-@synthesize bar = _bar;
-@synthesize instructions = _instructions;
-@synthesize textToSave = _textToSave;
-@synthesize haiku_text = _haiku_text;
-@synthesize selectedCategory = _selectedCategory;
-@synthesize webV = _webV;
-@synthesize theseAreDoneAll = _theseAreDoneAll;
-@synthesize theseAreDoneD = _theseAreDoneD;
-@synthesize theseAreDoneU = _theseAreDoneU;
-@synthesize indxAll = _indxAll;
-@synthesize indxD = _indxD;
-@synthesize indxU = _indxU;
-@synthesize toolb = _toolb;
-@synthesize instructionsSeen = _instructionsSeen;
-@synthesize checkboxChecked = _checkboxChecked;
-@synthesize meth = _meth;
-@synthesize de = _de;
-@synthesize home = _home;
-@synthesize done = _done;
-@synthesize more = _more;
-@synthesize compose = _compose;
-@synthesize action = _action;
-@synthesize flex = _flex;
-@synthesize controlVisible = _controlVisible;
-@synthesize textEntered = _textEntered;
+@synthesize gayHaiku, theseAreDoneAll, theseAreDoneD, theseAreDoneU; //NSMutableArrays
+@synthesize haiku_text, textView, instructions; //UITextViews
+@synthesize indxAll, indxD, indxU, establishedSegment; //ints
+@synthesize home, compose, action, done, de, flex, more, ed, next, nextNext, bac; //UIBarButtonItems
+@synthesize meth, textToSave, selectedCategory; //NSStrings
 @synthesize textToDelete = _textToDelete;
+@synthesize controlVisible, textEntered, instructionsSeen, checkboxChecked, checkIfJustWrote, canFlipPage, optOutSeen, userIsEditing; //BOOLs
+@synthesize titulus, bar, webV, toolb, alert, ghhaiku; //misc. //ghwebview
+@synthesize viewToFade, segContrAsOutlet, userName, checkbox; //IB properties
+
 
 //————————————————code used by all pages——————————————————
 
@@ -63,19 +41,32 @@
 
 -(void)viewDidLoad
 {
-    //Load view
+    //Load user defaults (self.optOutSeen and self.checkboxChecked).
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.instructionsSeen = [defaults boolForKey:@"seen?"];
+    self.optOutSeen = [defaults boolForKey:@"optOutSeen?"];
+    self.instructionsSeen = [defaults boolForKey:@"instructionsSeen?"];
+    self.optOutSeen=NO;
+    self.instructionsSeen=NO;
     if ([defaults boolForKey:@"checked?"])
     {
         self.checkboxChecked = [defaults boolForKey:@"checked?"];
     }
     else self.checkboxChecked = YES;
+    
+    //Sets page to flippable.
+    
+    self.canFlipPage=YES;
+    
+    //Sets delegates for webview (for loadAmazon), alertview (for several) and textview (for userWritesHaiku)
+    
+    self.webV.delegate = self;
+    //self.ghwebview.webV.delegate = self;
+    self.textView.delegate = self;
+    self.alert.delegate = self;
 	[super viewDidLoad];
     
-    
-    //Swipe gesture recognizers
+    //Create and add swipe gesture recognizers
     
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(previousHaiku)];
     swipeRight.numberOfTouchesRequired = 1;
@@ -85,9 +76,8 @@
     swipeLeft.numberOfTouchesRequired = 1;
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     [self.view addGestureRecognizer:swipeLeft];
-    self.webV.delegate = self;
-    self.textView.delegate = self;
-    
+    UITapGestureRecognizer *tapBar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fadeView)];
+    [self.viewToFade addGestureRecognizer:tapBar];
     
     //Load haiku from documents directory
     
@@ -101,16 +91,14 @@
         NSString *bundle = [[NSBundle mainBundle] pathForResource:@"gayHaiku" ofType:@"plist"];
         [fileManager copyItemAtPath:bundle toPath: path error:&error];
     }
-     
-     //UNCOMMENT, RUN, AND THEN RECOMMENT THIS SECTION IF NEED TO DELETE LOCAL HAIKU DOCUMENT (FOR TESTING USER-GENERATED HAIKU, ETC.).
-     /*
+    //UNCOMMENT, RUN, AND THEN RECOMMENT THIS SECTION IF NEED TO DELETE LOCAL HAIKU DOCUMENT (FOR TESTING USER-GENERATED HAIKU, ETC.).
+    /*
      else if ([fileManager fileExistsAtPath: path])
     {
         [fileManager removeItemAtPath:path error:&error];
     }
     */
     self.gayHaiku = [[NSMutableArray alloc] initWithContentsOfFile: path];
-    NSLog(@"%@",self.gayHaiku);
     
     //Creates a separate plist document for user haiku
     
@@ -123,20 +111,22 @@
         NSString *userBundle = [[NSBundle mainBundle] pathForResource:@"userHaiku" ofType:@"plist"];
         [userFileManager copyItemAtPath:userBundle toPath: userPath error:&error];
     }
-/*
-    else if ([userFileManager fileExistsAtPath: userPath])
+    //UNCOMMENT, RUN, AND THEN RECOMMENT THIS SECTION IF NEED TO DELETE LOCAL HAIKU DOCUMENT (FOR TESTING USER-GENERATED HAIKU, ETC.).
+    /*
+     else if ([userFileManager fileExistsAtPath: userPath])
     {
         [userFileManager removeItemAtPath:userPath error:&error];
     }
     */
-    //merges the contents of the two plists.
+    //merges the contents of gayHaiku.plist and userHaiku.plist.
     
     NSArray *userH = [[NSArray alloc] initWithContentsOfFile:userPath];
-    [self.gayHaiku addObjectsFromArray:userH];
+    if (userH.count>0)
+    {
+        [self.gayHaiku addObjectsFromArray:userH];
+    }
     
     //Visual elements
-    
-
     
     [self.view viewWithTag:5].hidden=YES;
     [self.view viewWithTag:6].hidden=YES;
@@ -155,13 +145,10 @@
     //And we're a go:
     
     [self nextHaiku];
+    [self fadeView];
+    self.optOutSeen=NO;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:
-(UIInterfaceOrientation)interfaceOrientation
-{
-    return NO;
-}
 
 -(void)clearScreen
 {
@@ -171,25 +158,26 @@
     [self.bar removeFromSuperview];
     [self.toolb removeFromSuperview];
     [self.webV removeFromSuperview];
+    //[self.ghwebview.webV removeFromSuperview];
     [self.view viewWithTag:3].hidden=YES;
 }
 
 -(void)viewDidUnload
 {
     [self setSegContrAsOutlet:nil];
-    self.checkboxChecked=NO;
     [self setUserName:nil];
-    self.instructionsSeen=NO;
     [super viewDidUnload];
 }
 
-//saveData keeps track, persistently, of whether user has read instructions, so that instructions automatically appear the very first time user writes a haiku ever.
+//saveData is a default that keeps track, persistently, of whether user has read instructions, so that instructions automatically appear the very first time user writes a haiku ever.
+
 -(void)saveData
 {
-    if (self.instructionsSeen)
+    if (self.optOutSeen)
     {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setBool:self.instructionsSeen forKey:@"seen?"];
+        [defaults setBool:self.optOutSeen forKey:@"optOutSeen?"];
+        [defaults setBool:self.instructionsSeen forKey:@"instructionsSeen?"];
         [defaults synchronize];
     }
 }
@@ -199,7 +187,7 @@
 #pragma mark -
 #pragma NavBars/ToolBars
 
-//This section creates the various navigation bars, toolbars, and buttons used on various screens.
+//This creates the navbar for loadAmazon, userWritesHaiku, and haikuInstructions.
 
 -(void)loadNavBar:(NSString *)titl
 {
@@ -208,23 +196,31 @@
     self.titulus = [[UINavigationItem alloc] initWithTitle:titl];
 }
 
+//This adds the buttons to go back and forth between userWritesHaiku and haikuInstructions.
+
 -(void)addLeftButton:(NSString *)titl callingMethod:(NSString *)method
 {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:titl style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(method)];
     self.titulus.leftBarButtonItem = button;
 }
 
+//This adds the buttons for webForward and webBack.
+
 -(void)addLeftButtons:(NSArray *)titles
 {
     self.titulus.leftBarButtonItems = titles;
 }
 
--(void)addCancelButton:(NSString *)blah
+//This adds the cancel button for userWritesHaiku and haikuInstructions.
+
+-(void)addCancelButton
 {
-    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:1 target:self action:NSSelectorFromString(blah)];
+    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:1 target:self action:@selector(hom)];
     cancel.style=UIBarButtonItemStyleBordered;
     self.titulus.rightBarButtonItem = cancel;
 }
+
+//This adds the done button for userWritesHaiku.
 
 -(void)addDoneButton:(NSString *)blah
 {
@@ -253,44 +249,31 @@
     
     self.compose.style=UIBarButtonItemStyleBordered;
     
+    self.bac = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(userWritesHaiku)];
+    
+    self.ed = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleBordered target:self action:@selector(userEditsHaiku)];
+    
     self.action = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:9 target:self action:@selector(showMessage)];
     
     self.action.style=UIBarButtonItemStyleBordered;
     
     self.more = [[UIBarButtonItem alloc] initWithTitle:@"Buy" style:UIBarButtonItemStyleBordered target:self action:@selector(loadAmazon)];
     
-    //self.home = [[UIBarButtonItem alloc] initWithTitle:@"Home" style:UIBarButtonItemStyleBordered target:self action:@selector(hom)];
-    
     self.flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
     self.done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0  target:self action:@selector(hom)];
     
     self.de = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self action:@selector(deleteHaiku)];
+    
+    self.next = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(haikuInstructions)];
+    
+    self.nextNext = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(userWritesHaiku)];
 }
 
-//The next three methods create toolbars.
+//This adds the toolbar buttons for the main pages.
 
--(void)addToolbarButtons
+-(void)addToolbarButtons:(NSArray *)buttons
 {
-    NSArray *buttons = [NSArray arrayWithObjects: self.flex, self.compose, self.action, self.more, self.flex, nil];
-    [self.toolb setItems:buttons animated:NO];
-}
-
--(void)addToolbarButtonsPlusDone
-{
-    NSArray *buttons = [NSArray arrayWithObjects: self.flex, self.done, self.compose, self.action, self.flex, nil];
-    [self.toolb setItems:buttons animated:NO];
-}
-
--(void)addToolbarButtonsPlusDelete
-{
-    NSArray *butt = [NSArray arrayWithObjects:self.flex, self.compose, self.action, self.more, self.de, self.flex, nil];
-    [self.toolb setItems:butt animated:NO];
-}
-
--(void)addToolbarDone
-{
-    NSArray *buttons = [NSArray arrayWithObjects:self.flex, self.done, self.flex, nil];
     [self.toolb setItems:buttons animated:NO];
 }
 
@@ -303,23 +286,19 @@
 
 -(void)haikuInstructions
 {
+    self.canFlipPage=NO;
+    
     //Set screen up.
     
     self.textToSave = self.textView.text;
     [self clearScreen];
-    [self saveData];
+    [self.view viewWithTag:5].hidden=YES;
+    [self.view viewWithTag:6].hidden=YES;
+    [self.view viewWithTag:7].hidden=YES;
+    [self.view viewWithTag:8].hidden=YES;
     [self resignFirstResponder];
     
-
-    //Create navigation bar.
-    
-    [self loadNavBar:@"Instructions"];
-    self.meth=@"nextHaiku";
-    [self addCancelButton:@"hom"];
-    [self addLeftButton:@"Compose" callingMethod:@"userWritesHaiku"];
-    
-    
-    //Make sure category is right.
+    //This makes sure that, if the user presses cancel, the category will be "Derfner" when s/he returns to the main pages.
     
     NSString *cat=@"user";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
@@ -329,19 +308,32 @@
         self.selectedCategory=@"Derfner";
         self.segContrAsOutlet.selectedSegmentIndex=0;
     }
-    [self seeNavBar];
+    //[self seeNavBar];
     
     //Display instructions.
     
     self.instructions = [[UITextView alloc] initWithFrame:CGRectMake(20, 44, 280, 480-44)];
     self.instructions.backgroundColor=[UIColor clearColor];
-    self.instructionsSeen=YES;
-    self.instructions.text = @"\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation.\n\nHave a fabulous time composing your own gay haiku.  Unless you opt out, I'd like to rely upon haiku you save as inspiration for future updates.";
-    [self.view addSubview:self.instructions];
-    [self loadToolbar];
-    [self addToolbarButtons];
-    [self resignFirstResponder];
+    self.instructions.text = @"\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation.\n\nHave a fabulous time composing your own gay haiku!";
     self.instructions.editable=NO;
+    [self.view addSubview:self.instructions];
+        //Create navigation bar.
+    if (self.instructionsSeen==NO)
+    {
+        [self loadToolbar];
+        NSArray *buttons = [[NSArray alloc] initWithObjects:self.flex, self.nextNext, self.flex, nil];
+        [self addToolbarButtons:buttons];
+    }
+    else
+    {
+        self.meth=@"nextHaiku";
+        [self loadToolbar];
+        NSArray *buttons = [[NSArray alloc] initWithObjects:self.flex, self.bac, self.flex, nil];
+        [self addToolbarButtons:buttons];
+    }
+    [self resignFirstResponder];
+    self.instructionsSeen=YES;
+    [self saveData];
 }
 
 //————————————————code for Amazon page——————————————————
@@ -398,19 +390,22 @@
 
 //Load the web page of Joel Derfner's books.
 -(void)loadAmazon
-{    
+{
+    self.canFlipPage=NO;
+    
     //Create nav bar and toolbar.
     [self clearScreen];
-    [self.view viewWithTag:1].hidden=YES;
     [self loadNavBar:@"Buy"];
     self.titulus.hidesBackButton=YES;
     [self seeNavBar];
     [self loadToolbar];
-    [self addToolbarDone];
+    NSArray *buttons = [[NSArray alloc] initWithObjects:self.flex, self.done, self.flex, nil];
+    [self addToolbarButtons:buttons];
     
     //Create UIWebView.
     self.webV = [[UIWebView alloc] init];
-    self.webV.delegate = self;
+    //self.ghwebview.webV = [[UIWebView alloc] init];
+    //self.webV.delegate = self;
     
     //Load Amazon page.
     NSString *baseURLString = @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
@@ -445,7 +440,8 @@
     [self seeNavBar];
     [self.toolb removeFromSuperview];
     [self loadToolbar];
-    [self addToolbarDone];
+    NSArray *array = [[NSArray alloc] initWithObjects:self.flex, self.done, self.flex, nil];
+    [self addToolbarButtons:array];
 }
 
 //Sets up and displays error message in case of failure to connect.
@@ -457,11 +453,18 @@
         NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
         if (data == nil)
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
+            self.alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [self.alert show];
+            //Need to dismiss webView if user presses cancel button, but this isn't working:
+            [self.alert.delegate alertViewCancel:self.alert];
         }
     }
     return YES;
+}
+
+-(void)alertViewCancel:(UIAlertView *)alertView
+{
+    [self nextHaiku];
 }
 
 //Connect to the Internet.
@@ -472,17 +475,21 @@
     if (connectio)
     {
         [self.webV loadRequest:reques];
+        //[self.ghwebview.webV loadRequest:reques];
     }
     self.webV.scalesPageToFit=YES;
     [self.webV setFrame:(CGRectMake(0,44,320,372))];
     [self.view addSubview:self.webV];
+    //self.ghwebview.webV.scalesPageToFit=YES;
+    //[self.ghwebview.webV setFrame:(CGRectMake(0,44,320,372))];
+    //[self.view addSubview:self.ghwebview.webV];
 }
 
 //What to do in case of failure to connect.
 -(BOOL)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+    self.alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [self.alert show];
     return YES;
 }
 
@@ -490,19 +497,26 @@
 -(void)doneWithAmazon
 {
     [self clearScreen];
+    self.canFlipPage=YES;
     [self nextHaiku];
 }
 
 //This gets back to the haiku once the user is done with other screens.
 -(void)hom
 {
+    self.canFlipPage=YES;
     NSString *cat=@"user";
     NSArray *filteredArray;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
     filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
+    
     //The condition in this next line is true only when the user is NOT on the home screen.
+    
     if ([self.view viewWithTag:3].hidden==YES)
     {
+        
+    //If the user has just deleted the last haiku in the user category, the category switches to Derfner.
+        
         if (self.selectedCategory==@"user" && filteredArray.count==0)
         {
             self.selectedCategory=@"Derfner";
@@ -518,21 +532,6 @@
 #pragma mark -
 #pragma Compose
 
-//This allows the user to edit haiku s/he's already written.
- -(void)editSavedHaiku
-{
-    self.textToSave = self.haiku_text.text;
-    [self userWritesHaiku];
-}
-
-//Creates the button to save haiku the user has written.
- -(void)createSaveButton
-{
-    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:3 target:self action:@selector(saveUserHaiku)];
-    save.style=UIBarButtonItemStyleBordered;
-    self.titulus.rightBarButtonItem = save;
-}
-
 //Creates the UITextView for the user to write haiku.
 -(void)createSpaceToWrite
 {
@@ -545,20 +544,9 @@
     [self.view addSubview: self.textView];
 }
 
-//If the user hasn't read the instructions before, this shows them the first time s/he pressed the compose button.
--(void)userNeedsInstructions
-{
-    NSString *cat = @"user";
-    NSArray *filteredArray;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
-    filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
-    if (self.instructionsSeen==NO && filteredArray.count == 0)
-    {
-        [self haikuInstructions];
-    }
-}
 
 //This shows the cancel button if no text has been entered; if text has been entered, it shows the done button.
+
 -(void)textViewDidChange:(UITextView *)view
 {
     [self.bar removeFromSuperview];
@@ -572,39 +560,53 @@
         }
         else
         {
-            [self addCancelButton:@"hom"];
+            [self addCancelButton];
         }
     }
     [self seeNavBar];
 }
 
-//This sets up and displays the screen for the user to write haiku.
--(void)userWritesHaiku
+-(void)textViewDidBeginEditing:(UITextView *)view
 {
+    if (self.textToSave.length>0)
+    {
+        [self.bar removeFromSuperview];
+        [self loadNavBar:@"Compose"];
+        [self addLeftButton:@"Instructions" callingMethod:@"haikuInstructions"];
+        if (view!=self.haiku_text)
+        {
+            [self addDoneButton:@"userFinishedWritingHaiku"];
+        }
+        [self seeNavBar];
+    }
+}
+
+-(void)userEditsHaiku
+{
+    self.textToSave = self.haiku_text.text;
+    [self userWritesHaiku];
+}
+
+-(void)blahBlah
+{
+    //Set up the screen.
     [self clearScreen];
+    self.canFlipPage=NO;
     [self.view viewWithTag:5].hidden=YES;
     [self.view viewWithTag:6].hidden=YES;
     [self.view viewWithTag:7].hidden=YES;
     [self.view viewWithTag:8].hidden=YES;
-    [self loadToolbar];
-    [self addToolbarButtons];
-    NSString *method;
-    if (self.textView.text.length>0)
-    {
-        method=@"userFinishedWritingHaiku";
-    }
-    else
-    {
-        method=@"hom";
-    }
     [self loadNavBar:@"Compose"];
     [self addLeftButton:@"Instructions" callingMethod:@"haikuInstructions"];
-    [self addCancelButton:@"hom"];
+    [self addCancelButton];
     [self seeNavBar];
     
     //Create and add the space for user to write.
-    
-    if (self.instructionsSeen==YES)
+    if (self.optOutSeen==0)
+    {
+        [self takeToOptOut];
+    }
+    else
     {
         [self createSpaceToWrite];
         if (self.textToSave!=@"")
@@ -613,17 +615,26 @@
         }
         [self.view addSubview:self.textView];
         [self.textView becomeFirstResponder];
-    
-    //Keyboard notifications.
+        
+        //Keyboard notifications.
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:)    name:UIKeyboardWillShowNotification object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     }
-    else if (self.instructionsSeen==NO)
-    {
-        [self haikuInstructions];
-    }
     [self.view viewWithTag:3].hidden=YES;
+}
+
+//This sets up and displays the screen for the user to write haiku.
+-(void)userWritesHaiku
+{
+    if (self.optOutSeen==0)
+    {
+        [self takeToOptOut];
+    }
+    else
+    {
+        [self blahBlah];
+    }
 }
 
 -(void)keyboardWillShow:(NSNotification *)aNotification
@@ -649,7 +660,8 @@
             self.selectedCategory=@"Derfner";
             self.segContrAsOutlet.selectedSegmentIndex=0;
         }
-            [self nextHaiku];
+        self.canFlipPage=YES;
+        [self nextHaiku];
     }
     else
     {
@@ -662,7 +674,7 @@
 -(void)doActionSheet
 {
     self.textToSave=self.textView.text;
-    UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Delete Haiku" otherButtonTitles:@"Save", @"Opt Out", nil];
+    UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Delete" otherButtonTitles:@"Save", @"Opt Out", nil];
     actSheet.tag=1;
     [actSheet showInView:self.view];
 }
@@ -673,10 +685,18 @@
         {
             if (buttonIndex==0)
             {
+                NSString *user=@"user";
+                if ([self.gayHaiku filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"category == %@",user]].count==0)
+                {
+                    self.selectedCategory=@"Derfner";
+                    self.segContrAsOutlet.selectedSegmentIndex=0;
+                }
+                self.canFlipPage=YES;
                 [self nextHaiku];
             }
             else if (buttonIndex==1)
             {
+                self.canFlipPage=YES;
                 [self saveUserHaiku];
             }
             else if (buttonIndex==2)
@@ -718,8 +738,8 @@
             }
             else
             {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tweet twitted." message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                [alert show];
+                self.alert = [[UIAlertView alloc] initWithTitle:@"Tweet twitted." message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [self.alert show];
             }
             [controller dismissViewControllerAnimated:YES completion:Nil];
         };
@@ -732,8 +752,8 @@
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"I seem to be having trouble logging in to Twitter.  Would you mind checking your iPhone settings or trying again later?" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
+        self.alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"I seem to be having trouble logging in to Twitter.  Would you mind checking your iPhone settings or trying again later?" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [self.alert show];
     }
 }
 
@@ -749,8 +769,8 @@
             }
             else
             {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Haiku posted." message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                [alert show];
+                self.alert = [[UIAlertView alloc] initWithTitle:@"Haiku posted." message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [self.alert show];
             }
             [controller dismissViewControllerAnimated:YES completion:Nil];
         };
@@ -764,8 +784,8 @@
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"I seem to be having trouble logging in to Facebook.  Would you mind checking your iPhone settings or trying again later?" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
+        self.alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"I seem to be having trouble logging in to Facebook.  Would you mind checking your iPhone settings or trying again later?" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [self.alert show];
     }
 }
 
@@ -777,8 +797,7 @@
     if ([self.gayHaiku filteredArrayUsingPredicate:predicate].count==1)
     {
         [self.gayHaiku removeObjectIdenticalTo:[[self.gayHaiku filteredArrayUsingPredicate:predicate]   objectAtIndex:0]];
-        //filter so it's only user haiku that get saved here:
-        [self saveToDocsFolder:@"gayHaiku.plist"];
+        [self saveToDocsFolder:@"userHaiku.plist"];
     }
     else if ([self.gayHaiku filteredArrayUsingPredicate:predicate].count>1)
     {
@@ -786,19 +805,21 @@
         {
             if ([[[[self.gayHaiku filteredArrayUsingPredicate:predicate] objectAtIndex:i] valueForKey:@"quote"] isEqualToString:textToDelete])
             {
+                self.canFlipPage=YES;
                 [self nextHaiku];
                 [self.gayHaiku removeObjectIdenticalTo:[[self.gayHaiku filteredArrayUsingPredicate:predicate]   objectAtIndex:i]];
-                [self saveToDocsFolder:@"gayHaiku.plist"];
+                [self saveToDocsFolder:@"userHaiku.plist"];
                 break;
             }
 
         }
     }
-    [self saveToDocsFolder:@"gayHaiku.plist"];
+    [self saveToDocsFolder:@"userHaiku.plist"];
     if ([self.gayHaiku filteredArrayUsingPredicate:predicate].count==0)
     {
         self.selectedCategory=@"Derfner";
         self.segContrAsOutlet.selectedSegmentIndex=0;
+        self.canFlipPage=YES;
         [self nextHaiku];
     }
     textToDelete=@"";
@@ -812,11 +833,6 @@
     [UIView commitAnimations];
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    UIBarButtonItem *saveItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveAction:)];
-    self.navigationItem.rightBarButtonItem = saveItem;
-}
 
 -(void)saveUserHaiku
 {   if (self.textView.text.length>0)
@@ -827,13 +843,7 @@
         [[self gayHaiku] addObject:dictToSave];
         [self clearScreen];
         self.textToSave=@"";
-        [self.view viewWithTag:1].hidden = NO;
-        [self.view viewWithTag:3].hidden = NO;
         self.haiku_text.text = [[self.gayHaiku lastObject] valueForKey:@"quote"];
-        [self.view addSubview:self.haiku_text];
-        [self loadToolbar];
-        [self addToolbarButtons];
-        //[self saveToDocsFolder:@"gayHaiku.plist"];
         [self saveToDocsFolder:@"userHaiku.plist"];
         PFObject *haikuObject = [PFObject objectWithClassName:@"TestObject"];
         [haikuObject setObject:self.haiku_text.text forKey:@"haiku"];
@@ -849,6 +859,9 @@
         }
         [haikuObject setObject:perm forKey:@"permission"];
         [haikuObject saveEventually];
+        self.checkIfJustWrote=YES;
+        self.canFlipPage=YES;
+        [self nextHaiku];
     }
 }
 
@@ -909,6 +922,7 @@
     [self.webV removeFromSuperview];
     //FIND WAY TO GET RID OF NEXT THREE LINES SO THAT CALLING METHOD DOESN'T MAKE IT SEEM LIKE YOU'RE MOVING TO THE PREVIOUS HAIKU.
     [self clearScreen];
+    self.canFlipPage=YES;
     [self nextHaiku];
     [self previousHaiku];
     UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Email",@"Facebook",@"Twitter", nil];
@@ -919,19 +933,31 @@
 -(void)takeToOptOut
 {
     [self clearScreen];
-    [self selectButton];
-    [self loadNavBar:@"Your Haiku"];
-    [self addLeftButton:@"Back" callingMethod:@"userWritesHaiku"];
-    [self seeNavBar];
-    self.userName.returnKeyType = UIReturnKeyDone;
-    [self textFieldShouldReturn:self.userName];
-    self.userName.delegate = self;
     [self.view viewWithTag:8].hidden=NO;
     [self.view viewWithTag:5].hidden=NO;
     [self.view viewWithTag:6].hidden=NO;
     [self.view viewWithTag:7].hidden=NO;
-    [self loadToolbar];
-    [self addToolbarButtons];
+    self.canFlipPage=NO;
+    [self selectButton];
+    if (self.optOutSeen==NO)
+    {
+        [self loadToolbar];
+        NSArray *array = [[NSArray alloc] initWithObjects:self.flex, self.next, self.flex, nil];
+        [self addToolbarButtons:array];
+        self.checkboxChecked=YES;
+    }
+    else
+    {
+        [self loadToolbar];
+        NSArray *array = [[NSArray alloc] initWithObjects:self.flex, self.bac, self.flex, nil];
+        [self addToolbarButtons:array];
+        self.checkboxChecked=YES;
+    }
+    self.userName.returnKeyType = UIReturnKeyDone;
+    [self textFieldShouldReturn:self.userName];
+    self.userName.delegate = self;
+    self.optOutSeen=YES;
+    [self saveData];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -967,6 +993,7 @@
         MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
         mailer.mailComposeDelegate = self;
         [mailer setSubject:[NSString stringWithFormat:@"%@ has sent you a gay haiku.", [[UIDevice currentDevice] name]]];
+        self.canFlipPage=YES;
         [self previousHaiku];
         [self nextHaiku];
         UIImage *myImage = [self createImage];
@@ -974,18 +1001,18 @@
         [mailer addAttachmentData:imageData mimeType:@"image/jpg" fileName:@"blah"];
         NSString *emailBody = @"I thought you might like this gay haiku from the Gay Haiku iPhone app.  Please love me?";
         [mailer setMessageBody:emailBody isHTML:NO];
-        [self presentModalViewController:mailer animated:YES];
+        [self presentViewController:mailer animated:YES completion:NULL];
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"Your device doesn't seem to be able to email this haiku.  Perhaps you'd like to tweet it or post it on Facebook instead?" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
+        self.alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"Your device doesn't seem to be able to email this haiku.  Perhaps you'd like to tweet it or post it on Facebook instead?" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [self.alert show];
     }
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 //————————————————code for display page——————————————————
@@ -995,37 +1022,175 @@
 
  - (IBAction)chooseDatabase:(UISegmentedControl *)segment
 {
-    if (segment.selectedSegmentIndex==1) {
+    if (segment.selectedSegmentIndex==1)
+    {
         self.selectedCategory = @"user";
     }
     else if (segment.selectedSegmentIndex==2) {
         self.selectedCategory = @"all";
     }
-    else {
+    else
+    {
         self.selectedCategory = @"Derfner";
     }
 }
 
-
 -(void)nextHaiku
 {
+    //If we're on the home page
+    
+    if (self.canFlipPage==YES)
+    {
+        
+        //Instantiate GHHaiku.
+        
+        if (!self.ghhaiku)
+        {
+            self.ghhaiku = [[GHHaiku alloc] init];
+        }
+        
+        //reset everything:  screen, saved text, composed text, segment controller
+        
+        [self clearScreen];
+        self.textToSave=@"";
+        self.textView.text=@"";
+        [self.view viewWithTag:3].hidden = NO;
+        
+        //This chooses the category for the array you're using.
+        
+        NSString *cat;
+        if (!self.selectedCategory)
+        {
+            cat = @"Derfner";
+        }
+        else cat = self.selectedCategory;
+        if (cat==@"all")
+        {
+            self.ghhaiku.arrayAfterFiltering = self.gayHaiku;
+            self.ghhaiku.index = self.indxAll;
+            self.ghhaiku.arrayOfSeen = self.theseAreDoneAll;
+        }
+        else
+        {
+            self.ghhaiku.index = (cat==@"user")?self.indxU:self.indxD;
+            self.ghhaiku.arrayOfSeen = (cat==@"user")?self.theseAreDoneU:self.theseAreDoneD;
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
+            self.ghhaiku.arrayAfterFiltering = [[NSArray alloc] initWithArray:[self.gayHaiku filteredArrayUsingPredicate:predicate]];
+        }
+        
+        //This selects the haiku at random from the array you're using.
+        
+        NSString *txt = [self.ghhaiku haikuToShow];
+        
+        //If the haiku is one written by the user, enable deletion.
+        
+        if (self.selectedCategory==@"user")
+        {
+            self.textToDelete=txt;
+        }
+        
+        //Display the chosen haiku.
+        
+        self.haiku_text.text=@"";
+        
+        //Set the CGSize.
+        
+        CGSize dimensions = CGSizeMake(320, 400);
+        CGSize xySize = [txt sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
+        
+        //Set the UITextView.
+        
+        self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),150,320,200)];
+        self.haiku_text.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
+        self.haiku_text.backgroundColor = [UIColor clearColor];
+        self.haiku_text.text=txt;
+        
+        //Set the animation.
+        
+        CATransition *transition = [CATransition animation];
+        transition.duration = 0.25;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type = kCATransitionPush;
+        transition.subtype =kCATransitionFromRight;
+        transition.delegate = self;
+        
+        //Set the view.
+        
+        [self.view.layer addAnimation:transition forKey:nil];
+        [self.view viewWithTag:5].hidden=YES;
+        [self.view viewWithTag:6].hidden=YES;
+        [self.view viewWithTag:7].hidden=YES;
+        [self.view viewWithTag:8].hidden=YES;
+        [self.view addSubview:self.haiku_text];
+        
+        //Load the toolbar.
+        
+        [self loadToolbar];
+        if (self.selectedCategory==@"user")
+        {
+            NSArray *userToolbar = [[NSArray alloc] initWithObjects:self.flex, self.compose, self.action, self.more, self.ed, self.de, nil];
+            [self addToolbarButtons:userToolbar];
+        }
+        else
+        {
+            NSArray *regToolbar = [[NSArray alloc] initWithObjects:self.flex, self.compose, self.action, self.more, self.flex, nil];
+            [self addToolbarButtons:regToolbar];
+        }
+        
+        //Adjust the original arrays and indices so that next time GHHaiku has to pull them it has the correct numbers.
+        
+        if (cat==@"user")
+        {
+            self.theseAreDoneU = self.ghhaiku.arrayOfSeen;
+            self.indxU = self.ghhaiku.index;
+        }
+        else if (cat==@"all")
+        {
+            self.theseAreDoneAll = self.ghhaiku.arrayOfSeen;
+            self.indxAll = self.ghhaiku.index;
+        }
+        else
+        {
+            self.theseAreDoneD = self.ghhaiku.arrayOfSeen;
+            self.indxD = self.ghhaiku.index;
+        }
+        
+        //Show UISegmentedControl if new haiku is in a different category from old haiku.
+        
+        int blah;
+        if (self.selectedCategory==@"Derfner") blah = 0;
+        else if (self.selectedCategory==@"user") blah = 1;
+        else if (self.selectedCategory==@"all") blah = 2;
+        if (blah!=self.establishedSegment)
+        {
+            [self fadeView];
+        }
+        self.establishedSegment = blah;
+        
+        //Set variables other methods need to know.
+        
+        self.haiku_text.editable=NO;
+        self.instructions.editable=NO;
+        self.checkIfJustWrote=NO;
+    }
+}
+
+/*
+-(void)nextHaiku
+{
+    if (self.canFlipPage==YES)
+    {
     [self clearScreen];
     self.textToSave=@"";
+    self.textView.text=@"";
     [self.view viewWithTag:3].hidden = NO;
-    [self loadToolbar];
-    if (self.selectedCategory==@"user")
-    {
-        //This isn't working for some reason--makes no sense.  If we remove the if statement and this is the ONLY toolbar that can load, it still doesn't load.  So it's something wrong with the toolbar itself.  If you take the self.de button away it still doesn't load.
-        [self addToolbarButtonsPlusDelete];
-    }
-    else
-    {
-        [self addToolbarButtons];
-    }
     int indexOfHaiku;
     NSMutableArray *arrayOfHaikuSeen;
     NSString *cat;
-    if (!self.selectedCategory) cat = @"Derfner";
+    if (!self.selectedCategory)
+    {
+        cat = @"Derfner";
+    }
     else cat = self.selectedCategory;
     NSArray *filteredArray;
     if (cat==@"all")
@@ -1048,7 +1213,7 @@
     {
         if (array_tot==1 && self.selectedCategory==@"user")
             {
-                txt=self.haiku_text.text;
+                txt=[[filteredArray objectAtIndex:0] valueForKey:@"quote"];
             }
         else if (indexOfHaiku == arrayOfHaikuSeen.count)
         {
@@ -1064,7 +1229,7 @@
             }
             [arrayOfHaikuSeen addObject:[filteredArray objectAtIndex:sortingHat]];
             indexOfHaiku = arrayOfHaikuSeen.count;
-            if (arrayOfHaikuSeen.count==filteredArray.count-1)
+            if (arrayOfHaikuSeen.count==filteredArray.count) //-1)
             {
                 [arrayOfHaikuSeen removeAllObjects];
                 indexOfHaiku=0;
@@ -1099,6 +1264,17 @@
     [self.view viewWithTag:7].hidden=YES;
     [self.view viewWithTag:8].hidden=YES;
     [self.view addSubview:self.haiku_text];
+    [self loadToolbar];
+    if (self.selectedCategory==@"user")
+    {
+        NSArray *userToolbar = [[NSArray alloc] initWithObjects:self.flex, self.compose, self.action, self.more, self.ed, self.de, nil];
+        [self addToolbarButtons:userToolbar];
+    }
+    else
+    {
+        NSArray *regToolbar = [[NSArray alloc] initWithObjects:self.flex, self.compose, self.action, self.more, self.flex, nil];
+        [self addToolbarButtons:regToolbar];
+    }
     if (cat==@"user")
     {
         self.theseAreDoneU = arrayOfHaikuSeen;
@@ -1116,49 +1292,73 @@
     }
     self.haiku_text.editable=NO;
     self.instructions.editable=NO;
-}
+    int blah;
+    if (self.selectedCategory==@"Derfner") blah = 0;
+    else if (self.selectedCategory==@"user") blah = 1;
+    else if (self.selectedCategory==@"all") blah = 2;
+    if (blah!=self.establishedSegment)
+    {
+        [self fadeView];
+    }
+    self.establishedSegment = blah;
+    self.checkIfJustWrote=NO;
+    }
+}*/
+
 
 -(void)previousHaiku
 {
-    int indexOfHaiku;
-    NSMutableArray *arrayOfHaikuSeen;
+    if (self.canFlipPage==YES)
+    {
+    //MOVE ADDTOOLBARPLUSEDITANDDELETE SO IT SHOWS UP AFTER SELF.HAIKU_TEXT.TEXT HAS BEEN SET.
+    //int indexOfHaiku;
+    //NSMutableArray *arrayOfHaikuSeen;
     NSString *cat;
     if (!self.selectedCategory) cat = @"Derfner";
     else cat = self.selectedCategory;
-    NSArray *filteredArray;
+    //NSArray *filteredArray;
     if (cat==@"all")
-    {
+    {/*
         filteredArray = self.gayHaiku;
         indexOfHaiku = self.indxAll;
-        arrayOfHaikuSeen = self.theseAreDoneAll;
+        arrayOfHaikuSeen = self.theseAreDoneAll;*/
+        self.ghhaiku.arrayAfterFiltering = self.gayHaiku;
+        self.ghhaiku.index = self.indxAll;
+        self.ghhaiku.arrayOfSeen = self.theseAreDoneAll;
     }
     else
     {
-        indexOfHaiku = (cat==@"user")?self.indxU:self.indxD;
-        arrayOfHaikuSeen = (cat==@"user")?self.theseAreDoneU:self.theseAreDoneD;
+        //indexOfHaiku = (cat==@"user")?self.indxU:self.indxD;
+        //arrayOfHaikuSeen = (cat==@"user")?self.theseAreDoneU:self.theseAreDoneD;
+        self.ghhaiku.index = (cat==@"user")?self.indxU:self.indxD;
+        self.ghhaiku.arrayOfSeen = (cat==@"user")?self.theseAreDoneU:self.theseAreDoneD;
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
-        filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
+        //filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
+        self.ghhaiku.arrayAfterFiltering = [self.gayHaiku filteredArrayUsingPredicate:predicate];
         if (cat==@"user")
         {
             [self.toolb removeFromSuperview];
             [self loadToolbar];
-            [self addToolbarButtonsPlusDelete];
+            NSArray *userToolbar = [[NSArray alloc] initWithObjects:self.flex, self.compose, self.action, self.more, self.ed, self.de, nil];
+            [self addToolbarButtons:userToolbar];
         }
     }
-    if (arrayOfHaikuSeen.count>1 && indexOfHaiku>1)
+    //if (arrayOfHaikuSeen.count>1 && indexOfHaiku>1)
+    if (self.ghhaiku.arrayOfSeen.count>1 && self.ghhaiku.index>1)
     {
         [self clearScreen];
         [self.webV removeFromSuperview];
         [self.bar removeFromSuperview];
         [self loadToolbar];
-        [self addToolbarButtons];
+        NSArray *regToolbar = [[NSArray alloc] initWithObjects:self.flex, self.compose, self.action, self.more, self.flex, nil];
+        [self addToolbarButtons:regToolbar];
         [self.view viewWithTag:3].hidden=NO;
-        indexOfHaiku -= 1;
+        self.ghhaiku.index -= 1; //indexOfHaiku
         CGSize dimensions = CGSizeMake(320, 400);
-        CGSize xySize = [[[arrayOfHaikuSeen objectAtIndex:indexOfHaiku-1] valueForKey:@"quote"] sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
+        CGSize xySize = [[[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"quote"] sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0]; //arrayOfHaikuSeen, indexOfHaiku
         [self.haiku_text removeFromSuperview];
         self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),150,320,200)];
-        self.haiku_text.text = [[arrayOfHaikuSeen objectAtIndex:indexOfHaiku-1] valueForKey:@"quote"];
+        self.haiku_text.text = [[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"quote"]; //arrayOfHaikuSeen, indexOfHaiku
         self.haiku_text.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
         self.haiku_text.backgroundColor = [UIColor clearColor];
         CATransition *transition = [CATransition animation];
@@ -1172,45 +1372,50 @@
     }
     if (cat==@"user")
     {
-        self.theseAreDoneU = arrayOfHaikuSeen;
-        self.indxU = indexOfHaiku;
+        self.theseAreDoneU = self.ghhaiku.arrayOfSeen; //arrayOfHaikuSeen
+        self.indxU = self.ghhaiku.index; //indexOfHaiku
         self.textToDelete=self.haiku_text.text;
     }
     else if (cat==@"all")
     {
-        self.theseAreDoneAll = arrayOfHaikuSeen;
-        self.indxAll = indexOfHaiku;
+        self.theseAreDoneAll = self.ghhaiku.arrayOfSeen; //arrayOfHaikuSeen
+        self.indxAll = self.ghhaiku.index; //indexOfHaiku
     }
     else
     {
-        self.theseAreDoneD = arrayOfHaikuSeen;
-        self.indxD = indexOfHaiku;
+        self.theseAreDoneD = self.ghhaiku.arrayOfSeen; //arrayOfHaikuSeenz
+        self.indxD = self.ghhaiku.index; //indexOfHaiku
     }
     self.haiku_text.editable=NO;
+    int blah;
+    if (self.selectedCategory==@"Derfner") blah = 0;
+    else if (self.selectedCategory==@"user") blah = 1;
+    else if (self.selectedCategory==@"all") blah = 2;
+    if (blah!=self.establishedSegment)
+    {
+        [self fadeView];
+    }
+    self.establishedSegment = blah;
+    }
 }
 
-/*
-- (void)showHideView:(id)sender
+//This tells the view with the UISegmentedControl to fade.
+-(void)fadeView
 {
-    // Fade out the view right away
-    [UIView animateWithDuration:1.0
-                          delay: 5.0
-                        options: UIViewAnimationOptionCurveLinear
+    self.segContrAsOutlet.alpha=1;
+    self.segContrAsOutlet.hidden=NO;
+    [self performSelector:@selector(disneyfy) withObject:nil afterDelay:(3)];
+} 
+
+//This animates the fade.
+-(void)disneyfy
+{
+    [UIView animateWithDuration:0.4
                      animations:^{
-                         thirdView.alpha = 0.0;
-                     }
-                     completion:^(BOOL finished){
-                         // Wait one second and then fade in the view
-                         [UIView animateWithDuration:1.0
-                                               delay: 1.0
-                                             options:UIViewAnimationOptionCurveEaseOut
-                                          animations:^{
-                                              thirdView.alpha = 1.0;
-                                          }
-                                          completion:nil];
+                         self.segContrAsOutlet.alpha = 0;
                      }];
 }
-*/
+
 - (IBAction)valueChanged:(UISegmentedControl *)sender
 {
     NSString *cat;
@@ -1226,17 +1431,12 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
         filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
     }
-    if (sender.selectedSegmentIndex==1 && filteredArray.count==0 && self.instructionsSeen==YES)
+    if (sender.selectedSegmentIndex==1 && filteredArray.count==0)
     {
         [self userWritesHaiku];
     }
-    else if (sender.selectedSegmentIndex==1 && filteredArray.count==0 && self.instructionsSeen==NO)
-    {
-        [self userNeedsInstructions];
-    }
     else if (sender.selectedSegmentIndex==1 && filteredArray.count!=0)
     {
-        NSLog(@"%@",filteredArray);
         [self nextHaiku];
     }
     else if (sender.selectedSegmentIndex==0)

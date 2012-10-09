@@ -10,7 +10,6 @@
 		5D0DD09515EBDE30004C5AD2 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D0DD09415EBDE30004C5AD2 /* Accounts.framework */; };
 		5D20494015DC290E0006D1CC /* GayHaiku for iPhone guy supine.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D20493F15DC290E0006D1CC /* GayHaiku for iPhone guy supine.png */; };
 		5D284C1C1607DE9B0027F8CC /* GHHaiku.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D284C1B1607DE9B0027F8CC /* GHHaiku.m */; };
-		5D29D55D15E8617500AF723A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D55C15E8617500AF723A /* Parse.framework */; };
 		5D29D55F15E861C100AF723A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D55E15E861C100AF723A /* AudioToolbox.framework */; };
 		5D29D56715E861F500AF723A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D56015E861F500AF723A /* CFNetwork.framework */; };
 		5D29D56815E861F500AF723A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D56115E861F500AF723A /* libsqlite3.dylib */; };
@@ -34,8 +33,11 @@
 		5DA213DC15BE2284007FEAFB /* GHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA213DB15BE2284007FEAFB /* GHViewController.m */; };
 		5DA213DF15BE2284007FEAFB /* GHViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DA213DD15BE2284007FEAFB /* GHViewController.xib */; };
 		5DA213EA15BE24D7007FEAFB /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DA213E915BE24D6007FEAFB /* gayHaiku.plist */; };
+		5DA4D7001610503D00EDFAC8 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DA4D6FF1610503D00EDFAC8 /* Parse.framework */; };
 		5DB2C9ED15F8E5D4003F9F6F /* userHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DB2C9EC15F8E5D4003F9F6F /* userHaiku.plist */; };
 		5DDE8FE815EAEA8F0029803C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DDE8FE715EAEA8F0029803C /* Social.framework */; };
+		5DE0288B161D02ED004C0838 /* trycheckbox_no.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DE02889161D02ED004C0838 /* trycheckbox_no.png */; };
+		5DE0288C161D02ED004C0838 /* trycheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DE0288A161D02ED004C0838 /* trycheckbox.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +45,6 @@
 		5D20493F15DC290E0006D1CC /* GayHaiku for iPhone guy supine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GayHaiku for iPhone guy supine.png"; sourceTree = "<group>"; };
 		5D284C1A1607DE9B0027F8CC /* GHHaiku.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHHaiku.h; sourceTree = "<group>"; };
 		5D284C1B1607DE9B0027F8CC /* GHHaiku.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHHaiku.m; sourceTree = "<group>"; };
-		5D29D55C15E8617500AF723A /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		5D29D55E15E861C100AF723A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5D29D56015E861F500AF723A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		5D29D56115E861F500AF723A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -72,8 +73,13 @@
 		5DA213DB15BE2284007FEAFB /* GHViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHViewController.m; sourceTree = "<group>"; };
 		5DA213DE15BE2284007FEAFB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GHViewController.xib; sourceTree = "<group>"; };
 		5DA213E915BE24D6007FEAFB /* gayHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = gayHaiku.plist; path = ../gayHaiku.plist; sourceTree = "<group>"; };
+		5DA4D6FF1610503D00EDFAC8 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		5DAFFE65162356CC00BBF028 /* UIImage+ProportionalFill.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIImage+ProportionalFill.h"; path = "../UIImage+ProportionalFill.h"; sourceTree = "<group>"; };
+		5DAFFE66162356CC00BBF028 /* UIImage+ProportionalFill.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ProportionalFill.m"; path = "../UIImage+ProportionalFill.m"; sourceTree = "<group>"; };
 		5DB2C9EC15F8E5D4003F9F6F /* userHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userHaiku.plist; sourceTree = "<group>"; };
 		5DDE8FE715EAEA8F0029803C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		5DE02889161D02ED004C0838 /* trycheckbox_no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trycheckbox_no.png; sourceTree = "<group>"; };
+		5DE0288A161D02ED004C0838 /* trycheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trycheckbox.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +103,7 @@
 				5DA213C915BE2284007FEAFB /* UIKit.framework in Frameworks */,
 				5DA213CB15BE2284007FEAFB /* Foundation.framework in Frameworks */,
 				5DA213CD15BE2284007FEAFB /* CoreGraphics.framework in Frameworks */,
-				5D29D55D15E8617500AF723A /* Parse.framework in Frameworks */,
+				5DA4D7001610503D00EDFAC8 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +130,7 @@
 		5DA213C715BE2284007FEAFB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5DA4D6FF1610503D00EDFAC8 /* Parse.framework */,
 				5D0DD09415EBDE30004C5AD2 /* Accounts.framework */,
 				5DDE8FE715EAEA8F0029803C /* Social.framework */,
 				5D29D56015E861F500AF723A /* CFNetwork.framework */,
@@ -134,7 +141,6 @@
 				5D29D56515E861F500AF723A /* StoreKit.framework */,
 				5D29D56615E861F500AF723A /* SystemConfiguration.framework */,
 				5D29D55E15E861C100AF723A /* AudioToolbox.framework */,
-				5D29D55C15E8617500AF723A /* Parse.framework */,
 				5D68F94E15D9C343000E8AE5 /* Twitter.framework */,
 				5D2F944D15D3D5090065FA2D /* QuartzCore.framework */,
 				5D88856515D2C05100F38679 /* MessageUI.framework */,
@@ -148,6 +154,8 @@
 		5DA213CE15BE2284007FEAFB /* GayHaiku */ = {
 			isa = PBXGroup;
 			children = (
+				5DAFFE65162356CC00BBF028 /* UIImage+ProportionalFill.h */,
+				5DAFFE66162356CC00BBF028 /* UIImage+ProportionalFill.m */,
 				5D284C1A1607DE9B0027F8CC /* GHHaiku.h */,
 				5D284C1B1607DE9B0027F8CC /* GHHaiku.m */,
 				5DA213D715BE2284007FEAFB /* GHAppDelegate.h */,
@@ -163,6 +171,8 @@
 		5DA213CF15BE2284007FEAFB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5DE02889161D02ED004C0838 /* trycheckbox_no.png */,
+				5DE0288A161D02ED004C0838 /* trycheckbox.png */,
 				5D3C5F5315DF2D0900655854 /* checkbox-checked.png */,
 				5D3C5F5415DF2D0900655854 /* checkbox-pressed.png */,
 				5D3C5F5515DF2D0900655854 /* checkbox.png */,
@@ -239,6 +249,8 @@
 				5D3C5F5715DF2D0900655854 /* checkbox-pressed.png in Resources */,
 				5D3C5F5815DF2D0900655854 /* checkbox.png in Resources */,
 				5DB2C9ED15F8E5D4003F9F6F /* userHaiku.plist in Resources */,
+				5DE0288B161D02ED004C0838 /* trycheckbox_no.png in Resources */,
+				5DE0288C161D02ED004C0838 /* trycheckbox.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +338,7 @@
 		5DA213E315BE2284007FEAFB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -342,7 +355,9 @@
 					"\"$(SRCROOT)/facebook-ios-sdk/build/Release-iphonesimulator\"",
 					"\"$(SRCROOT)/facebook-ios-sdk/lib/facebook-ios-sdk\"",
 				);
+				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -350,6 +365,7 @@
 		5DA213E415BE2284007FEAFB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -366,7 +382,9 @@
 					"\"$(SRCROOT)/facebook-ios-sdk/build/Release-iphonesimulator\"",
 					"\"$(SRCROOT)/facebook-ios-sdk/lib/facebook-ios-sdk\"",
 				);
+				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

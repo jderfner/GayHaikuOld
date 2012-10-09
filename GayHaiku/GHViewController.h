@@ -19,6 +19,21 @@
 
 
 @interface GHViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate>
+{
+    BOOL instructionsSeen;
+    BOOL optOutSeen;
+    UIBarButtonItem *home;//, compose, action, done, de, flex, more, ed, next, nextNext, bac
+    UIBarButtonItem *compose;
+    UIBarButtonItem *action;
+    UIBarButtonItem *done;
+    UIBarButtonItem *de;
+    UIBarButtonItem *flex;
+    UIBarButtonItem *more;
+    UIBarButtonItem *ed;
+    UIBarButtonItem *next;
+    UIBarButtonItem *nextNext;
+    UIBarButtonItem *bac;
+}
 
 @property (nonatomic, strong) NSMutableArray *gayHaiku;
 @property (nonatomic, strong) NSMutableArray *theseAreDoneAll;
@@ -31,7 +46,7 @@
 @property (nonatomic) int indxU;
 @property (nonatomic) int indxD;
 @property (nonatomic) int establishedSegment;
-@property (nonatomic, strong) UIBarButtonItem *home;
+/*@property (nonatomic, strong) UIBarButtonItem *home;
 @property (nonatomic, strong) UIBarButtonItem *compose;
 @property (nonatomic, strong) UIBarButtonItem *action;
 @property (nonatomic, strong) UIBarButtonItem *done;
@@ -41,18 +56,19 @@
 @property (nonatomic, strong) UIBarButtonItem *ed;
 @property (nonatomic, strong) UIBarButtonItem *next;
 @property (nonatomic, strong) UIBarButtonItem *nextNext;
-@property (nonatomic, strong) UIBarButtonItem *bac;
+@property (nonatomic, strong) UIBarButtonItem *bac;*/
 @property (nonatomic, strong) NSString *textToDelete;
 @property (nonatomic, strong) NSString *meth;
 @property (nonatomic, strong) NSString *textToSave;
 @property (nonatomic, strong) NSString *selectedCategory;
+@property (nonatomic, strong) NSString *serviceType;
 @property (nonatomic) BOOL controlVisible;
 @property (nonatomic) BOOL textEntered;
-@property (nonatomic) BOOL instructionsSeen;
+//@property (nonatomic) BOOL instructionsSeen;
 @property (nonatomic) BOOL checkboxChecked;
 @property (nonatomic) BOOL checkIfJustWrote;
 @property (nonatomic) BOOL canFlipPage;
-@property (nonatomic) BOOL optOutSeen;
+//@property (nonatomic) BOOL optOutSeen;
 @property (nonatomic) BOOL userIsEditing;
 @property (nonatomic, strong) UINavigationItem *titulus;
 @property (nonatomic, strong) UINavigationBar *bar;

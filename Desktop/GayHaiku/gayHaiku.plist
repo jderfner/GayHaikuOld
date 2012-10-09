@@ -31,7 +31,7 @@ I meant just with you.</string>
 		<string>Derfner</string>
 		<key>quote</key>
 		<string>You were perfection.
-Then you misspelled &apos;embarrassed.&apos;
+Then you misspelled "embarrassed."
 Don&apos;t call me again.</string>
 	</dict>
 	<dict>
@@ -41,6 +41,14 @@ Don&apos;t call me again.</string>
 		<string>The salmon&apos;s divine,
 But I&apos;m afraid we can&apos;t stay--
 I did our waiter.</string>
+	</dict>
+    <dict>
+		<key>category</key>
+		<string>Derfner</string>
+		<key>quote</key>
+		<string>Ladies of The View:
+If I kill Elisabeth,
+Can I take her seat?</string>
 	</dict>
 	<dict>
 		<key>category</key>
@@ -80,7 +88,7 @@ What&apos;s your name again?</string>
 		<key>quote</key>
 		<string>I had a good time--
 Hope I&apos;ll see you again soon.
-(Here, &apos;soon&apos; means &apos;never.&apos;)</string>
+(Here, "soon" means "never.")</string>
 	</dict>
 	<dict>
 		<key>category</key>
@@ -94,7 +102,7 @@ Registry at Saks.</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;Hope you understand.&apos;
+		<string>"Hope you understand."
 Yes, of course I understand.
 And I hope you die.</string>
 	</dict>
@@ -110,7 +118,7 @@ Or the Leather Bears?</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>Why is it you screw
+		<string>Why is it you pound
 As hard and fast as you can?
 I&apos;m not PlayStation.</string>
 	</dict>
@@ -127,7 +135,7 @@ Does his mother know?</string>
 		<string>Derfner</string>
 		<key>quote</key>
 		<string>Forty-seven times
-You said, &apos;Give me that pussy.  
+You said, "Give me that pussy."
 I have no pussy.</string>
 	</dict>
 	<dict>
@@ -158,8 +166,8 @@ Golden Girls is on.</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;Give it to me good--
-Oh, yeah, yeah, do it, daddy.&apos;
+		<string>"Give it to me good--
+Oh, yeah, yeah, do it, daddy."
 How embarrassing.</string>
 	</dict>
 	<dict>
@@ -230,15 +238,15 @@ Just European?</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;You&apos;re a musician?&apos;
-&apos;I play skin-flute,&apos; you answer.
+		<string>"You&apos;re a musician?"
+"I play skin-flute," you answer.
 Whoops.  There&apos;s my cell phone.</string>
 	</dict>
 	<dict>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;Let&apos;s have a drink first.&apos;
+		<string>"Let&apos;s have a drink first."
 Excuse me?  I didn&apos;t join
 Men4talk.com.</string>
 	</dict>
@@ -262,8 +270,8 @@ Then they start to speak.</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;Here&apos;s Death in Venice--
-You like murder mysteries.&apos;
+		<string>"Here&apos;s Death in Venice--
+You like murder mysteries."
 Should have dumped you then.</string>
 	</dict>
 	<dict>
@@ -294,7 +302,7 @@ Bite marks on my ass.</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>You called me &apos;boyfriend&apos;
+		<string>You called me "boyfriend"
 And I never phoned again.
 . . .  Thing is, you weren&apos;t wrong.</string>
 		<key>done</key>
@@ -306,7 +314,7 @@ And I never phoned again.
 		<key>quote</key>
 		<string>English has no words
 For what we just did in bed.
-Oh, wait:  &apos;Tedious.&apos;</string>
+Oh, wait:  "Tedious."</string>
 	</dict>
 	<dict>
 		<key>category</key>
@@ -336,16 +344,16 @@ Why does God hate me?</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;I don&apos;t understand
-Why you want to be with me.&apos;
-&apos;That&apos;s okay.  I do.&apos;</string>
+		<string>"I don&apos;t understand
+Why you want to be with me."
+"That&apos;s okay.  I do."</string>
 	</dict>
 	<dict>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;I need time away,
-To figure out who I am.&apos;
+		<string>"I need time away,
+To figure out who I am."
 I can tell you that.</string>
 		<key>done</key>
 		<string></string>
@@ -370,8 +378,8 @@ My watch says 8:10.</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>Headline:  &apos;Alien
-Loose in New York.&apos;  That&apos;s not news--
+		<string>Headline:  "Alien
+Loose in New York."  That&apos;s not news--
 I am dating him.</string>
 	</dict>
 	<dict>
@@ -394,7 +402,7 @@ A Jewish doctor.</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;This has been fun, but. . . .&apos;
+		<string>"This has been fun, but...."
 I&apos;ve got news for you, honey:
 It wasn&apos;t that fun.</string>
 	</dict>
@@ -410,8 +418,8 @@ You haven&apos;t slept with?</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;Oh, you&apos;re on South Beach?
-I eat all things and stay thin.&apos;
+		<string>"Oh, you&apos;re on South Beach?
+I eat all things and stay thin."
 Get out of my sight.</string>
 	</dict>
 	<dict>
@@ -485,7 +493,7 @@ And discuss Runway.</string>
 		<string>Derfner</string>
 		<key>quote</key>
 		<string>Man on the subway
-Exclaims, &apos;Christ paid your sin bill!&apos;
+Exclaims, "Christ paid your sin bill!"
 Christ must be loaded.</string>
 	</dict>
 	<dict>
@@ -500,7 +508,7 @@ And think my name&apos;s Josh.</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;I&apos;ll call you Wednesday.&apos;
+		<string>"I&apos;ll call you Wednesday."
 The phone didn&apos;t ring.  Maybe
 He meant next Wednesday?</string>
 	</dict>
@@ -516,8 +524,8 @@ He was cuter nude.</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;You&apos;re selfish,&apos; you said;
-&apos;There&apos;s no &apos;i&apos; in &apos;couple.&apos;&apos;
+		<string>"You&apos;re selfish," you said;
+"There&apos;s no &apos;i&apos; in &apos;couple.&apos; "
 Not now, there isn&apos;t.</string>
 	</dict>
 	<dict>
@@ -582,7 +590,7 @@ Really bad hairdo.</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;The spark is just gone.&apos;
+		<string>"The spark is just gone."
 I can fix that easy, with
 Some gas and a match.</string>
 	</dict>
@@ -630,8 +638,8 @@ When can you move in?</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;He has a boyfriend.&apos;
-&apos;No,&apos; you say, &apos;they&apos;ve broken up.&apos;
+		<string>"He has a boyfriend."
+"No," you say, "they&apos;ve broken up."
 Paralyzed with hope.</string>
 	</dict>
 	<dict>
@@ -662,8 +670,8 @@ I&apos;m a pariah.</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;I&apos;m very flattered,
-But, to be honest with you. . . .&apos;
+		<string>"I&apos;m very flattered,
+But, to be honest with you...."
 Why can&apos;t you just lie?</string>
 	</dict>
 	<dict>
@@ -702,7 +710,7 @@ I&apos;m dating my mom.</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;I have a boyfriend.&apos;
+		<string>"I have a boyfriend."
 We&apos;ve been talking three hours.
 You are a bastard.</string>
 	</dict>
@@ -711,7 +719,7 @@ You are a bastard.</string>
 		<string>Derfner</string>
 		<key>quote</key>
 		<string>My therapist and
-All my friends say, &apos;Stay with him!&apos;
+All my friends say, "Stay with him!"
 They can&apos;t hear you snore.</string>
 	</dict>
 	<dict>
@@ -734,7 +742,7 @@ What haven&apos;t gays done?</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;I&apos;m coming!&apos; you shout,
+		<string>"I&apos;m coming!" you shout,
 As if no one had ever
 Managed it before.</string>
 	</dict>
@@ -742,7 +750,7 @@ Managed it before.</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;Yeah, suck it, big boy.&apos;
+		<string>"Yeah, suck it, big boy."
 This is fun, I guess.  But I
 Could be reading Proust.</string>
 	</dict>
@@ -798,7 +806,7 @@ But you&apos;re full of carbs.</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>I&apos;d say &apos;I love you&apos;--
+		<string>I&apos;d say "I love you"--
 But I&apos;m worried that I won&apos;t
 Mean it tomorrow.</string>
 	</dict>
@@ -886,7 +894,7 @@ The whole foods movement.</string>
 		<key>category</key>
 		<string>Derfner</string>
 		<key>quote</key>
-		<string>&apos;Hope springs eternal.&apos;
+		<string>"Hope springs eternal."
 Don&apos;t people realize this is
 A terrible thing?</string>
 	</dict>
@@ -912,23 +920,23 @@ Chik-Fil-A bathroom.</string>
 		<key>quote</key>
 		<string>Nina, Michael, and
 Heidi, you are as nothing--
-When compared with Tim.</string>
+Not compared with Tim.</string>
 	</dict>
     <dict>
         <key>category</key>
         <string>Derfner</string>
         <key>quote</key>
-        <string>\"I&apos;m not racist; it&apos;s
-Just I don&apos;t go for black guys.\"
+        <string>"I&apos;m not racist; it&apos;s
+Just I don&apos;t go for black guys."
 Yawn, yawn, yawn, yawn, yawn.</string>
     </dict>
     <dict>
         <key>category</key>
         <string>Derfner</string>
         <key>quote</key>
-        <string>New T-shirt: &apos;I&apos;m not
-Pope Benedict the Sixteenth,
-But my boyfriend is.&apos;</string>
+        <string>New T-shirt: "I&apos;m not
+Pope Benedict the Sixteenth...
+But my boyfriend is."</string>
     </dict>
     <dict>
         <key>category</key>

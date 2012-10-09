@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5D0DD09515EBDE30004C5AD2 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D0DD09415EBDE30004C5AD2 /* Accounts.framework */; };
 		5D20494015DC290E0006D1CC /* GayHaiku for iPhone guy supine.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D20493F15DC290E0006D1CC /* GayHaiku for iPhone guy supine.png */; };
+		5D284C1C1607DE9B0027F8CC /* GHHaiku.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D284C1B1607DE9B0027F8CC /* GHHaiku.m */; };
 		5D29D55D15E8617500AF723A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D55C15E8617500AF723A /* Parse.framework */; };
 		5D29D55F15E861C100AF723A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D55E15E861C100AF723A /* AudioToolbox.framework */; };
 		5D29D56715E861F500AF723A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D29D56015E861F500AF723A /* CFNetwork.framework */; };
@@ -33,6 +34,7 @@
 		5DA213DC15BE2284007FEAFB /* GHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA213DB15BE2284007FEAFB /* GHViewController.m */; };
 		5DA213DF15BE2284007FEAFB /* GHViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DA213DD15BE2284007FEAFB /* GHViewController.xib */; };
 		5DA213EA15BE24D7007FEAFB /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DA213E915BE24D6007FEAFB /* gayHaiku.plist */; };
+		5DA7C2B5160C05C0001F4665 /* GHWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA7C2B4160C05C0001F4665 /* GHWebView.m */; };
 		5DB2C9ED15F8E5D4003F9F6F /* userHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DB2C9EC15F8E5D4003F9F6F /* userHaiku.plist */; };
 		5DDE8FE815EAEA8F0029803C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DDE8FE715EAEA8F0029803C /* Social.framework */; };
 /* End PBXBuildFile section */
@@ -40,6 +42,8 @@
 /* Begin PBXFileReference section */
 		5D0DD09415EBDE30004C5AD2 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		5D20493F15DC290E0006D1CC /* GayHaiku for iPhone guy supine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GayHaiku for iPhone guy supine.png"; sourceTree = "<group>"; };
+		5D284C1A1607DE9B0027F8CC /* GHHaiku.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHHaiku.h; sourceTree = "<group>"; };
+		5D284C1B1607DE9B0027F8CC /* GHHaiku.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHHaiku.m; sourceTree = "<group>"; };
 		5D29D55C15E8617500AF723A /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		5D29D55E15E861C100AF723A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5D29D56015E861F500AF723A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -69,6 +73,8 @@
 		5DA213DB15BE2284007FEAFB /* GHViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHViewController.m; sourceTree = "<group>"; };
 		5DA213DE15BE2284007FEAFB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GHViewController.xib; sourceTree = "<group>"; };
 		5DA213E915BE24D6007FEAFB /* gayHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = gayHaiku.plist; path = ../gayHaiku.plist; sourceTree = "<group>"; };
+		5DA7C2B3160C05C0001F4665 /* GHWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHWebView.h; sourceTree = "<group>"; };
+		5DA7C2B4160C05C0001F4665 /* GHWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHWebView.m; sourceTree = "<group>"; };
 		5DB2C9EC15F8E5D4003F9F6F /* userHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userHaiku.plist; sourceTree = "<group>"; };
 		5DDE8FE715EAEA8F0029803C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -145,10 +151,14 @@
 		5DA213CE15BE2284007FEAFB /* GayHaiku */ = {
 			isa = PBXGroup;
 			children = (
+				5D284C1A1607DE9B0027F8CC /* GHHaiku.h */,
+				5D284C1B1607DE9B0027F8CC /* GHHaiku.m */,
 				5DA213D715BE2284007FEAFB /* GHAppDelegate.h */,
 				5DA213D815BE2284007FEAFB /* GHAppDelegate.m */,
 				5DA213DA15BE2284007FEAFB /* GHViewController.h */,
 				5DA213DB15BE2284007FEAFB /* GHViewController.m */,
+				5DA7C2B3160C05C0001F4665 /* GHWebView.h */,
+				5DA7C2B4160C05C0001F4665 /* GHWebView.m */,
 				5DA213DD15BE2284007FEAFB /* GHViewController.xib */,
 				5DA213CF15BE2284007FEAFB /* Supporting Files */,
 			);
@@ -247,6 +257,8 @@
 				5DA213D515BE2284007FEAFB /* main.m in Sources */,
 				5DA213D915BE2284007FEAFB /* GHAppDelegate.m in Sources */,
 				5DA213DC15BE2284007FEAFB /* GHViewController.m in Sources */,
+				5D284C1C1607DE9B0027F8CC /* GHHaiku.m in Sources */,
+				5DA7C2B5160C05C0001F4665 /* GHWebView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,7 +304,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -310,7 +322,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

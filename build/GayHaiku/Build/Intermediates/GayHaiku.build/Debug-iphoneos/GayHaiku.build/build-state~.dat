@@ -1,0 +1,631 @@
+TGayHaiku
+v5
+r1
+cCheck dependencies
+cCpResource /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/ResourceRules.plist Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/ResourceRules.plist
+cProcessInfoPlistFile /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/Info.plist GayHaiku/GayHaiku-Info.plist
+cProcessPCH /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-adjhicyqnhfusqdmzfdezyfcqlts/GayHaiku-Prefix.pch.pth GayHaiku/GayHaiku-Prefix.pch normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cProcessPCH /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-bvtzfhjdzsbmbwfulvgfbnnxfscv/GayHaiku-Prefix.pch.pth GayHaiku/GayHaiku-Prefix.pch normal armv7s objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/main.o /Users/joel/Desktop/GayHaiku/GayHaiku/main.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHAppDelegate.o /Users/joel/Desktop/GayHaiku/GayHaiku/GHAppDelegate.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHViewController.o /Users/joel/Desktop/GayHaiku/GayHaiku/GHViewController.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHHaiku.o /Users/joel/Desktop/GayHaiku/GayHaiku/GHHaiku.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/main.o /Users/joel/Desktop/GayHaiku/GayHaiku/main.m normal armv7s objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHAppDelegate.o /Users/joel/Desktop/GayHaiku/GayHaiku/GHAppDelegate.m normal armv7s objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHViewController.o /Users/joel/Desktop/GayHaiku/GayHaiku/GHViewController.m normal armv7s objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHHaiku.o /Users/joel/Desktop/GayHaiku/GayHaiku/GHHaiku.m normal armv7s objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cLd /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GayHaiku normal armv7
+cLd /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GayHaiku normal armv7s
+cCreateUniversalBinary /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/GayHaiku normal "armv7 armv7s"
+cCopyStringsFile /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/en.lproj/InfoPlist.strings GayHaiku/en.lproj/InfoPlist.strings
+cCompileXIB /Users/joel/Desktop/GayHaiku/GayHaiku/en.lproj/GHViewController.xib
+cCopyPlistFile /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/gayHaiku.plist GayHaiku/../gayHaiku.plist
+cCopyPNGFile "/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/GayHaiku for iPhone guy supine.png" "GayHaiku/GayHaiku for iPhone guy supine.png"
+cCopyPNGFile /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox-checked.png GayHaiku/checkbox-checked.png
+cCopyPNGFile /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox-pressed.png GayHaiku/checkbox-pressed.png
+cCopyPNGFile /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox.png GayHaiku/checkbox.png
+cCopyPlistFile /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/userHaiku.plist GayHaiku/userHaiku.plist
+cProcessProductPackaging "/Users/joel/Library/MobileDevice/Provisioning Profiles/A6B6B7CF-04E8-4ACE-9F77-02D37BCC51EA.mobileprovision" /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/embedded.mobileprovision
+cProcessProductPackaging "/Users/joel/Library/MobileDevice/Provisioning Profiles/A6B6B7CF-04E8-4ACE-9F77-02D37BCC51EA.mobileprovision" /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/embedded.mobileprovision
+cTouch /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app
+cProcessProductPackaging /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/Entitlements.plist /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku.xcent
+cCodeSign /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk
+c00000000503C83D40000000000000132
+t1346143188
+s306
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/Entitlements.plist
+c00000000505F716F0000000000000094
+t1348432239
+s148
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/ResourceRules.plist
+c00000000505F716F0000000000000096
+t1348432239
+s150
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/Accounts.framework/Accounts
+c00000000505F716F00000000000494F0
+t1348432239
+s300272
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox
+c00000000505F717100000000006ABBE0
+t1348432241
+s6994912
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/CFNetwork.framework/CFNetwork
+c00000000505F717000000000002C74D0
+t1348432240
+s2913488
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
+c00000000505F71710000000000322740
+t1348432241
+s3286848
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c00000000505F71720000000000629C80
+t1348432242
+s6462592
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/MessageUI.framework/MessageUI
+c00000000505F717200000000001DD6E0
+t1348432242
+s1955552
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/MobileCoreServices.framework/MobileCoreServices
+c00000000505F7172000000000012C210
+t1348432242
+s1229328
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/QuartzCore.framework/QuartzCore
+c00000000505F71730000000000359720
+t1348432243
+s3512096
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/Security.framework/Security
+c00000000505F717300000000000A8A50
+t1348432243
+s690768
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/Social.framework/Social
+c00000000505F717300000000001A8D30
+t1348432243
+s1740080
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/StoreKit.framework/StoreKit
+c00000000505F717300000000000495D0
+t1348432243
+s300496
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration
+c00000000505F717300000000000CAF00
+t1348432243
+s831232
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/Twitter.framework/Twitter
+c00000000505F7173000000000000C120
+t1348432243
+s49440
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/UIKit.framework/UIKit
+c00000000505F717600000000011BA850
+t1348432246
+s18589776
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/usr/lib/libsqlite3.dylib
+c00000000505F717B0000000000121450
+t1348432251
+s1184848
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/usr/lib/libz.1.1.3.dylib
+c00000000505F717B0000000000022520
+t1348432251
+s140576
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku.xcent
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHAppDelegate.o
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHHaiku.o
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHViewController.o
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GayHaiku
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GayHaiku.LinkFileList
+c0000000050601A09000000000000023C
+t1348475401
+s572
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/main.o
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHAppDelegate.o
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHHaiku.o
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHViewController.o
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GayHaiku
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GayHaiku.LinkFileList
+c0000000050601A090000000000000240
+t1348475401
+s576
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/main.o
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-adjhicyqnhfusqdmzfdezyfcqlts/GayHaiku-Prefix.pch.pth
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-bvtzfhjdzsbmbwfulvgfbnnxfscv/GayHaiku-Prefix.pch.pth
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/GayHaiku
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/GayHaiku for iPhone guy supine.png
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/Info.plist
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/PkgInfo
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/ResourceRules.plist
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox-checked.png
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox-pressed.png
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox.png
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/embedded.mobileprovision
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/en.lproj/GHViewController.nib
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/en.lproj/InfoPlist.strings
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/gayHaiku.plist
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/userHaiku.plist
+t2
+s0
+
+N/Users/joel/Desktop/GayHaiku/GayHaiku/../gayHaiku.plist
+c00000000505A1B2400000000000053FE
+t1348082468
+s21502
+
+N/Users/joel/Desktop/GayHaiku/GayHaiku/GHAppDelegate.m
+c00000000503D6B4C0000000000000A0D
+t1346202444
+s2573
+
+N/Users/joel/Desktop/GayHaiku/GayHaiku/GHHaiku.m
+c000000005057AED8000000000000093E
+t1347923672
+s2366
+
+N/Users/joel/Desktop/GayHaiku/GayHaiku/GHViewController.m
+c00000000505F6328000000000000CE5F
+t1348428584
+s52831
+
+N/Users/joel/Desktop/GayHaiku/GayHaiku/GayHaiku for iPhone guy supine.png
+c000000005026DD04000000000003E230
+t1344724228
+s254512
+
+N/Users/joel/Desktop/GayHaiku/GayHaiku/GayHaiku-Prefix.pch
+c00000000500DEB04000000000000013F
+t1343089412
+s319
+
+N/Users/joel/Desktop/GayHaiku/GayHaiku/checkbox-checked.png
+c0000000049F74BB60000000000000275
+t1240943542
+s629
+
+N/Users/joel/Desktop/GayHaiku/GayHaiku/checkbox-pressed.png
+c0000000049F74BAF0000000000000241
+t1240943535
+s577
+
+N/Users/joel/Desktop/GayHaiku/GayHaiku/checkbox.png
+c0000000049F74BA6000000000000019D
+t1240943526
+s413
+
+N/Users/joel/Desktop/GayHaiku/GayHaiku/en.lproj/GHViewController.xib
+c00000000506008FA0000000000005DD5
+t1348471034
+s24021
+
+N/Users/joel/Desktop/GayHaiku/GayHaiku/en.lproj/InfoPlist.strings
+c00000000500DEB04000000000000002D
+t1343089412
+s45
+
+N/Users/joel/Desktop/GayHaiku/GayHaiku/main.m
+c000000005040B2FF000000000000014F
+t1346417407
+s335
+
+N/Users/joel/Desktop/GayHaiku/GayHaiku/userHaiku.plist
+c000000005048AE5900000000000000B5
+t1346940505
+s181
+
+N/Users/joel/Desktop/GayHaiku/Parse.framework/Parse
+c00000000505CBD740000000001967A2C
+t1348255092
+s26638892
+
+N/Users/joel/Library/MobileDevice/Provisioning Profiles/A6B6B7CF-04E8-4ACE-9F77-02D37BCC51EA.mobileprovision
+c000000005020433A0000000000001C91
+t1344291642
+s7313
+
+NGayHaiku/GayHaiku-Info.plist
+c00000000503D841A0000000000000428
+t1346208794
+s1064
+
+CBuild AST from /Users/joel/Desktop/GayHaiku/GayHaiku/GHAppDelegate.m
+r0
+
+CBuild AST from /Users/joel/Desktop/GayHaiku/GayHaiku/GHHaiku.m
+r0
+
+CBuild AST from /Users/joel/Desktop/GayHaiku/GayHaiku/GHViewController.m
+r0
+
+CBuild AST from /Users/joel/Desktop/GayHaiku/GayHaiku/main.m
+r0
+
+CCheck dependencies
+r0
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependenciese5634f895110b641^9dd4a7895110b641^---0#1#0#--18"Check dependencies36"83F376A7-8B34-48C3-A30B-ACC1A534DA2B-
+
+CCodeSign /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app
+s370168210.977842
+e370168211.489208
+r1
+xCodeSign
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection66"CodeSign Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app1d73fa925110b641^643d7d935110b641^---0#0#0#-19%DVTDocumentLocation2@103"file://localhost/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/0000000000000000^855"CodeSign Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app    cd /Users/joel/Desktop/GayHaiku    setenv CODESIGN_ALLOCATE /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/codesign --force --sign 23617a9e5160a85bb664edf6f5674571c110e502 --resource-rules=/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/ResourceRules.plist --entitlements /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku.xcent /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app36"ED10CD14-4E90-4155-B9BE-D477448554A1-
+
+CCompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHAppDelegate.o /Users/joel/Desktop/GayHaiku/GayHaiku/GHAppDelegate.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s370168203.489933
+e370168204.231482
+r1
+xCompileC
+xBuild/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHAppDelegate.o
+x/Users/joel/Desktop/GayHaiku/GayHaiku/GHAppDelegate.m
+xnormal
+xarmv7
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection61"Compile /Users/joel/Desktop/GayHaiku/GayHaiku/GHAppDelegate.mab957d8b5110b641^13463b8c5110b641^---0#0#0#-19%DVTDocumentLocation2@69"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/GHAppDelegate.m0000000000000000^3658"CompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHAppDelegate.o GayHaiku/GHAppDelegate.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/joel/Desktop/GayHaiku    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -miphoneos-version-min=6.0 -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-generated-files.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-own-target-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-all-target-headers.hmap -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-project-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources/armv7 -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources -F/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos -F/Users/joel/Desktop/GayHaiku -F/Applications/Xcode.app/Contents/Developer/Library/Frameworks -include /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-adjhicyqnhfusqdmzfdezyfcqlts/GayHaiku-Prefix.pch -MMD -MT dependencies -MF /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHAppDelegate.d --serialize-diagnostics /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHAppDelegate.dia -c /Users/joel/Desktop/GayHaiku/GayHaiku/GHAppDelegate.m -o /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHAppDelegate.o36"0A00A9F3-79AB-4247-872A-5C87B9E99BDA-
+
+CCompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHHaiku.o /Users/joel/Desktop/GayHaiku/GayHaiku/GHHaiku.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s370168203.777802
+e370168204.172527
+r1
+xCompileC
+xBuild/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHHaiku.o
+x/Users/joel/Desktop/GayHaiku/GayHaiku/GHHaiku.m
+xnormal
+xarmv7
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection55"Compile /Users/joel/Desktop/GayHaiku/GayHaiku/GHHaiku.m774ac78b5110b641^8c312c8c5110b641^---0#0#0#-19%DVTDocumentLocation2@63"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/GHHaiku.m0000000000000000^3622"CompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHHaiku.o GayHaiku/GHHaiku.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/joel/Desktop/GayHaiku    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -miphoneos-version-min=6.0 -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-generated-files.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-own-target-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-all-target-headers.hmap -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-project-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources/armv7 -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources -F/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos -F/Users/joel/Desktop/GayHaiku -F/Applications/Xcode.app/Contents/Developer/Library/Frameworks -include /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-adjhicyqnhfusqdmzfdezyfcqlts/GayHaiku-Prefix.pch -MMD -MT dependencies -MF /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHHaiku.d --serialize-diagnostics /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHHaiku.dia -c /Users/joel/Desktop/GayHaiku/GayHaiku/GHHaiku.m -o /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHHaiku.o36"587D8138-5862-4FB1-A8F6-8BE673A4FE19-
+
+CCompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHViewController.o /Users/joel/Desktop/GayHaiku/GayHaiku/GHViewController.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s370168203.490899
+e370168204.748068
+r1
+xCompileC
+xBuild/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHViewController.o
+x/Users/joel/Desktop/GayHaiku/GayHaiku/GHViewController.m
+xnormal
+xarmv7
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection64"Compile /Users/joel/Desktop/GayHaiku/GayHaiku/GHViewController.mbfd67d8b5110b641^2288bf8c5110b641^---0#0#0#-19%DVTDocumentLocation2@72"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/GHViewController.m0000000000000000^3676"CompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHViewController.o GayHaiku/GHViewController.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/joel/Desktop/GayHaiku    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -miphoneos-version-min=6.0 -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-generated-files.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-own-target-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-all-target-headers.hmap -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-project-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources/armv7 -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources -F/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos -F/Users/joel/Desktop/GayHaiku -F/Applications/Xcode.app/Contents/Developer/Library/Frameworks -include /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-adjhicyqnhfusqdmzfdezyfcqlts/GayHaiku-Prefix.pch -MMD -MT dependencies -MF /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHViewController.d --serialize-diagnostics /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHViewController.dia -c /Users/joel/Desktop/GayHaiku/GayHaiku/GHViewController.m -o /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GHViewController.o36"6821566A-DF69-4BCB-BAF7-3D7BCE224937-
+
+CCompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/main.o /Users/joel/Desktop/GayHaiku/GayHaiku/main.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s370168203.489537
+e370168204.160188
+r1
+xCompileC
+xBuild/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/main.o
+x/Users/joel/Desktop/GayHaiku/GayHaiku/main.m
+xnormal
+xarmv7
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection52"Compile /Users/joel/Desktop/GayHaiku/GayHaiku/main.m79957d8b5110b641^880e298c5110b641^---0#0#0#-19%DVTDocumentLocation2@60"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/main.m0000000000000000^3604"CompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/main.o GayHaiku/main.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/joel/Desktop/GayHaiku    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -miphoneos-version-min=6.0 -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-generated-files.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-own-target-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-all-target-headers.hmap -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-project-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources/armv7 -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources -F/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos -F/Users/joel/Desktop/GayHaiku -F/Applications/Xcode.app/Contents/Developer/Library/Frameworks -include /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-adjhicyqnhfusqdmzfdezyfcqlts/GayHaiku-Prefix.pch -MMD -MT dependencies -MF /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/main.d --serialize-diagnostics /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/main.dia -c /Users/joel/Desktop/GayHaiku/GayHaiku/main.m -o /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/main.o36"22988635-6A97-47E5-A7BA-AA60D5F4C754-
+
+CCompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHAppDelegate.o /Users/joel/Desktop/GayHaiku/GayHaiku/GHAppDelegate.m normal armv7s objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s370168204.282888
+e370168204.642201
+r1
+xCompileC
+xBuild/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHAppDelegate.o
+x/Users/joel/Desktop/GayHaiku/GayHaiku/GHAppDelegate.m
+xnormal
+xarmv7s
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection61"Compile /Users/joel/Desktop/GayHaiku/GayHaiku/GHAppDelegate.m7c99488c5110b641^4967a48c5110b641^---0#0#0#-19%DVTDocumentLocation2@69"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/GHAppDelegate.m0000000000000000^3665"CompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHAppDelegate.o GayHaiku/GHAppDelegate.m normal armv7s objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/joel/Desktop/GayHaiku    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7s -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -miphoneos-version-min=6.0 -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-generated-files.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-own-target-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-all-target-headers.hmap -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-project-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources/armv7s -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources -F/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos -F/Users/joel/Desktop/GayHaiku -F/Applications/Xcode.app/Contents/Developer/Library/Frameworks -include /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-bvtzfhjdzsbmbwfulvgfbnnxfscv/GayHaiku-Prefix.pch -MMD -MT dependencies -MF /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHAppDelegate.d --serialize-diagnostics /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHAppDelegate.dia -c /Users/joel/Desktop/GayHaiku/GayHaiku/GHAppDelegate.m -o /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHAppDelegate.o36"9F41121B-D77F-479B-B176-CD50069221F4-
+
+CCompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHHaiku.o /Users/joel/Desktop/GayHaiku/GayHaiku/GHHaiku.m normal armv7s objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s370168204.749404
+e370168204.871284
+r1
+xCompileC
+xBuild/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHHaiku.o
+x/Users/joel/Desktop/GayHaiku/GayHaiku/GHHaiku.m
+xnormal
+xarmv7s
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection55"Compile /Users/joel/Desktop/GayHaiku/GayHaiku/GHHaiku.mf10ec08c5110b641^780cdf8c5110b641^---0#0#0#-19%DVTDocumentLocation2@63"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/GHHaiku.m0000000000000000^3629"CompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHHaiku.o GayHaiku/GHHaiku.m normal armv7s objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/joel/Desktop/GayHaiku    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7s -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -miphoneos-version-min=6.0 -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-generated-files.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-own-target-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-all-target-headers.hmap -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-project-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources/armv7s -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources -F/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos -F/Users/joel/Desktop/GayHaiku -F/Applications/Xcode.app/Contents/Developer/Library/Frameworks -include /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-bvtzfhjdzsbmbwfulvgfbnnxfscv/GayHaiku-Prefix.pch -MMD -MT dependencies -MF /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHHaiku.d --serialize-diagnostics /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHHaiku.dia -c /Users/joel/Desktop/GayHaiku/GayHaiku/GHHaiku.m -o /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHHaiku.o36"BFF8342F-6092-4E56-B661-C8F9D72BC204-
+
+CCompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHViewController.o /Users/joel/Desktop/GayHaiku/GayHaiku/GHViewController.m normal armv7s objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s370168204.644719
+e370168206.226935
+r1
+xCompileC
+xBuild/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHViewController.o
+x/Users/joel/Desktop/GayHaiku/GayHaiku/GHViewController.m
+xnormal
+xarmv7s
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection64"Compile /Users/joel/Desktop/GayHaiku/GayHaiku/GHViewController.mc13ba58c5110b641^132c3a8e5110b641^---0#0#0#-19%DVTDocumentLocation2@72"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/GHViewController.m0000000000000000^3683"CompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHViewController.o GayHaiku/GHViewController.m normal armv7s objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/joel/Desktop/GayHaiku    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7s -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -miphoneos-version-min=6.0 -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-generated-files.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-own-target-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-all-target-headers.hmap -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-project-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources/armv7s -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources -F/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos -F/Users/joel/Desktop/GayHaiku -F/Applications/Xcode.app/Contents/Developer/Library/Frameworks -include /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-bvtzfhjdzsbmbwfulvgfbnnxfscv/GayHaiku-Prefix.pch -MMD -MT dependencies -MF /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHViewController.d --serialize-diagnostics /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHViewController.dia -c /Users/joel/Desktop/GayHaiku/GayHaiku/GHViewController.m -o /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GHViewController.o36"82950162-F095-43E5-A6D8-567839CB2DA4-
+
+CCompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/main.o /Users/joel/Desktop/GayHaiku/GayHaiku/main.m normal armv7s objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s370168204.232826
+e370168204.281523
+r1
+xCompileC
+xBuild/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/main.o
+x/Users/joel/Desktop/GayHaiku/GayHaiku/main.m
+xnormal
+xarmv7s
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection52"Compile /Users/joel/Desktop/GayHaiku/GayHaiku/main.m48e03b8c5110b641^c614488c5110b641^---0#0#0#-19%DVTDocumentLocation2@60"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/main.m0000000000000000^3611"CompileC Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/main.o GayHaiku/main.m normal armv7s objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/joel/Desktop/GayHaiku    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7s -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -miphoneos-version-min=6.0 -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-generated-files.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-own-target-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-all-target-headers.hmap -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-project-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources/armv7s -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources -F/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos -F/Users/joel/Desktop/GayHaiku -F/Applications/Xcode.app/Contents/Developer/Library/Frameworks -include /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-bvtzfhjdzsbmbwfulvgfbnnxfscv/GayHaiku-Prefix.pch -MMD -MT dependencies -MF /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/main.d --serialize-diagnostics /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/main.dia -c /Users/joel/Desktop/GayHaiku/GayHaiku/main.m -o /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/main.o36"35FDB4EA-4352-44AA-AB53-DCFDD4A51DAB-
+
+CCompileXIB /Users/joel/Desktop/GayHaiku/GayHaiku/en.lproj/GHViewController.xib
+s370168206.771581
+e370168208.050017
+r1
+xCompileXIB
+x/Users/joel/Desktop/GayHaiku/GayHaiku/en.lproj/GHViewController.xib
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection77"Compiling /Users/joel/Desktop/GayHaiku/GayHaiku/en.lproj/GHViewController.xib249dc58e5110b641^a3ce0c905110b641^---0#0#0#-19%DVTDocumentLocation2@83"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/en.lproj/GHViewController.xib0000000000000000^844"CompileXIB GayHaiku/en.lproj/GHViewController.xib    cd /Users/joel/Desktop/GayHaiku    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 6.0    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv XCODE_DEVELOPER_USR_PATH /Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/en.lproj/GHViewController.nib /Users/joel/Desktop/GayHaiku/GayHaiku/en.lproj/GHViewController.xib --sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk36"67581777-AC91-477C-A31B-AA333414B3E9-
+
+CCopyPNGFile "/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/GayHaiku for iPhone guy supine.png" "GayHaiku/GayHaiku for iPhone guy supine.png"
+s370168208.059619
+e370168210.747821
+r1
+xCopyPNGFile
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/GayHaiku for iPhone guy supine.png
+xGayHaiku/GayHaiku for iPhone guy supine.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection152"CopyPNGFile "Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/GayHaiku for iPhone guy supine.png" "GayHaiku/GayHaiku for iPhone guy supine.png"965e0f905110b641^1973bf925110b641^---0#0#0#-19%DVTDocumentLocation2@96"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/GayHaiku%20for%20iPhone%20guy%20supine.png0000000000000000^690"CopyPNGFile "Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/GayHaiku for iPhone guy supine.png" "GayHaiku/GayHaiku for iPhone guy supine.png"    cd /Users/joel/Desktop/GayHaiku    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress "" "/Users/joel/Desktop/GayHaiku/GayHaiku/GayHaiku for iPhone guy supine.png" "/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/GayHaiku for iPhone guy supine.png"36"057DD60A-B321-4D73-A553-5EBB7589CD0A-
+
+CCopyPNGFile /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox-checked.png GayHaiku/checkbox-checked.png
+s370168210.749134
+e370168210.806208
+r1
+xCopyPNGFile
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox-checked.png
+xGayHaiku/checkbox-checked.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection120"CopyPNGFile Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox-checked.png GayHaiku/checkbox-checked.png49d8bf925110b641^236ace925110b641^---0#0#0#-19%DVTDocumentLocation2@74"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/checkbox-checked.png0000000000000000^626"CopyPNGFile Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox-checked.png GayHaiku/checkbox-checked.png    cd /Users/joel/Desktop/GayHaiku    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress "" /Users/joel/Desktop/GayHaiku/GayHaiku/checkbox-checked.png /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox-checked.png36"95462F06-EF3A-47E7-984E-1779024C5A28-
+
+CCopyPNGFile /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox-pressed.png GayHaiku/checkbox-pressed.png
+s370168210.749546
+e370168210.806143
+r1
+xCopyPNGFile
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox-pressed.png
+xGayHaiku/checkbox-pressed.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection120"CopyPNGFile Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox-pressed.png GayHaiku/checkbox-pressed.png95f1bf925110b641^9164ce925110b641^---0#0#0#-19%DVTDocumentLocation2@74"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/checkbox-pressed.png0000000000000000^626"CopyPNGFile Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox-pressed.png GayHaiku/checkbox-pressed.png    cd /Users/joel/Desktop/GayHaiku    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress "" /Users/joel/Desktop/GayHaiku/GayHaiku/checkbox-pressed.png /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox-pressed.png36"B3638E91-8151-4A91-B7E5-A808373C6B26-
+
+CCopyPNGFile /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox.png GayHaiku/checkbox.png
+s370168210.807557
+e370168210.857399
+r1
+xCopyPNGFile
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox.png
+xGayHaiku/checkbox.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection104"CopyPNGFile Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox.png GayHaiku/checkbox.pngb7cfce925110b641^f67edb925110b641^---0#0#0#-19%DVTDocumentLocation2@66"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/checkbox.png0000000000000000^594"CopyPNGFile Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox.png GayHaiku/checkbox.png    cd /Users/joel/Desktop/GayHaiku    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress "" /Users/joel/Desktop/GayHaiku/GayHaiku/checkbox.png /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/checkbox.png36"790C4CD1-0E36-46DB-AB3B-C02E5FEF2197-
+
+CCopyPlistFile /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/gayHaiku.plist GayHaiku/../gayHaiku.plist
+s370168208.051303
+e370168208.058330
+r1
+xCopyPlistFile
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/gayHaiku.plist
+xGayHaiku/../gayHaiku.plist
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection31"Copy GayHaiku/../gayHaiku.plist44350d905110b641^0dfe0e905110b641^---0#0#0#-19%DVTDocumentLocation2@71"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/../gayHaiku.plist0000000000000000^504"CopyPlistFile Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/gayHaiku.plist GayHaiku/../gayHaiku.plist    cd /Users/joel/Desktop/GayHaiku    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyPlist --convert binary1 --outdir /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app -- GayHaiku/../gayHaiku.plist36"8578E307-3A83-48D5-81AB-3B739B658259-
+
+CCopyPlistFile /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/userHaiku.plist GayHaiku/userHaiku.plist
+s370168210.808013
+e370168210.812439
+r1
+xCopyPlistFile
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/userHaiku.plist
+xGayHaiku/userHaiku.plist
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection29"Copy GayHaiku/userHaiku.plist3ee7ce925110b641^b9fccf925110b641^---0#0#0#-19%DVTDocumentLocation2@69"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/userHaiku.plist0000000000000000^501"CopyPlistFile Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/userHaiku.plist GayHaiku/userHaiku.plist    cd /Users/joel/Desktop/GayHaiku    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyPlist --convert binary1 --outdir /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app -- GayHaiku/userHaiku.plist36"37EA1F85-52AF-471D-9508-55124CF158A3-
+
+CCopyStringsFile /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/en.lproj/InfoPlist.strings GayHaiku/en.lproj/InfoPlist.strings
+s370168206.766213
+e370168206.770148
+r1
+xCopyStringsFile
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/en.lproj/InfoPlist.strings
+xGayHaiku/en.lproj/InfoPlist.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection40"Copy GayHaiku/en.lproj/InfoPlist.strings0b47c48e5110b641^3529c58e5110b641^---0#0#0#-19%DVTDocumentLocation2@80"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/en.lproj/InfoPlist.strings0000000000000000^586"CopyStringsFile Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/en.lproj/InfoPlist.strings GayHaiku/en.lproj/InfoPlist.strings    cd /Users/joel/Desktop/GayHaiku    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/en.lproj -- GayHaiku/en.lproj/InfoPlist.strings36"071FCACD-B720-4795-A403-3A7C356AD856-
+
+CCpResource /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/ResourceRules.plist Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/ResourceRules.plist
+s370168201.666710
+e370168201.686173
+r1
+xCpResource
+x/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/ResourceRules.plist
+xBuild/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/ResourceRules.plist
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection82"Copy Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/ResourceRules.plist56bcad895110b641^21c8b9895110b641^---0#0#0#-19%DVTDocumentLocation2@122"file://localhost/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/ResourceRules.plist000000000080d041^756"CpResource /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/ResourceRules.plist Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/ResourceRules.plist    cd /Users/joel/Desktop/GayHaiku    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/ResourceRules.plist /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app36"15D559B0-00CA-4A44-9C11-D2D07F197976-
+
+CCreateUniversalBinary /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/GayHaiku normal "armv7 armv7s"
+s370168206.651453
+e370168206.757347
+r1
+xCreateUniversalBinary
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/GayHaiku
+xnormal
+xarmv7 armv7s
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection119"Create universal binary /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/GayHaiku5ddca68e5110b641^60e4c18e5110b641^---0#0#0#-19%DVTDocumentLocation2@111"file://localhost/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/GayHaiku000000000080d041^735"CreateUniversalBinary Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/GayHaiku normal "armv7 armv7s"    cd /Users/joel/Desktop/GayHaiku    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    lipo -create /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GayHaiku /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GayHaiku -output /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/GayHaiku36"192D8FDB-AF88-4007-AE70-BEDBCE9B0B9A-
+
+CLd /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GayHaiku normal armv7
+s370168204.872566
+e370168206.057930
+r1
+xLd
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GayHaiku
+xnormal
+xarmv7
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection143"Link /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GayHaiku7e8adf8c5110b641^9dd50e8e5110b641^---0#0#0#--2074"Ld Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GayHaiku normal armv7    cd /Users/joel/Desktop/GayHaiku    setenv IPHONEOS_DEPLOYMENT_TARGET 6.0    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch armv7 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk -L/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos -L/Users/joel/Desktop/GayHaiku/facebook-ios-sdk/build/facebook-ios-sdk.build/Release-iphoneos/facebook-ios-sdk.build/Objects-normal/armv6 -L/Users/joel/Desktop/GayHaiku/facebook-ios-sdk/build/facebook-ios-sdk.build/Release-iphoneos/facebook-ios-sdk.build/Objects-normal/armv7 -L/Users/joel/Desktop/GayHaiku/facebook-ios-sdk/build/Release-iphoneos -L/Users/joel/Desktop/GayHaiku/facebook-ios-sdk/build/Release-iphonesimulator -L/Users/joel/Desktop/GayHaiku/facebook-ios-sdk/lib/facebook-ios-sdk -F/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos -F/Users/joel/Desktop/GayHaiku -F/Applications/Xcode.app/Contents/Developer/Library/Frameworks -filelist /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GayHaiku.LinkFileList -dead_strip -fobjc-arc -fobjc-link-runtime -miphoneos-version-min=6.0 -framework Accounts -framework Social -framework CFNetwork -lsqlite3 -lz.1.1.3 -framework MobileCoreServices -framework Security -framework StoreKit -framework SystemConfiguration -framework AudioToolbox -framework Twitter -framework QuartzCore -framework MessageUI -framework UIKit -framework Foundation -framework CoreGraphics -framework Parse -o /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7/GayHaiku36"C49C0F2E-6ADD-46F1-AA4E-11B621655029-
+
+CLd /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GayHaiku normal armv7s
+s370168206.234785
+e370168206.644583
+r1
+xLd
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GayHaiku
+xnormal
+xarmv7s
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection144"Link /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GayHaikuce353c8e5110b641^9204a58e5110b641^---0#0#0#--2079"Ld Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GayHaiku normal armv7s    cd /Users/joel/Desktop/GayHaiku    setenv IPHONEOS_DEPLOYMENT_TARGET 6.0    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch armv7s -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk -L/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos -L/Users/joel/Desktop/GayHaiku/facebook-ios-sdk/build/facebook-ios-sdk.build/Release-iphoneos/facebook-ios-sdk.build/Objects-normal/armv6 -L/Users/joel/Desktop/GayHaiku/facebook-ios-sdk/build/facebook-ios-sdk.build/Release-iphoneos/facebook-ios-sdk.build/Objects-normal/armv7 -L/Users/joel/Desktop/GayHaiku/facebook-ios-sdk/build/Release-iphoneos -L/Users/joel/Desktop/GayHaiku/facebook-ios-sdk/build/Release-iphonesimulator -L/Users/joel/Desktop/GayHaiku/facebook-ios-sdk/lib/facebook-ios-sdk -F/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos -F/Users/joel/Desktop/GayHaiku -F/Applications/Xcode.app/Contents/Developer/Library/Frameworks -filelist /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GayHaiku.LinkFileList -dead_strip -fobjc-arc -fobjc-link-runtime -miphoneos-version-min=6.0 -framework Accounts -framework Social -framework CFNetwork -lsqlite3 -lz.1.1.3 -framework MobileCoreServices -framework Security -framework StoreKit -framework SystemConfiguration -framework AudioToolbox -framework Twitter -framework QuartzCore -framework MessageUI -framework UIKit -framework Foundation -framework CoreGraphics -framework Parse -o /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/Objects-normal/armv7s/GayHaiku36"14B75D3B-E353-4888-B101-DEBBC89430F5-
+
+CProcessInfoPlistFile /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/Info.plist GayHaiku/GayHaiku-Info.plist
+s370168201.667362
+e370168201.686675
+r1
+xProcessInfoPlistFile
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/Info.plist
+xGayHaiku/GayHaiku-Info.plist
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection36"Process GayHaiku/GayHaiku-Info.plist2cb6ad895110b641^53ccb9895110b641^---0#0#0#-19%DVTDocumentLocation2@73"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/GayHaiku-Info.plist0000000000000000^790"ProcessInfoPlistFile Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/Info.plist GayHaiku/GayHaiku-Info.plist    cd /Users/joel/Desktop/GayHaiku    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility GayHaiku/GayHaiku-Info.plist -genpkginfo /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/PkgInfo -expandbuildsettings -format binary -platform iphoneos -resourcerulesfile /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/ResourceRules.plist -o /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/Info.plist36"78E7916F-2491-42E1-9000-6E9EFBD8B99A-
+
+CProcessPCH /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-adjhicyqnhfusqdmzfdezyfcqlts/GayHaiku-Prefix.pch.pth GayHaiku/GayHaiku-Prefix.pch normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s370168201.704982
+e370168203.482178
+r1
+xProcessPCH
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-adjhicyqnhfusqdmzfdezyfcqlts/GayHaiku-Prefix.pch.pth
+xGayHaiku/GayHaiku-Prefix.pch
+xnormal
+xarmv7
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection39"Precompile GayHaiku/GayHaiku-Prefix.pcheca6b4895110b641^80827b8b5110b641^---0#0#0#-19%DVTDocumentLocation2@73"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/GayHaiku-Prefix.pch0000000000000000^3538"ProcessPCH Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-adjhicyqnhfusqdmzfdezyfcqlts/GayHaiku-Prefix.pch.pth GayHaiku/GayHaiku-Prefix.pch normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/joel/Desktop/GayHaiku    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c-header -arch armv7 -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -miphoneos-version-min=6.0 -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-generated-files.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-own-target-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-all-target-headers.hmap -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-project-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources/armv7 -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources -F/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos -F/Users/joel/Desktop/GayHaiku -F/Applications/Xcode.app/Contents/Developer/Library/Frameworks --serialize-diagnostics /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-adjhicyqnhfusqdmzfdezyfcqlts/GayHaiku-Prefix.pch.dia -c /Users/joel/Desktop/GayHaiku/GayHaiku/GayHaiku-Prefix.pch -o /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-adjhicyqnhfusqdmzfdezyfcqlts/GayHaiku-Prefix.pch.pth -MMD -MT dependencies -MF /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-adjhicyqnhfusqdmzfdezyfcqlts/GayHaiku-Prefix.pch.d36"C9F4A1FC-3A72-4620-8D6D-23B9F28A2383-
+
+CProcessPCH /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-bvtzfhjdzsbmbwfulvgfbnnxfscv/GayHaiku-Prefix.pch.pth GayHaiku/GayHaiku-Prefix.pch normal armv7s objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s370168201.705215
+e370168203.776418
+r1
+xProcessPCH
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-bvtzfhjdzsbmbwfulvgfbnnxfscv/GayHaiku-Prefix.pch.pth
+xGayHaiku/GayHaiku-Prefix.pch
+xnormal
+xarmv7s
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection39"Precompile GayHaiku/GayHaiku-Prefix.pch9eb4b4895110b641^6fd4c68b5110b641^---0#0#0#-19%DVTDocumentLocation2@73"file://localhost/Users/joel/Desktop/GayHaiku/GayHaiku/GayHaiku-Prefix.pch0000000000000000^3541"ProcessPCH Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-bvtzfhjdzsbmbwfulvgfbnnxfscv/GayHaiku-Prefix.pch.pth GayHaiku/GayHaiku-Prefix.pch normal armv7s objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/joel/Desktop/GayHaiku    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c-header -arch armv7s -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -miphoneos-version-min=6.0 -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-generated-files.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-own-target-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-all-target-headers.hmap -iquote /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku-project-headers.hmap -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources/armv7s -I/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/DerivedSources -F/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos -F/Users/joel/Desktop/GayHaiku -F/Applications/Xcode.app/Contents/Developer/Library/Frameworks --serialize-diagnostics /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-bvtzfhjdzsbmbwfulvgfbnnxfscv/GayHaiku-Prefix.pch.dia -c /Users/joel/Desktop/GayHaiku/GayHaiku/GayHaiku-Prefix.pch -o /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-bvtzfhjdzsbmbwfulvgfbnnxfscv/GayHaiku-Prefix.pch.pth -MMD -MT dependencies -MF /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/PrecompiledHeaders/GayHaiku-Prefix-bvtzfhjdzsbmbwfulvgfbnnxfscv/GayHaiku-Prefix.pch.d36"086270BC-7283-4D70-8096-8C9DE68A6086-
+
+CProcessPCH /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Index/PrecompiledHeaders/GayHaiku-Prefix-exznokhcqrwiqpbupzwcqjdqujtq_ast/GayHaiku-Prefix.pch.pth GayHaiku/GayHaiku-Prefix.pch normal armv7s objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
+r0
+
+CProcessPCH /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Index/PrecompiledHeaders/GayHaiku-Prefix-hjfgvmahuhqucuewvmwykcepdvqw_ast/GayHaiku-Prefix.pch.pth GayHaiku/GayHaiku-Prefix.pch normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
+r0
+
+CProcessProductPackaging "/Users/joel/Library/MobileDevice/Provisioning Profiles/A6B6B7CF-04E8-4ACE-9F77-02D37BCC51EA.mobileprovision" /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/embedded.mobileprovision
+s370168210.878471
+e370168210.881828
+r1
+xProcessProductPackaging
+x/Users/joel/Library/MobileDevice/Provisioning Profiles/A6B6B7CF-04E8-4ACE-9F77-02D37BCC51EA.mobileprovision
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/embedded.mobileprovision
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection216"ProcessProductPackaging "/Users/joel/Library/MobileDevice/Provisioning Profiles/A6B6B7CF-04E8-4ACE-9F77-02D37BCC51EA.mobileprovision" Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/embedded.mobileprovisionc3f5e0925110b641^8cbfe1925110b641^---0#0#0#-19%DVTDocumentLocation2@127"file://localhost/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/embedded.mobileprovision0000000000000000^702"ProcessProductPackaging "/Users/joel/Library/MobileDevice/Provisioning Profiles/A6B6B7CF-04E8-4ACE-9F77-02D37BCC51EA.mobileprovision" Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/embedded.mobileprovision    cd /Users/joel/Desktop/GayHaiku    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-productPackagingUtility "/Users/joel/Library/MobileDevice/Provisioning Profiles/A6B6B7CF-04E8-4ACE-9F77-02D37BCC51EA.mobileprovision" -o /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app/embedded.mobileprovision36"FD84B1C3-9B0A-4EE5-86AC-8C5C2579CB22-
+
+CProcessProductPackaging /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/Entitlements.plist /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku.xcent
+s370168210.950741
+e370168210.970450
+r1
+xProcessProductPackaging
+x/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/Entitlements.plist
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku.xcent
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection239"ProcessProductPackaging /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/Entitlements.plist Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku.xcentb681f3925110b641^2270f8925110b641^---0#0#0#-19%DVTDocumentLocation2@139"file://localhost/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku.xcent000000000080d041^774"ProcessProductPackaging /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/Entitlements.plist Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku.xcent    cd /Users/joel/Desktop/GayHaiku    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-productPackagingUtility /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/Entitlements.plist -entitlements -format xml -o /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Intermediates/GayHaiku.build/Debug-iphoneos/GayHaiku.build/GayHaiku.xcent36"D557C933-9FF8-42BB-8327-B0A6B0248A21-
+
+CTouch /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app
+s370168210.890659
+e370168210.917441
+r1
+xTouch
+x/Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection92"Touch /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app7214e4925110b641^6d54eb925110b641^---0#0#0#--397"Touch Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app    cd /Users/joel/Desktop/GayHaiku    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/joel/Desktop/GayHaiku/Build/GayHaiku/Build/Products/Debug-iphoneos/GayHaiku.app36"6E9546BD-1D9C-49F6-B3A6-21A7A8AC767F-
+
