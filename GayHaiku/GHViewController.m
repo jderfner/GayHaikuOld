@@ -27,10 +27,9 @@
 @synthesize gayHaiku, theseAreDoneAll, theseAreDoneD, theseAreDoneU; //NSMutableArrays
 @synthesize haiku_text, textView, instructions; //UITextViews
 @synthesize indxAll, indxD, indxU, establishedSegment; //ints
-//@synthesize home, compose, action, done, de, flex, more, ed, next, nextNext, bac; //UIBarButtonItems
 @synthesize meth, textToSave, selectedCategory, serviceType, textToDelete; //NSStrings
-@synthesize controlVisible, textEntered, checkboxChecked, checkIfJustWrote, canFlipPage, userIsEditing; //BOOLs , instructionsSeen, optOutSeen, 
-@synthesize titulus, bar, webV, toolb, alert, ghhaiku; //misc. //ghwebview
+@synthesize controlVisible, textEntered, checkboxChecked, checkIfJustWrote, canFlipPage, userIsEditing; //BOOLs
+@synthesize titulus, bar, webV, toolb, alert, ghhaiku; //misc.
 @synthesize viewToFade, segContrAsOutlet, userName, checkbox; //IB properties
 
 
@@ -42,7 +41,7 @@
 -(void)viewDidLoad
 {
 
-//Load user defaults (self.optOutSeen and self.checkboxChecked).
+//Load user defaults.
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     optOutSeen = [defaults boolForKey:@"optOutSeen?"];
@@ -53,33 +52,29 @@
     }
     else self.checkboxChecked = YES;
     
-    //Sets page to flippable.
+//Sets page to flippable.
     
     self.canFlipPage=YES;
     self.selectedCategory=@"Derfner";
     
-//Sets delegates for webview (for loadAmazon), alertview (for several) and textview (for userWritesHaiku)
+//Sets delegates for webview (for loadAmazon), alertview (for several methods) and textview (for userWritesHaiku)
     
     self.webV.delegate = self;
     self.textView.delegate = self;
     self.alert.delegate = self;
 	[super viewDidLoad];
     
-//Create and add right swipe gesture recognizer
+//Create and add gesture recognizers
     
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(previousHaiku)];
     swipeRight.numberOfTouchesRequired = 1;
     swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:swipeRight];
     
-//Create and add left swipe gesture recognizer
-    
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(nextHaiku)];
     swipeLeft.numberOfTouchesRequired = 1;
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     [self.view addGestureRecognizer:swipeLeft];
-    
-//Create and add tap gesture recognizer
     
     UITapGestureRecognizer *tapBar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fadeView)];
     [self.viewToFade addGestureRecognizer:tapBar];
@@ -94,7 +89,7 @@
     self.gayHaiku = [[NSMutableArray alloc] initWithArray:self.ghhaiku.mutArr];
     NSArray *userH = [[NSArray alloc] initWithArray:self.ghhaiku.mutArrUser];
     
-//Merges the contents of gayHaiku.plist and userHaiku.plist.
+//Merges contents of gayHaiku.plist and userHaiku.plist.
     
     if (userH.count>0)
     {
@@ -162,18 +157,18 @@
 
 //This creates the navbar for loadAmazon, userWritesHaiku, and haikuInstructions.
 
--(void)loadNavBar:(NSString *)titl
+-(void)loadNavBar:(NSString *)t
 {
     [self.bar removeFromSuperview];
     self.bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    self.titulus = [[UINavigationItem alloc] initWithTitle:titl];
+    self.titulus = [[UINavigationItem alloc] initWithTitle:t];
 }
 
 //This adds the buttons to go back and forth between userWritesHaiku and haikuInstructions.
 
--(void)addLeftButton:(NSString *)titl callingMethod:(NSString *)method
+-(void)addLeftButton:(NSString *)t callingMethod:(NSString *)method
 {
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:titl style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(method)];
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:t style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(method)];
     self.titulus.leftBarButtonItem = leftButton;
 }
 
@@ -181,18 +176,18 @@
 
 -(void)addCancelButton
 {
-    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:1 target:self action:@selector(hom)];
+    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:1 target:self action:@selector(home)];
     cancel.style=UIBarButtonItemStyleBordered;
     self.titulus.rightBarButtonItem = cancel;
 }
 
 //This adds the done button for userWritesHaiku.
 
--(void)addDoneButton:(NSString *)blah
+-(void)addDoneButton:(NSString *)selector
 {
-    UIBarButtonItem *don = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0 target:self action:NSSelectorFromString(blah)];
-    don.style=UIBarButtonItemStyleBordered;
-    self.titulus.rightBarButtonItem = don;
+    UIBarButtonItem *finished = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0 target:self action:NSSelectorFromString(selector)];
+    finished.style=UIBarButtonItemStyleBordered;
+    self.titulus.rightBarButtonItem = finished;
 }
 
 -(void)seeNavBar
@@ -215,9 +210,9 @@
     
     compose.style=UIBarButtonItemStyleBordered;
     
-    bac = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(userWritesHaiku)];
+    back = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(userWritesHaiku)];
     
-    ed = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleBordered target:self action:@selector(userEditsHaiku)];
+    edit = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleBordered target:self action:@selector(userEditsHaiku)];
     
     action = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:9 target:self action:@selector(showMessage)];
     
@@ -227,9 +222,9 @@
     
     flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
-    done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0  target:self action:@selector(hom)];
+    done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0  target:self action:@selector(home)];
     
-    de = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self action:@selector(deleteHaiku)];
+    del = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self action:@selector(deleteHaiku)];
     
     next = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(haikuInstructions)];
     
@@ -294,7 +289,7 @@
     {
         self.meth=@"nextHaiku";
         [self loadToolbar];
-        NSArray *buttonsForInstructionsSeenAlready = [[NSArray alloc] initWithObjects:flex, bac, flex, nil];
+        NSArray *buttonsForInstructionsSeenAlready = [[NSArray alloc] initWithObjects:flex, back, flex, nil];
         [self addToolbarButtons:buttonsForInstructionsSeenAlready];
     }
     [self resignFirstResponder];
@@ -447,7 +442,7 @@
 }
 
 //This gets back to the haiku once the user is done with other screens.
--(void)hom
+-(void)home
 {
     self.canFlipPage=YES;
     NSString *cat=@"user";
@@ -742,8 +737,6 @@
     }
 }
 
-
-
 -(void)deleteHaiku
 {
     self.textToDelete = self.haiku_text.text;
@@ -904,7 +897,7 @@
     else
     {
         [self loadToolbar];
-        NSArray *array = [[NSArray alloc] initWithObjects:flex, bac, flex, nil];
+        NSArray *array = [[NSArray alloc] initWithObjects:flex, back, flex, nil];
         [self addToolbarButtons:array];
         self.checkboxChecked=YES;
     }
@@ -1084,7 +1077,7 @@
         [self loadToolbar];
         if (self.selectedCategory==@"user")
         {
-            NSArray *userToolbar = [[NSArray alloc] initWithObjects:flex, compose, action, more, ed, de, nil];
+            NSArray *userToolbar = [[NSArray alloc] initWithObjects:flex, compose, action, more, edit, del, nil];
             [self addToolbarButtons:userToolbar];
         }
         else
@@ -1170,11 +1163,10 @@
         {
             [self.toolb removeFromSuperview];
             [self loadToolbar];
-            NSArray *userToolbar = [[NSArray alloc] initWithObjects:flex, compose, action, more, ed, de, nil];
+            NSArray *userToolbar = [[NSArray alloc] initWithObjects:flex, compose, action, more, edit, del, nil];
             [self addToolbarButtons:userToolbar];
         }
     }
-    //if (arrayOfHaikuSeen.count>1 && indexOfHaiku>1)
     if (self.ghhaiku.arrayOfSeen.count>1 && self.ghhaiku.index>1)
     {
         [self clearScreen];

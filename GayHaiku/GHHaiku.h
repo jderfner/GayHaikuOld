@@ -8,13 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-//#import <QuartzCore/QuartzCore.h>
-//#import <MessageUI/MessageUI.h>
-//#import <Twitter/TWTweetComposeViewController.h>
-//#import <Twitter/Twitter.h>
-//#import <MobileCoreServices/MobileCoreServices.h>
-//#import <Parse/Parse.h>
-//#import <Social/Social.h>
 
 @interface GHHaiku : NSObject
 
