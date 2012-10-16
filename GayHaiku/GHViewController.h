@@ -45,7 +45,7 @@
 @property (nonatomic, strong) NSString *textToSave;
 @property (nonatomic, strong) NSString *selectedCategory;
 @property (nonatomic, strong) NSString *serviceType;
-@property (nonatomic) BOOL controlVisible;
+@property (nonatomic) BOOL controlVisible; 
 @property (nonatomic) BOOL textEntered;
 @property (nonatomic) BOOL checkboxChecked;
 @property (nonatomic) BOOL checkIfJustWrote;
