@@ -41,7 +41,7 @@
 @property (nonatomic) int indxD;
 @property (nonatomic) int establishedSegment;
 @property (nonatomic, strong) NSString *textToDelete;
-@property (nonatomic, strong) NSString *meth;
+@property (nonatomic, strong) NSString *method;
 @property (nonatomic, strong) NSString *textToSave;
 @property (nonatomic, strong) NSString *selectedCategory;
 @property (nonatomic, strong) NSString *serviceType;

@@ -27,7 +27,7 @@
 @synthesize gayHaiku, theseAreDoneAll, theseAreDoneD, theseAreDoneU; //NSMutableArrays
 @synthesize haiku_text, textView, instructions; //UITextViews
 @synthesize indxAll, indxD, indxU, establishedSegment; //ints
-@synthesize meth, textToSave, selectedCategory, serviceType, textToDelete; //NSStrings
+@synthesize method, textToSave, selectedCategory, serviceType, textToDelete; //NSStrings
 @synthesize controlVisible, textEntered, checkboxChecked, checkIfJustWrote, canFlipPage, userIsEditing; //BOOLs
 @synthesize titulus, bar, webV, toolb, alert, ghhaiku; //misc.
 @synthesize viewToFade, segContrAsOutlet, userName, checkbox; //IB properties
@@ -166,9 +166,9 @@
 
 //This adds the buttons to go back and forth between userWritesHaiku and haikuInstructions.
 
--(void)addLeftButton:(NSString *)t callingMethod:(NSString *)method
+-(void)addLeftButton
 {
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:t style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(method)];
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Instructions" style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"haikuInstructions")];
     self.titulus.leftBarButtonItem = leftButton;
 }
 
@@ -287,7 +287,6 @@
     }
     else
     {
-        self.meth=@"nextHaiku";
         [self loadToolbar];
         NSArray *buttonsForInstructionsSeenAlready = [[NSArray alloc] initWithObjects:flex, back, flex, nil];
         [self addToolbarButtons:buttonsForInstructionsSeenAlready];
@@ -420,9 +419,6 @@
     self.webV.scalesPageToFit=YES;
     [self.webV setFrame:(CGRectMake(0,44,320,372))];
     [self.view addSubview:self.webV];
-    //self.ghwebview.webV.scalesPageToFit=YES;
-    //[self.ghwebview.webV setFrame:(CGRectMake(0,44,320,372))];
-    //[self.view addSubview:self.ghwebview.webV];
 }
 
 //What to do in case of failure to connect.
@@ -491,7 +487,7 @@
 {
     [self.bar removeFromSuperview];
     [self loadNavBar:@"Compose"];
-    [self addLeftButton:@"Instructions" callingMethod:@"haikuInstructions"];
+    [self addLeftButton];
     if (view!=self.haiku_text)
     {
         if (view.text.length>0)
@@ -512,7 +508,7 @@
     {
         [self.bar removeFromSuperview];
         [self loadNavBar:@"Compose"];
-        [self addLeftButton:@"Instructions" callingMethod:@"haikuInstructions"];
+        [self addLeftButton];
         if (view!=self.haiku_text)
         {
             [self addDoneButton:@"userFinishedWritingHaiku"];
@@ -537,7 +533,7 @@
     [self.view viewWithTag:7].hidden=YES;
     [self.view viewWithTag:8].hidden=YES;
     [self loadNavBar:@"Compose"];
-    [self addLeftButton:@"Instructions" callingMethod:@"haikuInstructions"];
+    [self addLeftButton];
     [self addCancelButton];
     [self seeNavBar];
     

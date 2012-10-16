@@ -37,6 +37,7 @@
 		5DA4D7001610503D00EDFAC8 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DA4D6FF1610503D00EDFAC8 /* Parse.framework */; };
 		5DADBBB316260B2E009902C9 /* icon114.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DADBBB216260B2E009902C9 /* icon114.png */; };
 		5DB2C9ED15F8E5D4003F9F6F /* userHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DB2C9EC15F8E5D4003F9F6F /* userHaiku.plist */; };
+		5DCF2C28162DD83C00E0A481 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCF2C27162DD83C00E0A481 /* FacebookSDK.framework */; };
 		5DDE8FE815EAEA8F0029803C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DDE8FE715EAEA8F0029803C /* Social.framework */; };
 		5DE0288B161D02ED004C0838 /* trycheckbox_no.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DE02889161D02ED004C0838 /* trycheckbox_no.png */; };
 		5DE0288C161D02ED004C0838 /* trycheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DE0288A161D02ED004C0838 /* trycheckbox.png */; };
@@ -81,6 +82,7 @@
 		5DAFFE65162356CC00BBF028 /* UIImage+ProportionalFill.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIImage+ProportionalFill.h"; path = "../UIImage+ProportionalFill.h"; sourceTree = "<group>"; };
 		5DAFFE66162356CC00BBF028 /* UIImage+ProportionalFill.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ProportionalFill.m"; path = "../UIImage+ProportionalFill.m"; sourceTree = "<group>"; };
 		5DB2C9EC15F8E5D4003F9F6F /* userHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userHaiku.plist; sourceTree = "<group>"; };
+		5DCF2C27162DD83C00E0A481 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Desktop/FacebookSDK.framework; sourceTree = "<group>"; };
 		5DDE8FE715EAEA8F0029803C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		5DE02889161D02ED004C0838 /* trycheckbox_no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trycheckbox_no.png; sourceTree = "<group>"; };
 		5DE0288A161D02ED004C0838 /* trycheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trycheckbox.png; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DCF2C28162DD83C00E0A481 /* FacebookSDK.framework in Frameworks */,
 				5D0DD09515EBDE30004C5AD2 /* Accounts.framework in Frameworks */,
 				5DDE8FE815EAEA8F0029803C /* Social.framework in Frameworks */,
 				5D29D56715E861F500AF723A /* CFNetwork.framework in Frameworks */,
@@ -117,6 +120,7 @@
 		5DA213B915BE2284007FEAFB = {
 			isa = PBXGroup;
 			children = (
+				5DCF2C27162DD83C00E0A481 /* FacebookSDK.framework */,
 				5DA213CE15BE2284007FEAFB /* GayHaiku */,
 				5DA213C715BE2284007FEAFB /* Frameworks */,
 				5DA213C515BE2284007FEAFB /* Products */,
@@ -351,6 +355,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+					"\"$(SRCROOT)/../../Desktop\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GayHaiku/GayHaiku-Prefix.pch";
@@ -378,6 +383,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+					"\"$(SRCROOT)/../../Desktop\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GayHaiku/GayHaiku-Prefix.pch";
