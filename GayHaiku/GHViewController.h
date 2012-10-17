@@ -73,3 +73,13 @@
 -(void)fadeView;
 
 @end
+
+@interface GHViewController (ProportionalFill)
+
+- (void)imageScaledToFitSize;
+
+@end
+
+
+
+

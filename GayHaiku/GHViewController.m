@@ -116,6 +116,7 @@
     
     [self nextHaiku];
     [self fadeView];
+    NSLog(@"%d",self.gayHaiku.count);
 }
 
 
@@ -160,7 +161,7 @@
 -(void)loadNavBar:(NSString *)t
 {
     [self.bar removeFromSuperview];
-    self.bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    self.bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
     self.titulus = [[UINavigationItem alloc] initWithTitle:t];
 }
 
@@ -417,7 +418,7 @@
         //[self.ghwebview.webV loadRequest:reques];
     }
     self.webV.scalesPageToFit=YES;
-    [self.webV setFrame:(CGRectMake(0,44,320,372))];
+    [self.webV setFrame:(CGRectMake(0,44,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height-64))];
     [self.view addSubview:self.webV];
 }
 
@@ -778,12 +779,24 @@
 }
 
 
--(void)saveUserHaiku
+-(id)saveUserHaiku
 {   if (self.textView.text.length>0)
     {
         NSArray *quotes = [[NSArray alloc] initWithObjects:@"user", self.textView.text, nil];
         NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
         NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
+        NSLog(@"text:  %@", self.textView.text);
+        int i;
+        for (i=0; i<self.gayHaiku.count; i++)
+        {
+            NSString *haikuToCheck = [[self.gayHaiku objectAtIndex:i] valueForKey:@"quote"];
+            NSLog(@"Haiku to check:  %@",haikuToCheck);
+            if ([self.textView.text isEqualToString:haikuToCheck])
+            {
+                [self nextHaiku];
+                return 0;
+            }
+        }
         [[self gayHaiku] addObject:dictToSave];
         [self clearScreen];
         self.textToSave=@"";
@@ -805,8 +818,10 @@
         [haikuObject saveEventually];
         self.checkIfJustWrote=YES;
         self.canFlipPage=YES;
+        NSLog(@"%d",self.gayHaiku.count);
         [self nextHaiku];
     }
+    return 0;
 }
 
 -(void)saveToDocsFolder:(NSString *)string
@@ -833,14 +848,14 @@
 -(UIImage *)createImage
 {
     self.textView.editable = NO;
-    CGRect newRect = CGRectMake(0, 0, 320, 416);
+    CGRect newRect = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-44);
     UIGraphicsBeginImageContext(newRect.size); //([self.view frame].size])
     [self.view viewWithTag:3].hidden=YES;
     [[self.view layer] renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     UIGraphicsBeginImageContext([self.view bounds].size);
-    [myImage drawInRect:CGRectMake(0, 0, 320, 416)];
+    [myImage drawInRect:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-44)];
     myImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return myImage;
@@ -1040,12 +1055,12 @@
         
         //Set the CGSize.
         
-        CGSize dimensions = CGSizeMake(320, 400);
+        CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
         CGSize xySize = [txtForNext sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0];
         
         //Set the UITextView.
         
-        self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),150,320,200)];
+        self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-(xySize.width/2),[[UIScreen mainScreen] bounds].size.height/3,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height/3)];
         self.haiku_text.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
         self.haiku_text.backgroundColor = [UIColor clearColor];
         self.haiku_text.text=txtForNext;
@@ -1176,7 +1191,7 @@
         CGSize dimensions = CGSizeMake(320, 400);
         CGSize xySize = [[[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"quote"] sizeWithFont:[UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:dimensions lineBreakMode:0]; //arrayOfHaikuSeen, indexOfHaiku
         [self.haiku_text removeFromSuperview];
-        self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake((320/2)-(xySize.width/2),150,320,200)];
+        self.haiku_text = [[UITextView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-(xySize.width/2),[[UIScreen mainScreen] bounds].size.height/3,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height/3)];
         self.haiku_text.text = [[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"quote"]; //arrayOfHaikuSeen, indexOfHaiku
         self.haiku_text.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
         self.haiku_text.backgroundColor = [UIColor clearColor];

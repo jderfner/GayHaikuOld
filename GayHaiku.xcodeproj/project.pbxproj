@@ -23,6 +23,7 @@
 		5D3C5F5715DF2D0900655854 /* checkbox-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D3C5F5415DF2D0900655854 /* checkbox-pressed.png */; };
 		5D3C5F5815DF2D0900655854 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D3C5F5515DF2D0900655854 /* checkbox.png */; };
 		5D5FFF2A16260A550086A406 /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D5FFF2916260A550086A406 /* icon57.png */; };
+		5D652EE8162F1ED000428F2D /* UIImage+ProportionalFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFFE66162356CC00BBF028 /* UIImage+ProportionalFill.m */; };
 		5D68F94F15D9C343000E8AE5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D68F94E15D9C343000E8AE5 /* Twitter.framework */; };
 		5D88856615D2C05200F38679 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D88856515D2C05100F38679 /* MessageUI.framework */; };
 		5DA213C915BE2284007FEAFB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DA213C815BE2284007FEAFB /* UIKit.framework */; };
@@ -37,7 +38,6 @@
 		5DA4D7001610503D00EDFAC8 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DA4D6FF1610503D00EDFAC8 /* Parse.framework */; };
 		5DADBBB316260B2E009902C9 /* icon114.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DADBBB216260B2E009902C9 /* icon114.png */; };
 		5DB2C9ED15F8E5D4003F9F6F /* userHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DB2C9EC15F8E5D4003F9F6F /* userHaiku.plist */; };
-		5DCF2C28162DD83C00E0A481 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCF2C27162DD83C00E0A481 /* FacebookSDK.framework */; };
 		5DDE8FE815EAEA8F0029803C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DDE8FE715EAEA8F0029803C /* Social.framework */; };
 		5DE0288B161D02ED004C0838 /* trycheckbox_no.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DE02889161D02ED004C0838 /* trycheckbox_no.png */; };
 		5DE0288C161D02ED004C0838 /* trycheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DE0288A161D02ED004C0838 /* trycheckbox.png */; };
@@ -93,7 +93,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5DCF2C28162DD83C00E0A481 /* FacebookSDK.framework in Frameworks */,
 				5D0DD09515EBDE30004C5AD2 /* Accounts.framework in Frameworks */,
 				5DDE8FE815EAEA8F0029803C /* Social.framework in Frameworks */,
 				5D29D56715E861F500AF723A /* CFNetwork.framework in Frameworks */,
@@ -273,6 +272,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D652EE8162F1ED000428F2D /* UIImage+ProportionalFill.m in Sources */,
 				5DA213D515BE2284007FEAFB /* main.m in Sources */,
 				5DA213D915BE2284007FEAFB /* GHAppDelegate.m in Sources */,
 				5DA213DC15BE2284007FEAFB /* GHViewController.m in Sources */,

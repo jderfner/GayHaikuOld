@@ -24,6 +24,11 @@
     NSString *txt;
     int sortingHat;
     if (!self.index) self.index=0;
+    if (self.arrayAfterFiltering.count==self.arrayOfSeen.count)
+    {
+        [self.arrayOfSeen removeAllObjects];
+        self.index=0;
+    }
     if (!self.arrayOfSeen) self.arrayOfSeen = [[NSMutableArray alloc] init];
     
 //If there are any haiku in the array
