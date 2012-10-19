@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GHViewController.h"
 
 @class GHViewController;
 
