@@ -38,7 +38,7 @@
 
 //1.  If you're in the user category and there's one haiku left:
         
-        if (self.arrayAfterFiltering.count==1 && self.selectedCategory==@"user")
+        if (self.arrayAfterFiltering.count==1 && self.selectedCategory.equals(@"user"))
         {
             txt = [[self.arrayAfterFiltering objectAtIndex:0] valueForKey:@"quote"];
         }

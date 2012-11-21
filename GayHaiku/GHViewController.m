@@ -167,9 +167,15 @@
 
 //This adds the buttons to go back and forth between userWritesHaiku and haikuInstructions.
 
--(void)addLeftButton
+-(void)addLeftButtonInstructions
 {
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Instructions" style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"haikuInstructions")];
+    self.titulus.leftBarButtonItem = leftButton;
+}
+
+-(void)addLeftButtonBack
+{
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"userWritesHaiku")];
     self.titulus.leftBarButtonItem = leftButton;
 }
 
@@ -270,7 +276,6 @@
         self.selectedCategory=@"Derfner";
         self.segContrAsOutlet.selectedSegmentIndex=0;
     }
-    //[self seeNavBar];
     
     //Display instructions.
     
@@ -288,8 +293,11 @@
     }
     else
     {
+        [self loadNavBar:@"Instructions"];
+        [self addLeftButtonBack];
+        [self seeNavBar];
         [self loadToolbar];
-        NSArray *buttonsForInstructionsSeenAlready = [[NSArray alloc] initWithObjects:flex, back, flex, nil];
+        NSArray *buttonsForInstructionsSeenAlready = [[NSArray alloc] initWithObjects:flex, action, more, flex, nil];
         [self addToolbarButtons:buttonsForInstructionsSeenAlready];
     }
     [self resignFirstResponder];
@@ -488,7 +496,7 @@
 {
     [self.bar removeFromSuperview];
     [self loadNavBar:@"Compose"];
-    [self addLeftButton];
+    [self addLeftButtonInstructions];
     if (view!=self.haiku_text)
     {
         if (view.text.length>0)
@@ -509,7 +517,7 @@
     {
         [self.bar removeFromSuperview];
         [self loadNavBar:@"Compose"];
-        [self addLeftButton];
+        [self addLeftButtonInstructions];
         if (view!=self.haiku_text)
         {
             [self addDoneButton:@"userFinishedWritingHaiku"];
@@ -534,7 +542,7 @@
     [self.view viewWithTag:7].hidden=YES;
     [self.view viewWithTag:8].hidden=YES;
     [self loadNavBar:@"Compose"];
-    [self addLeftButton];
+    [self addLeftButtonInstructions];
     [self addCancelButton];
     [self seeNavBar];
     
