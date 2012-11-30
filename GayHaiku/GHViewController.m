@@ -131,13 +131,6 @@
     [self.view viewWithTag:3].hidden=YES;
 }
 
--(void)viewDidUnload
-{
-    [self setSegContrAsOutlet:nil];
-    [self setUserName:nil];
-    [super viewDidUnload];
-}
-
 //saveData is a default that keeps track, persistently, of whether user has read instructions, so that instructions automatically appear the very first time user writes a haiku ever.
 
 -(void)saveData
