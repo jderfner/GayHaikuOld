@@ -104,6 +104,7 @@
     [self.view viewWithTag:8].hidden=YES;
     [self createBarButtons];
     [self displayButton];
+    NSLog(@"Hi, Dan!");
     
     
 //Add Parse
