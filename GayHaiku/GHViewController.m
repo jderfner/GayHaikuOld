@@ -1032,7 +1032,7 @@
             cat = @"Derfner";
         }
         else cat = self.selectedCategory;
-        if (cat==@"all")
+        if ([cat isEqual:@"all"])
         {
             self.ghhaiku.arrayAfterFiltering = self.gayHaiku;
             self.ghhaiku.index = self.indxAll;
