@@ -29,7 +29,7 @@
 @synthesize indxAll, indxD, indxU, establishedSegment; //ints
 @synthesize method, textToSave, selectedCategory, serviceType, textToDelete; //NSStrings
 @synthesize controlVisible, textEntered, checkboxChecked, checkIfJustWrote, canFlipPage, userIsEditing; //BOOLs
-@synthesize titulus, bar, webV, toolb, alert, ghhaiku; //misc.
+@synthesize titulus, bar, webV, toolb, alert, ghhaiku, ghverify; //misc.
 @synthesize viewToFade, segContrAsOutlet, userName, checkbox; //IB properties
 
 
@@ -778,6 +778,23 @@
     [UIView commitAnimations];
 }
 
+-(void)prepHaikuforVerification: (NSString *)userHaiku
+{
+    self.ghverify.haikuToCheck = userHaiku;
+    [self.ghverify splitHaikuIntoLines];
+}
+
+-(BOOL)verifyNumberOfLines
+{
+    [self prepHaikuforVerification:self.textView.text];
+    if (!self.ghverify)
+    {
+        self.ghverify = [[GHVerify alloc] init];
+    }
+    int numberOfLines = [self.ghverify numberOfLines];
+    if (numberOfLines!=3) return NO;
+    else return YES;
+}
 
 -(id)saveUserHaiku
 {   if (self.textView.text.length>0)

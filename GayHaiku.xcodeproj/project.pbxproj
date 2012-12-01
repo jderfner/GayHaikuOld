@@ -37,6 +37,10 @@
 		5DA213EA15BE24D7007FEAFB /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DA213E915BE24D6007FEAFB /* gayHaiku.plist */; };
 		5DADBBB316260B2E009902C9 /* icon114.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DADBBB216260B2E009902C9 /* icon114.png */; };
 		5DB2C9ED15F8E5D4003F9F6F /* userHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DB2C9EC15F8E5D4003F9F6F /* userHaiku.plist */; };
+		5DC051791669D05300D22A47 /* NSRegularExpression+SimpleRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DC051741669D05300D22A47 /* NSRegularExpression+SimpleRegex.m */; };
+		5DC0517A1669D05300D22A47 /* NSString+RegexReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DC051761669D05300D22A47 /* NSString+RegexReplace.m */; };
+		5DC0517B1669D05300D22A47 /* NSString+RNTextStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DC051781669D05300D22A47 /* NSString+RNTextStatistics.m */; };
+		5DC0517F1669D0AF00D22A47 /* GHVerify.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DC0517E1669D0AF00D22A47 /* GHVerify.m */; };
 		5DCCF5481669634100BE4D9F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCCF5441669634100BE4D9F /* MessageUI.framework */; };
 		5DCCF5491669634100BE4D9F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCCF5451669634100BE4D9F /* MobileCoreServices.framework */; };
 		5DCCF54A1669634100BE4D9F /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCCF5461669634100BE4D9F /* Twitter.framework */; };
@@ -87,6 +91,14 @@
 		5DAFFE65162356CC00BBF028 /* UIImage+ProportionalFill.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIImage+ProportionalFill.h"; path = "../UIImage+ProportionalFill.h"; sourceTree = "<group>"; };
 		5DAFFE66162356CC00BBF028 /* UIImage+ProportionalFill.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ProportionalFill.m"; path = "../UIImage+ProportionalFill.m"; sourceTree = "<group>"; };
 		5DB2C9EC15F8E5D4003F9F6F /* userHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userHaiku.plist; sourceTree = "<group>"; };
+		5DC051731669D05300D22A47 /* NSRegularExpression+SimpleRegex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+SimpleRegex.h"; sourceTree = "<group>"; };
+		5DC051741669D05300D22A47 /* NSRegularExpression+SimpleRegex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+SimpleRegex.m"; sourceTree = "<group>"; };
+		5DC051751669D05300D22A47 /* NSString+RegexReplace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RegexReplace.h"; sourceTree = "<group>"; };
+		5DC051761669D05300D22A47 /* NSString+RegexReplace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RegexReplace.m"; sourceTree = "<group>"; };
+		5DC051771669D05300D22A47 /* NSString+RNTextStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RNTextStatistics.h"; sourceTree = "<group>"; };
+		5DC051781669D05300D22A47 /* NSString+RNTextStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RNTextStatistics.m"; sourceTree = "<group>"; };
+		5DC0517D1669D0AF00D22A47 /* GHVerify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHVerify.h; sourceTree = "<group>"; };
+		5DC0517E1669D0AF00D22A47 /* GHVerify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHVerify.m; sourceTree = "<group>"; };
 		5DCCF5441669634100BE4D9F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
 		5DCCF5451669634100BE4D9F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		5DCCF5461669634100BE4D9F /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/Twitter.framework; sourceTree = DEVELOPER_DIR; };
@@ -178,6 +190,7 @@
 		5DA213CE15BE2284007FEAFB /* GayHaiku */ = {
 			isa = PBXGroup;
 			children = (
+				5DC051721669D05300D22A47 /* RNTextStatistics */,
 				5DAFFE65162356CC00BBF028 /* UIImage+ProportionalFill.h */,
 				5DAFFE66162356CC00BBF028 /* UIImage+ProportionalFill.m */,
 				5D284C1A1607DE9B0027F8CC /* GHHaiku.h */,
@@ -187,6 +200,8 @@
 				5DA213DA15BE2284007FEAFB /* GHViewController.h */,
 				5DA213DB15BE2284007FEAFB /* GHViewController.m */,
 				5DA213DD15BE2284007FEAFB /* GHViewController.xib */,
+				5DC0517D1669D0AF00D22A47 /* GHVerify.h */,
+				5DC0517E1669D0AF00D22A47 /* GHVerify.m */,
 				5DA213CF15BE2284007FEAFB /* Supporting Files */,
 			);
 			path = GayHaiku;
@@ -211,6 +226,19 @@
 				5DA213D615BE2284007FEAFB /* GayHaiku-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5DC051721669D05300D22A47 /* RNTextStatistics */ = {
+			isa = PBXGroup;
+			children = (
+				5DC051731669D05300D22A47 /* NSRegularExpression+SimpleRegex.h */,
+				5DC051741669D05300D22A47 /* NSRegularExpression+SimpleRegex.m */,
+				5DC051751669D05300D22A47 /* NSString+RegexReplace.h */,
+				5DC051761669D05300D22A47 /* NSString+RegexReplace.m */,
+				5DC051771669D05300D22A47 /* NSString+RNTextStatistics.h */,
+				5DC051781669D05300D22A47 /* NSString+RNTextStatistics.m */,
+			);
+			path = RNTextStatistics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,6 +323,10 @@
 				5DA213D915BE2284007FEAFB /* GHAppDelegate.m in Sources */,
 				5DA213DC15BE2284007FEAFB /* GHViewController.m in Sources */,
 				5D284C1C1607DE9B0027F8CC /* GHHaiku.m in Sources */,
+				5DC051791669D05300D22A47 /* NSRegularExpression+SimpleRegex.m in Sources */,
+				5DC0517A1669D05300D22A47 /* NSString+RegexReplace.m in Sources */,
+				5DC0517B1669D05300D22A47 /* NSString+RNTextStatistics.m in Sources */,
+				5DC0517F1669D0AF00D22A47 /* GHVerify.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

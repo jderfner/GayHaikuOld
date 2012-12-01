@@ -9,6 +9,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GHHaiku.h"
+#import "GHVerify.h"
 //should this be @class GHHaiku.h?
 
 
@@ -57,6 +58,7 @@
 @property (nonatomic, strong) UIWebView *webV;
 @property (nonatomic, strong) UIAlertView *alert;
 @property (nonatomic, strong) GHHaiku *ghhaiku;
+@property (nonatomic, strong) GHVerify *ghverify;
 @property (weak, nonatomic) IBOutlet UIView *viewToFade;
 @property (nonatomic, weak) IBOutlet UISegmentedControl *segContrAsOutlet;
 @property (nonatomic, weak) IBOutlet UITextField *userName;
