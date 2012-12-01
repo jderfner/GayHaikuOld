@@ -1066,17 +1066,17 @@
         self.haiku_text.text=txtForNext;
         
         //Set the animation.
-        /*
+        
         CATransition *transition = [CATransition animation];
         transition.duration = 0.25;
         transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         transition.type = kCATransitionPush;
         transition.subtype =kCATransitionFromRight;
         transition.delegate = self;
-        */
+        
         //Set the view.
         
-        //[self.view.layer addAnimation:transition forKey:nil];
+        [self.haiku_text.layer addAnimation:transition forKey:nil];
         [self.view viewWithTag:5].hidden=YES;
         [self.view viewWithTag:6].hidden=YES;
         [self.view viewWithTag:7].hidden=YES;
@@ -1195,28 +1195,16 @@
         self.haiku_text.text = [[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"quote"]; //arrayOfHaikuSeen, indexOfHaiku
         self.haiku_text.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
         self.haiku_text.backgroundColor = [UIColor clearColor];
-        /*
+        
         CATransition *transition = [CATransition animation];
         transition.duration = 0.25;
         transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         transition.type = kCATransitionPush;
         transition.subtype =kCATransitionFromLeft;
         transition.delegate = self;
-        [self.view.layer addAnimation:transition forKey:nil];
+        [self.haiku_text.layer addAnimation:transition forKey:nil];
         [self.view addSubview:self.haiku_text];
-        */
         
-        //This animates something but ends up with a blank screen rather than a haiku.
-        /*
-        [UIView animateWithDuration:20
-                         animations:^{
-                             [self.haiku_text setFrame:CGRectMake((self.view.frame.size.width+self.haiku_text.frame.size.width),self.haiku_text.frame.origin.y,self.haiku_text.frame.size.width,self.haiku_text.frame.size.height)];
-                         }
-                         completion:^(BOOL finished){
-                             [self.view addSubview:self.haiku_text];
-                         }];
-         */
-        [self.view addSubview:self.haiku_text];
     }
     if (cat==@"user")
     {
