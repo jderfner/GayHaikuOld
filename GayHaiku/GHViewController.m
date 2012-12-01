@@ -77,7 +77,8 @@
     [self.view addGestureRecognizer:swipeLeft];
     
     UITapGestureRecognizer *tapBar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fadeView)];
-    [self.viewToFade addGestureRecognizer:tapBar];
+    //[self.viewToFade addGestureRecognizer:tapBar];
+    [self.view addGestureRecognizer:tapBar];
     
 //Load arrays of haiku
     
