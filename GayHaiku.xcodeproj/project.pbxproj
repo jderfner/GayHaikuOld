@@ -33,7 +33,6 @@
 		5DA213D515BE2284007FEAFB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA213D415BE2284007FEAFB /* main.m */; };
 		5DA213D915BE2284007FEAFB /* GHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA213D815BE2284007FEAFB /* GHAppDelegate.m */; };
 		5DA213DC15BE2284007FEAFB /* GHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA213DB15BE2284007FEAFB /* GHViewController.m */; };
-		5DA213DF15BE2284007FEAFB /* GHViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DA213DD15BE2284007FEAFB /* GHViewController.xib */; };
 		5DA213EA15BE24D7007FEAFB /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DA213E915BE24D6007FEAFB /* gayHaiku.plist */; };
 		5DADBBB316260B2E009902C9 /* icon114.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DADBBB216260B2E009902C9 /* icon114.png */; };
 		5DB2C9ED15F8E5D4003F9F6F /* userHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DB2C9EC15F8E5D4003F9F6F /* userHaiku.plist */; };
@@ -93,7 +92,6 @@
 		5DDE8FE715EAEA8F0029803C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		5DE02889161D02ED004C0838 /* trycheckbox_no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trycheckbox_no.png; sourceTree = "<group>"; };
 		5DE0288A161D02ED004C0838 /* trycheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trycheckbox.png; sourceTree = "<group>"; };
-		FFE5179E166BCB1D00DFF519 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GHViewController.xib; sourceTree = "<group>"; };
 		FFFF8EE21652997B00069F40 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,7 +184,6 @@
 				5DA213D815BE2284007FEAFB /* GHAppDelegate.m */,
 				5DA213DA15BE2284007FEAFB /* GHViewController.h */,
 				5DA213DB15BE2284007FEAFB /* GHViewController.m */,
-				5DA213DD15BE2284007FEAFB /* GHViewController.xib */,
 				5DA213CF15BE2284007FEAFB /* Supporting Files */,
 			);
 			path = GayHaiku;
@@ -269,7 +266,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DA213D315BE2284007FEAFB /* InfoPlist.strings in Resources */,
-				5DA213DF15BE2284007FEAFB /* GHViewController.xib in Resources */,
 				5DA213EA15BE24D7007FEAFB /* gayHaiku.plist in Resources */,
 				5D20494015DC290E0006D1CC /* GayHaiku for iPhone guy supine.png in Resources */,
 				5D3C5F5615DF2D0900655854 /* checkbox-checked.png in Resources */,
@@ -308,14 +304,6 @@
 				5DA213D215BE2284007FEAFB /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		5DA213DD15BE2284007FEAFB /* GHViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FFE5179E166BCB1D00DFF519 /* Base */,
-			);
-			name = GHViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
