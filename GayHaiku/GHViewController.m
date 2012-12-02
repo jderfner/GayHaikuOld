@@ -264,7 +264,7 @@
     NSString *cat=@"user";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
     NSArray *filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
-    if (self.selectedCategory==@"user" && filteredArray.count==0)
+    if ([self.selectedCategory isEqual:@"user"] && filteredArray.count==0)
     {
         self.selectedCategory=@"Derfner";
         self.segContrAsOutlet.selectedSegmentIndex=0;
@@ -455,7 +455,7 @@
         
     //If the user has just deleted the last haiku in the user category, the category switches to Derfner.
         
-        if (self.selectedCategory==@"user" && filteredArray.count==0)
+        if ([self.selectedCategory isEqual:@"user"] && filteredArray.count==0)
         {
             self.selectedCategory=@"Derfner";
             self.segContrAsOutlet.selectedSegmentIndex=0;
@@ -547,7 +547,7 @@
     else
     {
         [self createSpaceToWrite];
-        if (self.textToSave!=@"")
+        if (![self.textToSave isEqual:@""])
         {
             self.textView.text = self.textToSave;
         }
@@ -593,7 +593,7 @@
 {
     if (!self.textView || self.textView.text.length==0)
     {
-        if (self.selectedCategory==@"user")
+        if ([self.selectedCategory isEqual:@"user"])
         {
             self.selectedCategory=@"Derfner";
             self.segContrAsOutlet.selectedSegmentIndex=0;
@@ -1033,8 +1033,8 @@
         }
         else
         {
-            self.ghhaiku.index = (cat==@"user")?self.indxU:self.indxD;
-            self.ghhaiku.arrayOfSeen = (cat==@"user")?self.theseAreDoneU:self.theseAreDoneD;
+            self.ghhaiku.index = ([cat isEqual:@"user"])?self.indxU:self.indxD;
+            self.ghhaiku.arrayOfSeen = ([cat isEqual:@"user"])?self.theseAreDoneU:self.theseAreDoneD;
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
             self.ghhaiku.arrayAfterFiltering = [[NSArray alloc] initWithArray:[self.gayHaiku filteredArrayUsingPredicate:predicate]];
         }
@@ -1045,7 +1045,7 @@
         
         //If the haiku is one written by the user, enable deletion.
         
-        if (self.selectedCategory==@"user")
+        if ([self.selectedCategory isEqual:@"user"])
         {
             self.textToDelete=txtForNext;
         }
@@ -1087,7 +1087,7 @@
         //Load the toolbar.
         
         [self loadToolbar];
-        if (self.selectedCategory==@"user")
+        if ([self.selectedCategory isEqual:@"user"])
         {
             NSArray *userToolbar = [[NSArray alloc] initWithObjects:flex, compose, action, more, edit, del, nil];
             [self addToolbarButtons:userToolbar];
@@ -1100,12 +1100,12 @@
         
         //Adjust the original arrays and indices so that next time GHHaiku has to pull them it has the correct numbers.
         
-        if (cat==@"user")
+        if ([cat isEqual:@"user"])
         {
             self.theseAreDoneU = self.ghhaiku.arrayOfSeen;
             self.indxU = self.ghhaiku.index;
         }
-        else if (cat==@"all")
+        else if ([cat isEqual:@"all"])
         {
             self.theseAreDoneAll = self.ghhaiku.arrayOfSeen;
             self.indxAll = self.ghhaiku.index;
@@ -1122,10 +1122,11 @@
         {
             self.establishedSegment = 0;
         }
-        int blah;
-        if (self.selectedCategory==@"Derfner") blah = 0;
-        else if (self.selectedCategory==@"user") blah = 1;
-        else if (self.selectedCategory==@"all") blah = 2;
+        int blah = 0;   // initialize "blah" in case no if conditions are met
+                        // Will this break things? Maybe.
+        if ([self.selectedCategory isEqual:@"Derfner"]) blah = 0;
+        else if ([self.selectedCategory isEqual:@"user"]) blah = 1;
+        else if ([self.selectedCategory isEqual:@"all"]) blah = 2;
         if (blah!=self.establishedSegment)
         {
             [self fadeView];
@@ -1153,7 +1154,7 @@
     if (!self.selectedCategory) cat = @"Derfner";
     else cat = self.selectedCategory;
     //NSArray *filteredArray;
-    if (cat==@"all")
+    if ([cat isEqual:@"all"])
     {/*
         filteredArray = self.gayHaiku;
         indexOfHaiku = self.indxAll;
@@ -1166,12 +1167,12 @@
     {
         //indexOfHaiku = (cat==@"user")?self.indxU:self.indxD;
         //arrayOfHaikuSeen = (cat==@"user")?self.theseAreDoneU:self.theseAreDoneD;
-        self.ghhaiku.index = (cat==@"user")?self.indxU:self.indxD;
-        self.ghhaiku.arrayOfSeen = (cat==@"user")?self.theseAreDoneU:self.theseAreDoneD;
+        self.ghhaiku.index = ([cat isEqual:@"user"])?self.indxU:self.indxD;
+        self.ghhaiku.arrayOfSeen = ([cat isEqual:@"user"])?self.theseAreDoneU:self.theseAreDoneD;
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
         //filteredArray = [self.gayHaiku filteredArrayUsingPredicate:predicate];
         self.ghhaiku.arrayAfterFiltering = [self.gayHaiku filteredArrayUsingPredicate:predicate];
-        if (cat==@"user")
+        if ([cat isEqual:@"user"])
         {
             [self.toolb removeFromSuperview];
             [self loadToolbar];
@@ -1207,13 +1208,13 @@
         [self.view addSubview:self.haiku_text];
         
     }
-    if (cat==@"user")
+    if ([cat isEqual:@"user"])
     {
         self.theseAreDoneU = self.ghhaiku.arrayOfSeen; //arrayOfHaikuSeen
         self.indxU = self.ghhaiku.index; //indexOfHaiku
         self.textToDelete=self.haiku_text.text;
     }
-    else if (cat==@"all")
+    else if ([cat isEqual:@"all"])
     {
         self.theseAreDoneAll = self.ghhaiku.arrayOfSeen; //arrayOfHaikuSeen
         self.indxAll = self.ghhaiku.index; //indexOfHaiku
@@ -1224,10 +1225,12 @@
         self.indxD = self.ghhaiku.index; //indexOfHaiku
     }
     self.haiku_text.editable=NO;
-    int blah;
-    if (self.selectedCategory==@"Derfner") blah = 0;
-    else if (self.selectedCategory==@"user") blah = 1;
-    else if (self.selectedCategory==@"all") blah = 2;
+    
+    int blah = 0;   // initialize "blah" in case no if conditions are met
+                    // Will this break things? Maybe.
+    if ([self.selectedCategory isEqual:@"Derfner"]) blah = 0;
+    else if ([self.selectedCategory isEqual:@"user"]) blah = 1;
+    else if ([self.selectedCategory isEqual:@"all"]) blah = 2;
     if (blah!=self.establishedSegment)
     {
         [self fadeView];
@@ -1259,7 +1262,7 @@
     if (!self.selectedCategory) cat = @"Derfner";
     else cat = self.selectedCategory;
     NSArray *filteredArray;
-    if (cat==@"all")
+    if ([cat isEqual:@"all"])
     {
         filteredArray = self.gayHaiku;
     }
