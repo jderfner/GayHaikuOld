@@ -4,6 +4,8 @@
 //  Created by Matt Gemmell on 20/08/2008.
 //  Copyright 2008 Instinctive Code.
 //
+//  Updated by Daniel Alex Finkelstein on 2012-12-02.
+//  Copyright 2012 Ars Architectura.
 
 #import "UIImage+ProportionalFill.h"
 
@@ -52,7 +54,8 @@
     CGRect sourceRect, destRect;
     if (cropping) {
         destRect = CGRectMake(0, 0, targetWidth, targetHeight);
-        float destX, destY;
+        float destX = 0.0,
+              destY = 0.0;
         if (resizeMethod == MGImageResizeCrop) {
             // Crop center
             destX = round((scaledWidth - targetWidth) / 2.0);
