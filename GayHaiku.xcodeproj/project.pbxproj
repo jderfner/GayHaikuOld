@@ -80,7 +80,6 @@
 		5DA213D815BE2284007FEAFB /* GHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHAppDelegate.m; sourceTree = "<group>"; };
 		5DA213DA15BE2284007FEAFB /* GHViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHViewController.h; sourceTree = "<group>"; };
 		5DA213DB15BE2284007FEAFB /* GHViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHViewController.m; sourceTree = "<group>"; };
-		5DA213DE15BE2284007FEAFB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GHViewController.xib; sourceTree = "<group>"; };
 		5DA213E915BE24D6007FEAFB /* gayHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = gayHaiku.plist; path = ../gayHaiku.plist; sourceTree = "<group>"; };
 		5DA4D6FF1610503D00EDFAC8 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		5DADBBB216260B2E009902C9 /* icon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon114.png; path = ../icon114.png; sourceTree = "<group>"; };
@@ -94,6 +93,7 @@
 		5DDE8FE715EAEA8F0029803C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		5DE02889161D02ED004C0838 /* trycheckbox_no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trycheckbox_no.png; sourceTree = "<group>"; };
 		5DE0288A161D02ED004C0838 /* trycheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trycheckbox.png; sourceTree = "<group>"; };
+		FFE5179E166BCB1D00DFF519 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GHViewController.xib; sourceTree = "<group>"; };
 		FFFF8EE21652997B00069F40 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -251,6 +251,7 @@
 				en,
 				de,
 				he,
+				Base,
 			);
 			mainGroup = 5DA213B915BE2284007FEAFB;
 			productRefGroup = 5DA213C515BE2284007FEAFB /* Products */;
@@ -312,7 +313,7 @@
 		5DA213DD15BE2284007FEAFB /* GHViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				5DA213DE15BE2284007FEAFB /* en */,
+				FFE5179E166BCB1D00DFF519 /* Base */,
 			);
 			name = GHViewController.xib;
 			sourceTree = "<group>";
